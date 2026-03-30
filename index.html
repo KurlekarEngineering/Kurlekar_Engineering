@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurlekar Engineering Works — Precision Sheet Metal Press Components</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --steel: #1a1f2e;
+    --iron: #252b3b;
+    --chrome: #c8d0e0;
+    --silver: #8899aa;
+    --orange: #e85d04;
+    --orange-glow: #ff6b1a;
+    --white: #f0f4f8;
+    --muted: #4a5568;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: .4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200,208,224,0.08);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .nav-mark {
+    width: 36px; height: 36px;
+    background: var(--orange);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    animation: pulse-hex 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-hex {
+    0%,100% { box-shadow: 0 0 0 0 rgba(232,93,4,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(232,93,4,0); }
+  }
+
+  .nav-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--orange);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    padding: 0.5rem 1.4rem;
+    background: var(--orange);
+    color: var(--white) !important;
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.1em !important;
+    transition: background 0.3s, transform 0.2s !important;
+  }
+
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--orange-glow) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(232,93,4,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(26,31,46,0.9) 0%, transparent 60%);
+  }
+
+  /* Animated grid lines */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,208,224,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,208,224,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tag span {
+    display: inline-block; width: 24px; height: 1px;
+    background: var(--orange);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 .accent { color: var(--orange); }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 2.2rem;
+    background: var(--orange);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--orange-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232,93,4,0.4);
+  }
+
+  .btn-outline {
+    padding: 0.9rem 2.2rem;
+    border: 1px solid rgba(200,208,224,0.25);
+    color: var(--chrome);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-outline:hover { border-color: var(--chrome); color: var(--white); }
+
+  /* Hero Stats */
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; gap: 2rem;
+    align-items: flex-end;
+  }
+
+  .stat-card {
+    background: rgba(26,31,46,0.7);
+    border: 1px solid rgba(200,208,224,0.08);
+    border-left: 3px solid var(--orange);
+    padding: 1.5rem 2rem;
+    min-width: 220px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s, border-color 0.3s;
+    animation: float-card 4s ease-in-out infinite;
+  }
+
+  .stat-card:nth-child(2) { animation-delay: -1.3s; }
+  .stat-card:nth-child(3) { animation-delay: -2.6s; }
+
+  @keyframes float-card {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .stat-card:hover { border-left-color: var(--orange-glow); transform: translateX(-6px) !important; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--orange);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-top: 0.3rem;
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+  }
+
+  /* ── SECTION STYLES ── */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block; width: 32px; height: 1px;
+    background: var(--orange);
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--steel);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #about::before {
+    content: 'KEW';
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20rem;
+    color: rgba(200,208,224,0.02);
+    user-select: none;
+    line-height: 1;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--silver);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong { color: var(--chrome); font-weight: 500; }
+
+  .about-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: rgba(200,208,224,0.06);
+    margin-top: 2.5rem;
+  }
+
+  .feature-item {
+    background: var(--steel);
+    padding: 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .feature-item:hover { background: var(--iron); }
+
+  .feature-icon {
+    font-size: 1.5rem; margin-bottom: 0.5rem;
+  }
+
+  .feature-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.3rem;
+  }
+
+  .feature-desc {
+    font-size: 0.85rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+
+  .about-infra h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    color: var(--chrome);
+  }
+
+  .machine-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .machine-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: rgba(10,10,10,0.4);
+    border: 1px solid rgba(200,208,224,0.06);
+    border-radius: 2px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .machine-item:hover { border-color: var(--orange); transform: translateX(4px); }
+
+  .machine-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--orange);
+  }
+
+  .machine-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--chrome);
+  }
+
+  .ops-grid {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+
+  .op-tag {
+    padding: 0.35rem 0.9rem;
+    background: rgba(232,93,4,0.1);
+    border: 1px solid rgba(232,93,4,0.2);
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--orange);
+    transition: background 0.3s;
+  }
+
+  .op-tag:hover { background: rgba(232,93,4,0.2); }
+
+  /* ── PRODUCTS ── */
+  #products { background: var(--black); }
+
+  .products-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(200,208,224,0.05);
+  }
+
+  .product-card {
+    background: var(--black);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: background 0.4s;
+    group: true;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--orange);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+
+  .product-card:hover { background: var(--steel); }
+  .product-card:hover::before { transform: scaleY(1); }
+
+  .product-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+    margin-bottom: 0.6rem;
+  }
+
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .product-meta {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .meta-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-val {
+    font-size: 0.78rem;
+    color: var(--silver);
+    font-weight: 500;
+  }
+
+  .finish-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(200,208,224,0.06);
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--chrome);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── QUALITY ── */
+  #quality {
+    background: linear-gradient(135deg, var(--steel) 0%, var(--iron) 100%);
+    position: relative; overflow: hidden;
+  }
+
+  #quality::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 50%, rgba(232,93,4,0.05), transparent 60%);
+    pointer-events: none;
+  }
+
+  .quality-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .quality-metrics {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .metric-row {
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+
+  .metric-header {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .metric-name { color: var(--chrome); }
+  .metric-value { color: var(--orange); }
+
+  .metric-bar {
+    height: 3px;
+    background: rgba(200,208,224,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--orange), var(--orange-glow));
+    border-radius: 2px;
+    animation: fill-bar 2s ease-out forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  @keyframes fill-bar {
+    to { transform: scaleX(1); }
+  }
+
+  .quality-table {
+    background: rgba(10,10,10,0.5);
+    border: 1px solid rgba(200,208,224,0.06);
+  }
+
+  .table-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 1rem 1.5rem;
+    background: rgba(232,93,4,0.1);
+    border-bottom: 1px solid rgba(232,93,4,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .table-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(200,208,224,0.04);
+    transition: background 0.3s;
+  }
+
+  .table-row:last-child { border-bottom: none; }
+  .table-row:hover { background: rgba(232,93,4,0.04); }
+
+  .table-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--silver);
+  }
+
+  .table-val {
+    font-size: 0.85rem;
+    color: var(--chrome);
+    font-weight: 500;
+  }
+
+  /* ── INDUSTRIES ── */
+  #industries { background: var(--black); }
+
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(200,208,224,0.05);
+    margin-top: 3rem;
+  }
+
+  .industry-card {
+    background: var(--black);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .industry-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .industry-card:hover { background: var(--steel); }
+  .industry-card:hover::after { transform: scaleX(1); }
+
+  .industry-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    filter: grayscale(0.3);
+    transition: transform 0.3s;
+  }
+
+  .industry-card:hover .industry-icon { transform: scale(1.1); }
+
+  .industry-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .industry-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ── WHY US ── */
+  #why {
+    background: var(--steel);
+    position: relative;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .why-card {
+    padding: 2rem;
+    border: 1px solid rgba(200,208,224,0.06);
+    background: rgba(10,10,10,0.3);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .why-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-4px);
+  }
+
+  .why-num {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(232,93,4,0.06);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .why-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+  .why-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .why-desc {
+    font-size: 0.85rem;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  /* ── CURRENT PARTNER BANNER ── */
+  .partner-banner {
+    background: linear-gradient(135deg, rgba(232,93,4,0.15), rgba(232,93,4,0.05));
+    border: 1px solid rgba(232,93,4,0.2);
+    border-radius: 2px;
+    padding: 1.5rem 2.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .partner-dot {
+    width: 10px; height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #22c55e;
+    flex-shrink: 0;
+    animation: live-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes live-pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .partner-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--chrome);
+  }
+
+  .partner-text strong { color: var(--orange); }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 50% 60% at 50% 100%, rgba(232,93,4,0.07), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    position: relative; z-index: 1;
+  }
+
+  .contact-info h2 { margin-bottom: 1rem; }
+
+  .contact-desc {
+    font-size: 1rem;
+    color: var(--silver);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .contact-details {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(26,31,46,0.5);
+    border: 1px solid rgba(200,208,224,0.06);
+    border-radius: 2px;
+    transition: border-color 0.3s;
+  }
+
+  .contact-item:hover { border-color: rgba(232,93,4,0.3); }
+
+  .contact-item-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  .contact-item-content {}
+  .contact-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-item-value {
+    font-size: 0.92rem;
+    color: var(--chrome);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .contact-item-value a {
+    color: var(--chrome);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-item-value a:hover { color: var(--orange); }
+
+  /* Contact form side */
+  .contact-form-side {}
+
+  .contact-form-side h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--chrome);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: rgba(26,31,46,0.6);
+    border: 1px solid rgba(200,208,224,0.1);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-input:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(232,93,4,0.1);
+  }
+
+  textarea.form-input { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--orange);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--orange-glow);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(232,93,4,0.4);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    background: rgba(26,31,46,0.6);
+    border-top: 1px solid rgba(200,208,224,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--silver);
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .footer-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--orange);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,93,4,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ── ENTRANCE ANIMATIONS ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2rem; }
+    .hero-stats { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    .stat-card { min-width: 140px; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .quality-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .industries-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+    .products-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark"></div>
+    <span class="nav-text">KURLEKAR ENGINEERING</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#quality">Quality</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content reveal">
+    <div class="hero-tag"><span></span> Mumbai, Maharashtra</div>
+    <h1>PRECISION<br><span class="accent">PRESS</span><br>METAL</h1>
+    <p class="hero-desc">
+      Kurlekar Engineering Works manufactures high-precision sheet metal press components for OEMs and Tier-2 manufacturers in the electric motor, fan, and automotive sectors.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">View Products</a>
+      <a href="#contact" class="btn-outline">Get a Quote</a>
+    </div>
+  </div>
+
+  <div class="hero-stats reveal">
+    <div class="stat-card">
+      <div class="stat-num">±0.01</div>
+      <div class="stat-label">mm dimensional accuracy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">18+</div>
+      <div class="stat-label">component variants</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">10–30T</div>
+      <div class="stat-label">press capacity range</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">Who We Are</div>
+      <h2>BUILT ON<br>DECADES OF<br>EXPERTISE</h2>
+      <p>Kurlekar Engineering Works is a <strong>professionally managed manufacturing unit</strong> based in Mumbai, specialising in precision sheet metal press components. With decades of hands-on press shop experience and deep tooling expertise, we serve OEMs and Tier-2 manufacturers across critical industrial sectors.</p>
+      <p>Our strength lies in <strong>consistent quality</strong>, stringent process control, and the ability to manufacture components exactly as per customer drawings or approved samples.</p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">⚙️</div>
+          <div class="feature-title">In-house Die Making</div>
+          <div class="feature-desc">Progressive, compound & single-operation tools</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-title">New Product Development</div>
+          <div class="feature-desc">Trial support & prototype capability</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🔧</div>
+          <div class="feature-title">Tool Optimisation</div>
+          <div class="feature-desc">Preventive maintenance & life extension</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📋</div>
+          <div class="feature-title">Customer Standards</div>
+          <div class="feature-desc">Manufactured to drawing or approved sample</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-infra reveal">
+      <h3>MANUFACTURING INFRASTRUCTURE</h3>
+      <ul class="machine-list">
+        <li class="machine-item">
+          <div class="machine-dot"></div>
+          <span class="machine-name">10 TON POWER PRESS</span>
+        </li>
+        <li class="machine-item">
+          <div class="machine-dot"></div>
+          <span class="machine-name">20 TON POWER PRESS</span>
+        </li>
+        <li class="machine-item">
+          <div class="machine-dot"></div>
+          <span class="machine-name">30 TON POWER PRESS</span>
+        </li>
+      </ul>
+      <div class="section-label" style="margin-bottom:0.8rem;">Press Operations</div>
+      <div class="ops-grid">
+        <span class="op-tag">Blanking & Piercing</span>
+        <span class="op-tag">Bending & Forming</span>
+        <span class="op-tag">Slotting & Notching</span>
+        <span class="op-tag">Light Deep Drawing</span>
+        <span class="op-tag">Serration & Coining</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header reveal">
+    <div>
+      <div class="section-label">What We Make</div>
+      <h2>PRODUCT<br>PORTFOLIO</h2>
+    </div>
+    <p style="max-width:360px;color:var(--silver);font-size:0.9rem;line-height:1.7;font-weight:300;">
+      All parts manufactured to customer drawings or approved samples with full in-process inspection and batch traceability.
+    </p>
+  </div>
+
+  <div class="products-grid reveal">
+    <!-- P-01 -->
+    <div class="product-card">
+      <div class="product-code">P-01</div>
+      <div class="product-name">Motor Can / Housing</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-02 -->
+    <div class="product-card">
+      <div class="product-code">P-02</div>
+      <div class="product-name">Round Base Plate</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor / Fan</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-03 -->
+    <div class="product-card">
+      <div class="product-code">P-03</div>
+      <div class="product-name">U-Type Motor Clamp</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-04 -->
+    <div class="product-card">
+      <div class="product-code">P-04</div>
+      <div class="product-name">C-Type Mounting Bracket</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor / Fan</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-05 -->
+    <div class="product-card">
+      <div class="product-code">P-05</div>
+      <div class="product-name">Fork Type / Double Ear Bracket</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor Mounting</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-06 -->
+    <div class="product-card">
+      <div class="product-code">P-06</div>
+      <div class="product-name">Wiper Motor Clamp</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Auto-Electrical</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Black Powder</span></div>
+      </div>
+    </div>
+    <!-- P-07 -->
+    <div class="product-card">
+      <div class="product-code">P-07</div>
+      <div class="product-name">Deep Draw Cup / Shell</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor Assembly</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Plain / ZP</span></div>
+      </div>
+    </div>
+    <!-- P-08 -->
+    <div class="product-card">
+      <div class="product-code">P-08</div>
+      <div class="product-name">Curved L-Motor Clamp</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-09 -->
+    <div class="product-card">
+      <div class="product-code">P-09</div>
+      <div class="product-name">Curved R-Motor Clamp</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-10 -->
+    <div class="product-card">
+      <div class="product-code">P-10</div>
+      <div class="product-name">Curved Clamp with Serration</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-11 -->
+    <div class="product-card">
+      <div class="product-code">P-11</div>
+      <div class="product-name">Saddle Bracket</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor Mounting</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-12 -->
+    <div class="product-card">
+      <div class="product-code">P-12</div>
+      <div class="product-name">U Clip / Wire Holder</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Cable Management</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-13 -->
+    <div class="product-card">
+      <div class="product-code">P-13</div>
+      <div class="product-name">Curved Motor Clamp</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-14 -->
+    <div class="product-card">
+      <div class="product-code">P-14</div>
+      <div class="product-name">Round Base Plate (ZP)</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor / Fan</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-15 -->
+    <div class="product-card">
+      <div class="product-code">P-15</div>
+      <div class="product-name">L-Type Bracket</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor / Fan</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- P-16 -->
+    <div class="product-card">
+      <div class="product-code">P-16</div>
+      <div class="product-name">Octagonal Flange Plate</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Motor Assembly</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Plain Steel</span></div>
+      </div>
+    </div>
+    <!-- P-17 -->
+    <div class="product-card">
+      <div class="product-code">P-17</div>
+      <div class="product-name">U-Type Clamp (Variant)</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Phosphate</span></div>
+      </div>
+    </div>
+    <!-- P-18 -->
+    <div class="product-card">
+      <div class="product-code">P-18</div>
+      <div class="product-name">Motor Can (Variant A)</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Electric Motor</span></div>
+        <div class="product-meta-row"><span class="meta-key">Finish</span><span class="finish-badge">Zinc Plated</span></div>
+      </div>
+    </div>
+    <!-- Custom -->
+    <div class="product-card" style="border:1px dashed rgba(232,93,4,0.25);background:rgba(232,93,4,0.03);">
+      <div class="product-code" style="color:var(--orange);">CUSTOM</div>
+      <div class="product-name">Custom Press Components</div>
+      <div class="product-meta">
+        <div class="product-meta-row"><span class="meta-key">Application</span><span class="meta-val">Any Sector</span></div>
+        <div class="product-meta-row"><span class="meta-key">As per</span><span class="finish-badge" style="color:var(--orange);border-color:rgba(232,93,4,0.3);">Drawing / Sample</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUALITY -->
+<section id="quality">
+  <div class="quality-grid">
+    <div class="reveal">
+      <div class="section-label">Standards</div>
+      <h2>QUALITY<br>ASSURANCE</h2>
+      <p style="color:var(--silver);font-size:0.95rem;line-height:1.7;margin:1.2rem 0 2rem;font-weight:300;">
+        Every batch undergoes first-piece and in-process inspection. Visual and functional checks are carried out at every stage with full traceability maintained throughout production.
+      </p>
+      <div class="quality-metrics">
+        <div class="metric-row">
+          <div class="metric-header"><span class="metric-name">Dimensional Accuracy</span><span class="metric-value">±0.01 mm</span></div>
+          <div class="metric-bar"><div class="metric-fill" style="width:98%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-header"><span class="metric-name">First-Piece Inspection</span><span class="metric-value">Every Batch</span></div>
+          <div class="metric-bar"><div class="metric-fill" style="width:100%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-header"><span class="metric-name">In-Process Inspection</span><span class="metric-value">Every Stage</span></div>
+          <div class="metric-bar"><div class="metric-fill" style="width:100%"></div></div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-header"><span class="metric-name">Batch Traceability</span><span class="metric-value">Full</span></div>
+          <div class="metric-bar"><div class="metric-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="quality-table">
+        <div class="table-header">
+          <span>Quality Parameter</span>
+          <span>Protocol</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Dimensional Accuracy</span>
+          <span class="table-val">Up to ±0.01 mm</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Inspection Type</span>
+          <span class="table-val">First-piece & In-process</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Quality Checks</span>
+          <span class="table-val">Visual & Functional</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Batch Traceability</span>
+          <span class="table-val">Full traceability maintained</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Customer Standards</span>
+          <span class="table-val">Strictly followed</span>
+        </div>
+        <div class="table-row">
+          <span class="table-key">Tooling</span>
+          <span class="table-val">In-house die making</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="reveal" style="text-align:center;margin-bottom:1rem;">
+    <div class="section-label" style="justify-content:center;">Sectors We Serve</div>
+    <h2>INDUSTRIES</h2>
+  </div>
+  <div class="industries-grid reveal">
+    <div class="industry-card">
+      <span class="industry-icon">⚡</span>
+      <div class="industry-name">Electric Motors</div>
+      <div class="industry-sub">Motor cans, clamps, base plates & flanges</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🌀</span>
+      <div class="industry-name">Ceiling & Exhaust Fans</div>
+      <div class="industry-sub">Fan motor brackets & mounting hardware</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🚗</span>
+      <div class="industry-name">Automotive</div>
+      <div class="industry-sub">Wiper motor clamps & auto-electrical brackets</div>
+    </div>
+    <div class="industry-card">
+      <span class="industry-icon">🏭</span>
+      <div class="industry-name">OEM & Tier-2</div>
+      <div class="industry-sub">Flexible batch quantities, consistent supply</div>
+    </div>
+  </div>
+
+  <div class="partner-banner reveal">
+    <div class="partner-dot"></div>
+    <div class="partner-text">
+      <strong>Active Supply Partner:</strong> Currently supplying REMI (Electric Motor & Fan Manufacturer) — consistent quality & on-time delivery, ongoing
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY US -->
+<section id="why" style="background:var(--steel);">
+  <div class="reveal" style="text-align:center;">
+    <div class="section-label" style="justify-content:center;">Our Advantage</div>
+    <h2>WHY CHOOSE US</h2>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-icon">🛠️</div>
+      <div class="why-title">Press Shop Expertise</div>
+      <div class="why-desc">Decades of hands-on experience across press operations — blanking, piercing, bending, forming, and more.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-icon">⚙️</div>
+      <div class="why-title">In-House Die Making</div>
+      <div class="why-desc">Strong tooling knowledge with in-house die design and fabrication. Progressive, compound, and single-operation tools.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-icon">📦</div>
+      <div class="why-title">Reliable Delivery</div>
+      <div class="why-desc">Consistent quality and on-time delivery, as evidenced by our active long-term supply to REMI.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div class="why-icon">💰</div>
+      <div class="why-title">Competitive Pricing</div>
+      <div class="why-desc">Transparent and competitive pricing with no hidden costs. Flexible batch quantities to suit your production needs.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <div class="why-icon">🤝</div>
+      <div class="why-title">Long-Term Partnership</div>
+      <div class="why-desc">We build lasting relationships with our customers, not just transactions. Your growth is our growth.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">06</div>
+      <div class="why-icon">📐</div>
+      <div class="why-title">Custom to Drawing</div>
+      <div class="why-desc">Every component manufactured exactly to your drawing or approved sample with full traceability.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2>LET'S BUILD<br>TOGETHER</h2>
+      <p class="contact-desc">
+        We'd love to discuss your precision sheet metal requirements. Reach out to Dilip Gopal Kurlekar directly — for enquiries, quotations, or to send us your drawings.
+      </p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">👤</div>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Proprietor</div>
+            <div class="contact-item-value">Dilip Gopal Kurlekar</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Mobile</div>
+            <div class="contact-item-value"><a href="tel:+919820217732">+91 98202 17732</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-content">
+            <div class="contact-item-label">Address</div>
+            <div class="contact-item-value">225-O, Bombay Talkies Compound,<br>Near Lok Seva Godown, Somwari Bazar,<br>Malad West, Mumbai – 400 064, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-side reveal">
+      <h3>SEND AN ENQUIRY</h3>
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Company</label>
+        <input type="text" class="form-input" placeholder="Company name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / Email</label>
+        <input type="text" class="form-input" placeholder="+91 or email address">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Requirement</label>
+        <textarea class="form-input" placeholder="Describe your component requirement, industry, and expected quantities…"></textarea>
+      </div>
+      <button class="form-submit" onclick="handleEnquiry()">SEND ENQUIRY →</button>
+      <p style="font-size:0.72rem;color:var(--muted);margin-top:0.8rem;font-family:'DM Mono',monospace;letter-spacing:0.05em;">
+        Or reach us directly: <a href="mailto:kurlekarengineeringworks@yahoo.co.in" style="color:var(--orange);text-decoration:none;">kurlekarengineeringworks@yahoo.co.in</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KURLEKAR ENGINEERING WORKS</div>
+  <div class="footer-copy">© 2025 Kurlekar Engineering Works. Malad West, Mumbai.</div>
+  <div class="footer-tagline">PRECISION · RELIABILITY · INNOVATION</div>
+</footer>
+
+<script>
+  // Intersection Observer for reveal animations
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger children in grids
+  document.querySelectorAll('.products-grid, .industries-grid, .why-grid').forEach(grid => {
+    const cards = grid.querySelectorAll(':scope > *');
+    cards.forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.04}s`;
+    });
+  });
+
+  // Enquiry handler
+  function handleEnquiry() {
+    const name = document.querySelector('.form-input[placeholder="Full name"]').value;
+    const company = document.querySelector('.form-input[placeholder="Company name"]').value;
+    const contact = document.querySelector('.form-input[placeholder="+91 or email address"]').value;
+    const req = document.querySelector('textarea.form-input').value;
+
+    if (!name || !contact) {
+      alert('Please fill in your name and contact details.');
+      return;
+    }
+
+    const subject = encodeURIComponent(`Enquiry from ${name} — ${company || 'Individual'}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nCompany: ${company}\nContact: ${contact}\n\nRequirement:\n${req}`
+    );
+    window.location.href = `mailto:kurlekarengineeringworks@yahoo.co.in?subject=${subject}&body=${body}`;
+  }
+</script>
+</body>
+</html>
