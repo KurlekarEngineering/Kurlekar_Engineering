@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurlekar Engineering Works — Precision Sheet Metal Components Since 1995</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8180e;
+    --red-dark: #a01008;
+    --white: #ffffff;
+    --off-white: #f7f7f5;
+    --light-grey: #efefed;
+    --text: #1a1a1a;
+    --text-muted: #666660;
+    --border: #e0e0dc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-weight: 400; overflow-x: hidden; }
+
+  /* TOP BAR */
+  .topbar { background: var(--red); padding: 8px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .topbar-left { font-size: 0.78rem; color: rgba(255,255,255,0.85); letter-spacing: 0.04em; }
+  .topbar-right { display: flex; gap: 24px; }
+  .topbar-right a { font-size: 0.78rem; color: rgba(255,255,255,0.9); text-decoration: none; transition: color 0.2s; }
+  .topbar-right a:hover { color: #fff; }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 999; background: var(--white); border-bottom: 3px solid var(--red); box-shadow: 0 2px 20px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 16px 0; }
+  .nav-logo-icon { width: 44px; height: 44px; background: var(--red); display: flex; align-items: center; justify-content: center; }
+  .nav-logo-icon svg { width: 24px; height: 24px; fill: white; }
+  .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav-logo-name { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.04em; text-transform: uppercase; }
+  .nav-logo-sub { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .nav-links { display: flex; list-style: none; }
+  .nav-links a { display: block; padding: 22px 18px; color: var(--text); text-decoration: none; font-size: 0.83rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: color 0.2s, border-color 0.2s; }
+  .nav-links a:hover { color: var(--red); border-bottom-color: var(--red); }
+  .nav-cta { background: var(--red); color: #fff; padding: 11px 24px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--red); transition: all 0.2s; }
+  .nav-cta:hover { background: transparent; color: var(--red); }
+
+  /* HERO */
+  #hero { background: var(--white); position: relative; overflow: hidden; min-height: 92vh; display: flex; align-items: stretch; }
+  .hero-left { flex: 1; padding: 80px 60px; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; }
+  .hero-right { width: 42%; background: var(--red); position: relative; overflow: hidden; flex-shrink: 0; }
+  .hero-right-pattern { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
+  .hero-right-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 60px 36px; }
+  .hero-stat-big { text-align: center; color: white; border: 1px solid rgba(255,255,255,0.18); padding: 26px 32px; width: 100%; background: rgba(0,0,0,0.1); }
+  .hero-stat-big .num { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
+  .hero-stat-big .lbl { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px; }
+
+  .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: white; padding: 7px 16px; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 22px; animation: fadeUp 0.6s ease both; }
+  .hero-badge::before { content: ''; width: 20px; height: 2px; background: rgba(255,255,255,0.5); }
+  h1 { font-family: 'Oswald', sans-serif; font-size: clamp(2.8rem, 4.5vw, 4.5rem); font-weight: 700; line-height: 1.0; text-transform: uppercase; color: var(--text); animation: fadeUp 0.6s 0.1s ease both; }
+  h1 .red { color: var(--red); }
+  h1 .sub { display: block; font-size: 0.65em; color: var(--text-muted); font-weight: 400; margin-top: 6px; letter-spacing: 0.04em; }
+
+  .since-badge { display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; padding: 14px 20px; border-left: 4px solid var(--red); background: var(--off-white); animation: fadeUp 0.6s 0.2s ease both; }
+  .since-badge .year { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--red); }
+  .since-badge .st { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+  .since-badge .st strong { color: var(--text); display: block; font-size: 0.92rem; }
+
+  .hero-desc { margin-top: 24px; font-size: 1rem; color: var(--text-muted); line-height: 1.75; max-width: 460px; font-weight: 300; animation: fadeUp 0.6s 0.25s ease both; }
+  .hero-ctas { display: flex; gap: 14px; margin-top: 34px; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-red { background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--text); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-outline:hover { background: var(--text); color: white; }
+
+  /* SECTIONS */
+  section { padding: 90px 60px; }
+  .section-label { display: flex; align-items: center; gap: 12px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 12px; }
+  .section-label::before { content: ''; width: 28px; height: 2px; background: var(--red); }
+  .section-title { font-family: 'Oswald', sans-serif; font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 700; text-transform: uppercase; line-height: 1.05; color: var(--text); }
+  .section-title .red { color: var(--red); }
+  .red-divider { height: 4px; background: var(--red); width: 55px; margin: 16px 0 0; }
+
+  /* ABOUT */
+  #about { background: var(--off-white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; margin-top: 52px; align-items: start; }
+  .about-text p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 16px; font-weight: 300; }
+  .about-highlight { border-left: 4px solid var(--red); padding: 16px 20px; background: white; margin: 26px 0; font-size: 1rem; color: var(--text); line-height: 1.65; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .machines-title { font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .machine-list { display: flex; flex-direction: column; gap: 3px; }
+  .machine-row { display: flex; align-items: center; background: white; border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.2s; }
+  .machine-row:hover { box-shadow: 0 4px 16px rgba(200,24,14,0.1); }
+  .machine-tag { background: var(--red); color: white; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; padding: 14px 16px; min-width: 74px; text-align: center; letter-spacing: 0.04em; text-transform: uppercase; flex-shrink: 0; }
+  .machine-info { padding: 12px 18px; flex: 1; }
+  .machine-name { font-weight: 600; font-size: 0.93rem; color: var(--text); }
+  .machine-desc { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* OPERATIONS */
+  #operations { background: var(--text); padding: 80px 60px; }
+  #operations .section-label { color: var(--red); }
+  #operations .section-label::before { background: var(--red); }
+  #operations .section-title { color: white; }
+  .ops-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 48px; }
+  .op-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 34px 22px; position: relative; overflow: hidden; transition: background 0.25s; }
+  .op-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .op-card:hover { background: rgba(200,24,14,0.1); }
+  .op-card:hover::after { transform: scaleX(1); }
+  .op-num { font-family: 'Oswald', sans-serif; font-size: 2.6rem; font-weight: 700; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: 10px; }
+  .op-name { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: white; letter-spacing: 0.03em; }
+  .op-desc { font-size: 0.77rem; color: rgba(255,255,255,0.42); margin-top: 8px; line-height: 1.5; }
+
+  /* PRODUCTS */
+  #products { background: var(--white); }
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 3px; margin-top: 48px; }
+  .prod-card { border: 1px solid var(--border); padding: 22px 18px; background: white; position: relative; transition: all 0.22s; }
+  .prod-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(200,24,14,0.1); transform: translateY(-2px); }
+  .prod-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--red); transition: height 0.25s; }
+  .prod-card:hover::before { height: 100%; }
+  .prod-id { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; color: var(--red); text-transform: uppercase; margin-bottom: 6px; }
+  .prod-name { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--text); line-height: 1.2; margin-bottom: 12px; }
+  .prod-meta { font-size: 0.75rem; color: var(--text-muted); }
+  .prod-meta span { color: var(--text); font-weight: 500; }
+  .prod-meta div { margin-top: 3px; }
+  .custom-prod { border: 2px dashed var(--red); background: rgba(200,24,14,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 20px; }
+  .custom-prod .ci { font-size: 2rem; margin-bottom: 8px; }
+  .custom-prod .ct { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--red); }
+  .custom-prod .cs { font-size: 0.76rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* QUALITY */
+  #quality { background: var(--off-white); }
+  .quality-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 48px; }
+  .q-card { background: white; border: 1px solid var(--border); padding: 34px 26px; transition: all 0.22s; border-top: 4px solid transparent; }
+  .q-card:hover { border-top-color: var(--red); box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+  .q-icon { font-size: 1.6rem; margin-bottom: 14px; }
+  .q-val { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+  .q-title { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
+  .q-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
+
+  /* INDUSTRIES */
+  #industries { background: var(--white); }
+  .ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 48px; }
+  .ind-card { background: var(--off-white); border: 1px solid var(--border); padding: 40px 26px; text-align: center; transition: all 0.25s; position: relative; overflow: hidden; }
+  .ind-card::after { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateY(100%); transition: transform 0.3s ease; z-index: 0; }
+  .ind-card:hover::after { transform: translateY(0); }
+  .ind-card > * { position: relative; z-index: 1; transition: color 0.3s; }
+  .ind-card:hover .ind-name, .ind-card:hover .ind-desc { color: white; }
+  .ind-card:hover .ind-desc { color: rgba(255,255,255,0.8); }
+  .ind-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+  .ind-name { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; color: var(--text); }
+  .ind-desc { font-size: 0.77rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+  /* WHY US */
+  #why { background: var(--red); padding: 90px 60px; }
+  #why .section-label { color: rgba(255,255,255,0.65); }
+  #why .section-label::before { background: rgba(255,255,255,0.5); }
+  #why .section-title { color: white; }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 48px; }
+  .why-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 30px 26px; transition: background 0.22s; }
+  .why-card:hover { background: rgba(255,255,255,0.15); }
+  .why-num { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.2em; margin-bottom: 10px; }
+  .why-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; color: white; margin-bottom: 10px; }
+  .why-desc { font-size: 0.83rem; color: rgba(255,255,255,0.72); line-height: 1.65; font-weight: 300; }
+
+  /* CLIENT BANNER */
+  .client-banner { background: var(--text); padding: 28px 60px; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
+  .cl-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .cl-name { font-family: 'Oswald', sans-serif; font-size: 1.9rem; font-weight: 700; color: white; letter-spacing: 0.05em; }
+  .cl-sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+  .cl-div { width: 1px; height: 44px; background: rgba(255,255,255,0.14); }
+  .cl-badge { background: var(--red); color: white; padding: 6px 14px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* CONTACT */
+  #contact { background: var(--off-white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; margin-top: 52px; }
+  .c-row { display: flex; gap: 0; border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .c-row:first-child { border-top: 1px solid var(--border); }
+  .c-key { width: 130px; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; padding-top: 2px; flex-shrink: 0; }
+  .c-val { font-size: 0.93rem; color: var(--text); line-height: 1.65; }
+  .c-val a { color: var(--red); text-decoration: none; font-weight: 500; }
+  .c-val a:hover { text-decoration: underline; }
+  .enquiry-form { background: white; border: 1px solid var(--border); padding: 38px; }
+  .form-title { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 600; text-transform: uppercase; color: var(--text); margin-bottom: 26px; padding-bottom: 14px; border-bottom: 2px solid var(--red); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+  .fg.full { grid-column: 1 / -1; }
+  .fg label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .fg input, .fg textarea, .fg select { background: var(--off-white); border: 1px solid var(--border); color: var(--text); padding: 11px 14px; font-size: 0.9rem; font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--red); background: white; }
+  .fg textarea { min-height: 96px; resize: vertical; }
+  .submit-btn { margin-top: 8px; background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 32px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; width: 100%; }
+  .submit-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+  /* FOOTER */
+  footer { background: var(--text); }
+  .footer-top { padding: 50px 60px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-logo-name { font-family: 'Oswald', sans-serif; font-size: 1.15rem; font-weight: 700; color: white; letter-spacing: 0.06em; text-transform: uppercase; }
+  .footer-logo-name span { color: var(--red); }
+  .footer-tagline { font-size: 0.76rem; color: rgba(255,255,255,0.38); margin-top: 5px; letter-spacing: 0.08em; }
+  .footer-since { margin-top: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+  .footer-since strong { color: var(--red); }
+  .footer-desc { margin-top: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.7; font-weight: 300; }
+  .fcol-title { font-family: 'Oswald', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: white; margin-bottom: 16px; }
+  .fcol-links { display: flex; flex-direction: column; gap: 10px; }
+  .fcol-links a { font-size: 0.8rem; color: rgba(255,255,255,0.42); text-decoration: none; transition: color 0.2s; }
+  .fcol-links a:hover { color: var(--red); }
+  .footer-bottom { padding: 18px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.74rem; color: rgba(255,255,255,0.28); }
+  .footer-made { font-size: 0.74rem; color: rgba(255,255,255,0.28); font-style: italic; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* MOBILE */
+  @media (max-width: 960px) {
+    .topbar { padding: 8px 20px; flex-direction: column; gap: 6px; text-align: center; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    section, #operations, #why { padding: 60px 20px; }
+    #hero { flex-direction: column; min-height: auto; }
+    .hero-left { padding: 70px 20px 36px; }
+    .hero-right { width: 100%; min-height: 260px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    .quality-grid, .ind-grid { grid-template-columns: 1fr 1fr; }
+    .ops-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 28px; padding: 36px 20px; }
+    .footer-bottom { flex-direction: column; gap: 8px; padding: 16px 20px; text-align: center; }
+    .client-banner { padding: 24px 20px; gap: 16px; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">📍 Malad West, Mumbai – 400 064 &nbsp;|&nbsp; In Business Since 1995</div>
+  <div class="topbar-right">
+    <a href="tel:+919820217732">📞 +91 98202 17732</a>
+    <a href="mailto:kurlekarengineeringworks@yahoo.co.in">✉ kurlekarengineeringworks@yahoo.co.in</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    </div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Kurlekar Engineering</span>
+      <span class="nav-logo-sub">Precision Sheet Metal · Est. 1995</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#quality">Quality</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Request Quote</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Mumbai's Precision Press Component Specialists</div>
+    <h1>Precision<br><span class="red">Sheet Metal</span><br><span class="sub">Press Components</span></h1>
+    <div class="since-badge">
+      <div class="year">1995</div>
+      <div class="st"><strong>In Business Since 1995</strong>30+ years of press shop expertise serving OEMs &amp; Tier-2 manufacturers</div>
+    </div>
+    <p class="hero-desc">Kurlekar Engineering Works manufactures precision stamped and formed components for electric motors, fans, and automotive systems — to ±0.01 mm accuracy with full in-process traceability.</p>
+    <div class="hero-ctas">
+      <a class="btn-red" href="#products">View Products</a>
+      <a class="btn-outline" href="#contact">Get a Quote</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-pattern"></div>
+    <div class="hero-right-content">
+      <div class="hero-stat-big"><div class="num">±0.01 mm</div><div class="lbl">Dimensional Accuracy</div></div>
+      <div class="hero-stat-big"><div class="num">18+</div><div class="lbl">Component Variants</div></div>
+      <div class="hero-stat-big"><div class="num">30 Yrs</div><div class="lbl">In Business Since 1995</div></div>
+      <div class="hero-stat-big"><div class="num">4+</div><div class="lbl">Industries Served</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT BANNER -->
+<div class="client-banner">
+  <div class="cl-label">Trusted Supply Partner</div>
+  <div class="cl-div"></div>
+  <div><div class="cl-name">REMI</div><div class="cl-sub">Electric Motor &amp; Fan Manufacturer</div></div>
+  <div class="cl-badge">Active Supplier</div>
+  <div class="cl-div"></div>
+  <div style="max-width:220px;color:rgba(255,255,255,0.42);font-size:0.8rem;line-height:1.5">Consistent quality &amp; on-time delivery maintained across all batches</div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">Company Overview</div>
+  <div class="section-title reveal">30 Years of <span class="red">Engineering Excellence</span></div>
+  <div class="red-divider reveal"></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Established in <strong>1995</strong>, Kurlekar Engineering Works is a professionally managed manufacturing unit based in Malad West, Mumbai. For over three decades, we have specialised in precision sheet metal press components — building deep tooling expertise and a reputation for consistent, reliable supply.</p>
+      <div class="about-highlight">We serve OEMs and Tier-2 manufacturers across the electric motor, fan, and automotive sectors — manufacturing components exactly as per customer drawings or approved samples.</div>
+      <p>Our strength lies in in-house die making, stringent process control, and a long-term partnership approach — giving customers a single accountable partner from first article through volume delivery.</p>
+    </div>
+    <div class="reveal">
+      <div class="machines-title">Manufacturing Machines &amp; Equipment</div>
+      <div class="machine-list">
+        <div class="machine-row"><div class="machine-tag">10 TON</div><div class="machine-info"><div class="machine-name">10 Ton Power Press</div><div class="machine-desc">Blanking, piercing, light forming operations</div></div></div>
+        <div class="machine-row"><div class="machine-tag">20 TON</div><div class="machine-info"><div class="machine-name">20 Ton Power Press</div><div class="machine-desc">Bending, forming, compound operations</div></div></div>
+        <div class="machine-row"><div class="machine-tag">30 TON</div><div class="machine-info"><div class="machine-name">30 Ton Power Press</div><div class="machine-desc">Heavy-duty components, deep drawing, coining</div></div></div>
+        <div class="machine-row"><div class="machine-tag" style="font-size:0.72rem">HAND PRESS</div><div class="machine-info"><div class="machine-name">Hand Press</div><div class="machine-desc">Manual pressing for small &amp; delicate components</div></div></div>
+        <div class="machine-row"><div class="machine-tag" style="font-size:0.7rem">SURFACE GRND</div><div class="machine-info"><div class="machine-name">Surface Grinding Machine</div><div class="machine-desc">Precision flat surface finishing of components</div></div></div>
+        <div class="machine-row"><div class="machine-tag" style="font-size:0.72rem">TAPPING</div><div class="machine-info"><div class="machine-name">Tapping Machine</div><div class="machine-desc">Threaded hole operations in sheet metal parts</div></div></div>
+        <div class="machine-row"><div class="machine-tag" style="font-size:0.7rem">DIE SHOP</div><div class="machine-info"><div class="machine-name">In-House Die &amp; Tooling Shop</div><div class="machine-desc">Progressive, compound &amp; single-operation tools</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATIONS -->
+<section id="operations">
+  <div class="section-label reveal">Manufacturing Capabilities</div>
+  <div class="section-title reveal" style="color:white">Press <span style="color:var(--red)">Operations</span></div>
+  <div class="ops-grid reveal">
+    <div class="op-card"><div class="op-num">01</div><div class="op-name">Blanking &amp; Piercing</div><div class="op-desc">Precise cutouts and holes to close tolerances</div></div>
+    <div class="op-card"><div class="op-num">02</div><div class="op-name">Bending &amp; Forming</div><div class="op-desc">Complex profiles shaped exactly to drawing</div></div>
+    <div class="op-card"><div class="op-num">03</div><div class="op-name">Slotting &amp; Notching</div><div class="op-desc">Clean slot and notch features in one operation</div></div>
+    <div class="op-card"><div class="op-num">04</div><div class="op-name">Light Deep Drawing</div><div class="op-desc">Cups and shells for motor assembly</div></div>
+    <div class="op-card"><div class="op-num">05</div><div class="op-name">Serration &amp; Coining</div><div class="op-desc">High-precision surface detailing and coining</div></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label reveal">Parts Catalogue</div>
+  <div class="section-title reveal">18+ Component <span class="red">Variants</span></div>
+  <div class="red-divider reveal"></div>
+  <div class="products-grid reveal">
+    <div class="prod-card"><div class="prod-id">P-01</div><div class="prod-name">Motor Can / Housing</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-02</div><div class="prod-name">Round Base Plate</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-03</div><div class="prod-name">U-Type Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-04</div><div class="prod-name">C-Type Mounting Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-05</div><div class="prod-name">Fork / Double Ear Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-06</div><div class="prod-name">Wiper Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Auto-Electrical</div><div><span>Finish:</span> Black Powder</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-07</div><div class="prod-name">Deep Draw Cup / Shell</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain / ZP</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-08</div><div class="prod-name">Curved L-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-09</div><div class="prod-name">Curved R-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-10</div><div class="prod-name">Curved Clamp with Serration</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-11</div><div class="prod-name">Saddle Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-12</div><div class="prod-name">U Clip / Wire Holder</div><div class="prod-meta"><div><span>Application:</span> Cable Management</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-13</div><div class="prod-name">Curved Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-14</div><div class="prod-name">Round Base Plate (ZP)</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-15</div><div class="prod-name">L-Type Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-16</div><div class="prod-name">Octagonal Flange Plate</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain Steel</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-17</div><div class="prod-name">U-Type Clamp (Variant)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
+    <div class="prod-card"><div class="prod-id">P-18</div><div class="prod-name">Motor Can (Variant A)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
+    <div class="prod-card custom-prod"><div class="ci">⚙️</div><div class="ct">Custom Components</div><div class="cs">As per drawing or approved sample</div></div>
+  </div>
+</section>
+
+<!-- QUALITY -->
+<section id="quality">
+  <div class="section-label reveal">Standards &amp; Process</div>
+  <div class="section-title reveal">Quality <span class="red">Assurance</span></div>
+  <div class="red-divider reveal"></div>
+  <div class="quality-grid reveal">
+    <div class="q-card"><div class="q-icon">🎯</div><div class="q-val">±0.01 mm</div><div class="q-title">Dimensional Accuracy</div><div class="q-desc">Achieved through precision tooling and controlled press operations — application dependent.</div></div>
+    <div class="q-card"><div class="q-icon">🔍</div><div class="q-title">First-Piece Inspection</div><div class="q-desc">Every batch begins with first-piece and in-process inspection at every stage of manufacture.</div></div>
+    <div class="q-card"><div class="q-icon">✅</div><div class="q-title">Visual &amp; Functional Checks</div><div class="q-desc">Visual and functional verification performed per batch for form, fit, and function compliance.</div></div>
+    <div class="q-card"><div class="q-icon">📋</div><div class="q-title">Full Batch Traceability</div><div class="q-desc">Complete traceability maintained. Customer-specific quality requirements strictly followed on every order.</div></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="section-label reveal">Market Sectors</div>
+  <div class="section-title reveal">Industries <span class="red">We Serve</span></div>
+  <div class="red-divider reveal"></div>
+  <div class="ind-grid reveal">
+    <div class="ind-card"><span class="ind-icon">⚙️</span><div class="ind-name">Electric Motors</div><div class="ind-desc">Cans, clamps, brackets, and base plates for motor manufacturers</div></div>
+    <div class="ind-card"><span class="ind-icon">💨</span><div class="ind-name">Ceiling &amp; Exhaust Fans</div><div class="ind-desc">Mounting hardware and structural fan assembly components</div></div>
+    <div class="ind-card"><span class="ind-icon">🚗</span><div class="ind-name">Automotive</div><div class="ind-desc">Wiper motor clamps, auto brackets, and electrical system parts</div></div>
+    <div class="ind-card"><span class="ind-icon">🏭</span><div class="ind-name">OEM &amp; Tier-2</div><div class="ind-desc">Flexible supply partnerships across the manufacturing chain</div></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-label reveal">Our Advantage</div>
+  <div class="section-title reveal">Why Choose <span style="color:rgba(255,255,255,0.55)">Us</span></div>
+  <div class="why-grid reveal">
+    <div class="why-card"><div class="why-num">01</div><div class="why-title">30 Years of Expertise</div><div class="why-desc">In business since 1995 — three decades of press shop experience means faster problem solving and consistent results.</div></div>
+    <div class="why-card"><div class="why-num">02</div><div class="why-title">In-House Die Making</div><div class="why-desc">We develop and maintain our own tooling — progressive, compound, and single-operation dies — reducing your lead times.</div></div>
+    <div class="why-card"><div class="why-num">03</div><div class="why-title">Reliable On-Time Delivery</div><div class="why-desc">Consistent delivery track record proven through our long-standing REMI supply partnership.</div></div>
+    <div class="why-card"><div class="why-num">04</div><div class="why-title">Transparent Pricing</div><div class="why-desc">No hidden costs. Efficient in-house manufacturing keeps your BOM lean and margins healthy.</div></div>
+    <div class="why-card"><div class="why-num">05</div><div class="why-title">Flexible Batch Quantities</div><div class="why-desc">From trial runs through high-volume production — we adapt to your schedule without compromising quality.</div></div>
+    <div class="why-card"><div class="why-num">06</div><div class="why-title">Long-Term Partnership</div><div class="why-desc">We invest in understanding your product to be a dependable manufacturing partner for years to come.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label reveal">Get In Touch</div>
+  <div class="section-title reveal">Let's <span class="red">Partner</span> Together</div>
+  <div class="red-divider reveal"></div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="c-row"><div class="c-key">Proprietor</div><div class="c-val">Dilip Gopal Kurlekar</div></div>
+      <div class="c-row"><div class="c-key">Est.</div><div class="c-val">1995 — In business for 30+ years</div></div>
+      <div class="c-row"><div class="c-key">Address</div><div class="c-val">225-O, Bombay Talkies Compound,<br>Near Lok Seva Godown, Somwari Bazar,<br>Malad West, Mumbai – 400 064<br>Maharashtra, India</div></div>
+      <div class="c-row"><div class="c-key">Mobile</div><div class="c-val"><a href="tel:+919820217732">+91 98202 17732</a></div></div>
+      <div class="c-row"><div class="c-key">Email</div><div class="c-val"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div></div>
+      <div class="c-row"><div class="c-key">Speciality</div><div class="c-val">Precision Sheet Metal Press Components</div></div>
+    </div>
+    <div class="enquiry-form reveal">
+      <div class="form-title">Send an Enquiry</div>
+      <div class="form-grid">
+        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+        <div class="fg"><label>Company</label><input type="text" placeholder="Company name"></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
+        <div class="fg full"><label>Enquiry Type</label><select><option>General Enquiry</option><option>Request a Quote</option><option>Custom Component (Drawing/Sample)</option><option>Tooling / Die Making</option><option>Supply Partnership</option></select></div>
+        <div class="fg full"><label>Message / Requirements</label><textarea placeholder="Describe your component, quantity, material, finish, etc."></textarea></div>
+      </div>
+      <button class="submit-btn" onclick="handleSubmit(this)">Submit Enquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-name">Kurlekar <span>Engineering Works</span></div>
+      <div class="footer-tagline">Precision · Reliability · Innovation</div>
+      <div class="footer-since">In Business Since <strong>1995</strong> — Mumbai, Maharashtra</div>
+      <div class="footer-desc">Precision sheet metal press component manufacturer serving OEMs and Tier-2 manufacturers across the electric motor, fan, and automotive sectors.</div>
+    </div>
+    <div>
+      <div class="fcol-title">Quick Links</div>
+      <div class="fcol-links">
+        <a href="#about">About Us</a>
+        <a href="#products">Products</a>
+        <a href="#quality">Quality Assurance</a>
+        <a href="#industries">Industries</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="fcol-title">Contact</div>
+      <div class="fcol-links">
+        <a href="tel:+919820217732">+91 98202 17732</a>
+        <a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a>
+        <a href="#contact">Malad West, Mumbai – 400 064</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Kurlekar Engineering Works. All rights reserved.</div>
+    <div class="footer-made">Precision | Reliability | Innovation — Est. 1995</div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Enquiry Sent!';
+    btn.style.background = '#1a7a1a';
+    btn.style.borderColor = '#1a7a1a';
+    setTimeout(() => { btn.textContent = 'Submit Enquiry →'; btn.style.background = ''; btn.style.borderColor = ''; }, 3500);
+  }
+</script>
+</body>
+</html>
