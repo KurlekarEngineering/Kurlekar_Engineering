@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kurlekar Engineering Works — Precision Sheet Metal Components Since 1995</title>
+<title>Kurlekar Engineering Works — Precision Sheet Metal Since 1995</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Web3Forms — free email delivery, no account needed -->
 <style>
   :root {
     --red: #c8180e;
@@ -38,7 +39,7 @@
   .nav-links { display: flex; list-style: none; }
   .nav-links a { display: block; padding: 22px 18px; color: var(--text); text-decoration: none; font-size: 0.83rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: color 0.2s, border-color 0.2s; }
   .nav-links a:hover { color: var(--red); border-bottom-color: var(--red); }
-  .nav-cta { background: var(--red); color: #fff; padding: 11px 24px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--red); transition: all 0.2s; }
+  .nav-cta { background: var(--red); color: #fff; padding: 11px 24px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--red); transition: all 0.2s; cursor: pointer; }
   .nav-cta:hover { background: transparent; color: var(--red); }
 
   /* HERO */
@@ -47,7 +48,8 @@
   .hero-right { width: 42%; background: var(--red); position: relative; overflow: hidden; flex-shrink: 0; }
   .hero-right-pattern { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
   .hero-right-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 60px 36px; }
-  .hero-stat-big { text-align: center; color: white; border: 1px solid rgba(255,255,255,0.18); padding: 26px 32px; width: 100%; background: rgba(0,0,0,0.1); }
+  .hero-stat-big { text-align: center; color: white; border: 1px solid rgba(255,255,255,0.18); padding: 26px 32px; width: 100%; background: rgba(0,0,0,0.1); cursor: default; transition: background 0.2s; }
+  .hero-stat-big:hover { background: rgba(0,0,0,0.2); }
   .hero-stat-big .num { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
   .hero-stat-big .lbl { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px; }
 
@@ -56,15 +58,13 @@
   h1 { font-family: 'Oswald', sans-serif; font-size: clamp(2.8rem, 4.5vw, 4.5rem); font-weight: 700; line-height: 1.0; text-transform: uppercase; color: var(--text); animation: fadeUp 0.6s 0.1s ease both; }
   h1 .red { color: var(--red); }
   h1 .sub { display: block; font-size: 0.65em; color: var(--text-muted); font-weight: 400; margin-top: 6px; letter-spacing: 0.04em; }
-
   .since-badge { display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; padding: 14px 20px; border-left: 4px solid var(--red); background: var(--off-white); animation: fadeUp 0.6s 0.2s ease both; }
   .since-badge .year { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--red); }
   .since-badge .st { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
   .since-badge .st strong { color: var(--text); display: block; font-size: 0.92rem; }
-
   .hero-desc { margin-top: 24px; font-size: 1rem; color: var(--text-muted); line-height: 1.75; max-width: 460px; font-weight: 300; animation: fadeUp 0.6s 0.25s ease both; }
   .hero-ctas { display: flex; gap: 14px; margin-top: 34px; animation: fadeUp 0.6s 0.3s ease both; }
-  .btn-red { background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-red { background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; cursor: pointer; }
   .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
   .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--text); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
   .btn-outline:hover { background: var(--text); color: white; }
@@ -97,7 +97,7 @@
   #operations .section-label::before { background: var(--red); }
   #operations .section-title { color: white; }
   .ops-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 48px; }
-  .op-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 34px 22px; position: relative; overflow: hidden; transition: background 0.25s; }
+  .op-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 34px 22px; position: relative; overflow: hidden; transition: background 0.25s; cursor: pointer; }
   .op-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
   .op-card:hover { background: rgba(200,24,14,0.1); }
   .op-card:hover::after { transform: scaleX(1); }
@@ -108,7 +108,7 @@
   /* PRODUCTS */
   #products { background: var(--white); }
   .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 3px; margin-top: 48px; }
-  .prod-card { border: 1px solid var(--border); padding: 22px 18px; background: white; position: relative; transition: all 0.22s; }
+  .prod-card { border: 1px solid var(--border); padding: 22px 18px; background: white; position: relative; transition: all 0.22s; cursor: pointer; }
   .prod-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(200,24,14,0.1); transform: translateY(-2px); }
   .prod-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--red); transition: height 0.25s; }
   .prod-card:hover::before { height: 100%; }
@@ -117,7 +117,9 @@
   .prod-meta { font-size: 0.75rem; color: var(--text-muted); }
   .prod-meta span { color: var(--text); font-weight: 500; }
   .prod-meta div { margin-top: 3px; }
-  .custom-prod { border: 2px dashed var(--red); background: rgba(200,24,14,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 20px; }
+  .prod-quote-btn { margin-top: 10px; font-size: 0.72rem; color: var(--red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0; transition: opacity 0.2s; cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; }
+  .prod-card:hover .prod-quote-btn { opacity: 1; }
+  .custom-prod { border: 2px dashed var(--red); background: rgba(200,24,14,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 20px; cursor: pointer; }
   .custom-prod .ci { font-size: 2rem; margin-bottom: 8px; }
   .custom-prod .ct { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--red); }
   .custom-prod .cs { font-size: 0.76rem; color: var(--text-muted); margin-top: 4px; }
@@ -135,7 +137,7 @@
   /* INDUSTRIES */
   #industries { background: var(--white); }
   .ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 48px; }
-  .ind-card { background: var(--off-white); border: 1px solid var(--border); padding: 40px 26px; text-align: center; transition: all 0.25s; position: relative; overflow: hidden; }
+  .ind-card { background: var(--off-white); border: 1px solid var(--border); padding: 40px 26px; text-align: center; transition: all 0.25s; position: relative; overflow: hidden; cursor: pointer; }
   .ind-card::after { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateY(100%); transition: transform 0.3s ease; z-index: 0; }
   .ind-card:hover::after { transform: translateY(0); }
   .ind-card > * { position: relative; z-index: 1; transition: color 0.3s; }
@@ -185,6 +187,17 @@
   .fg textarea { min-height: 96px; resize: vertical; }
   .submit-btn { margin-top: 8px; background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 32px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; width: 100%; }
   .submit-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  /* FORM STATUS */
+  .form-status { margin-top: 12px; padding: 12px 16px; font-size: 0.85rem; font-weight: 600; text-align: center; display: none; }
+  .form-status.success { background: #e6f4ea; color: #1e7e34; border: 1px solid #c3e6cb; display: block; }
+  .form-status.error { background: #fdecea; color: #c8180e; border: 1px solid #f5c6cb; display: block; }
+
+  /* SETUP NOTICE */
+  .setup-notice { background: #fff8e1; border: 1px solid #ffd54f; padding: 16px 20px; margin-top: 16px; font-size: 0.82rem; color: #5d4037; line-height: 1.65; display: none; }
+  .setup-notice strong { color: #333; }
+  .setup-notice code { background: #fff3e0; padding: 1px 5px; font-family: monospace; font-size: 0.85em; border-radius: 3px; }
 
   /* FOOTER */
   footer { background: var(--text); }
@@ -203,8 +216,70 @@
   .footer-copy { font-size: 0.74rem; color: rgba(255,255,255,0.28); }
   .footer-made { font-size: 0.74rem; color: rgba(255,255,255,0.28); font-style: italic; }
 
+  /* ===== AI CHAT WIDGET ===== */
+  #chat-bubble { position: fixed; bottom: 28px; right: 28px; z-index: 9999; }
+  #chat-toggle { width: 60px; height: 60px; background: var(--red); border: none; border-radius: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(200,24,14,0.4); transition: all 0.2s; position: relative; }
+  #chat-toggle:hover { background: var(--red-dark); transform: scale(1.05); }
+  #chat-toggle svg { width: 26px; height: 26px; fill: white; }
+  #chat-badge { position: absolute; top: -5px; right: -5px; background: #1a1a1a; color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+  #chat-window { position: fixed; bottom: 100px; right: 28px; width: 370px; background: white; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.18); z-index: 9998; display: none; flex-direction: column; max-height: 540px; animation: slideUp 0.25s ease; }
+  #chat-window.open { display: flex; }
+  .chat-header { background: var(--red); padding: 16px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .chat-header-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; }
+  .chat-header-icon svg { width: 18px; height: 18px; fill: white; }
+  .chat-header-text { flex: 1; }
+  .chat-header-name { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.04em; }
+  .chat-header-status { font-size: 0.72rem; color: rgba(255,255,255,0.72); }
+  .chat-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.7); font-size: 1.4rem; line-height: 1; padding: 4px; transition: color 0.2s; }
+  .chat-close:hover { color: white; }
+
+  #chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #fafafa; }
+  .msg { max-width: 88%; }
+  .msg.bot { align-self: flex-start; }
+  .msg.user { align-self: flex-end; }
+  .msg-bubble { padding: 10px 14px; font-size: 0.85rem; line-height: 1.55; }
+  .msg.bot .msg-bubble { background: white; border: 1px solid var(--border); color: var(--text); border-radius: 0 8px 8px 8px; }
+  .msg.user .msg-bubble { background: var(--red); color: white; border-radius: 8px 0 8px 8px; }
+  .msg-time { font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; padding: 0 4px; }
+  .msg.user .msg-time { text-align: right; }
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 12px 14px; background: white; border: 1px solid var(--border); width: fit-content; border-radius: 0 8px 8px 8px; }
+  .typing-dot { width: 7px; height: 7px; background: var(--text-muted); border-radius: 50%; animation: typingBounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  .quick-replies { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 0; flex-shrink: 0; background: #fafafa; }
+  .qr-btn { background: white; border: 1px solid var(--border); color: var(--text); padding: 6px 12px; font-size: 0.75rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.18s; font-weight: 500; }
+  .qr-btn:hover { background: var(--red); border-color: var(--red); color: white; }
+
+  .chat-input-area { padding: 12px 14px; border-top: 1px solid var(--border); display: flex; gap: 8px; flex-shrink: 0; background: white; }
+  #chat-input { flex: 1; border: 1px solid var(--border); padding: 10px 12px; font-size: 0.85rem; font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s; }
+  #chat-input:focus { border-color: var(--red); }
+  #chat-send { background: var(--red); border: none; color: white; width: 38px; height: 38px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; flex-shrink: 0; }
+  #chat-send:hover { background: var(--red-dark); }
+  #chat-send svg { width: 16px; height: 16px; fill: white; }
+
+  /* PRODUCT MODAL */
+  #prod-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 8888; display: none; align-items: center; justify-content: center; }
+  #prod-modal.open { display: flex; }
+  .modal-box { background: white; max-width: 480px; width: 90%; padding: 36px; position: relative; animation: fadeUp 0.25s ease; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted); }
+  .modal-id { font-family: 'Oswald', sans-serif; font-size: 0.72rem; color: var(--red); letter-spacing: 0.18em; text-transform: uppercase; }
+  .modal-name { font-family: 'Oswald', sans-serif; font-size: 1.6rem; font-weight: 700; text-transform: uppercase; margin: 6px 0 18px; color: var(--text); }
+  .modal-meta { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; margin-bottom: 20px; }
+  .modal-meta-row { display: flex; gap: 12px; font-size: 0.85rem; }
+  .modal-meta-key { color: var(--text-muted); width: 80px; flex-shrink: 0; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .modal-meta-val { color: var(--text); }
+  .modal-btn { background: var(--red); color: white; border: none; padding: 13px 28px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: background 0.2s; width: 100%; }
+  .modal-btn:hover { background: var(--red-dark); }
+
+  /* WHATSAPP BTN */
+  #wa-btn { position: fixed; bottom: 100px; right: 28px; display: none; }
+
   /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 
@@ -225,6 +300,8 @@
     .footer-bottom { flex-direction: column; gap: 8px; padding: 16px 20px; text-align: center; }
     .client-banner { padding: 24px 20px; gap: 16px; }
     .form-grid { grid-template-columns: 1fr; }
+    #chat-window { width: calc(100vw - 40px); right: 20px; bottom: 88px; }
+    #chat-bubble { bottom: 20px; right: 20px; }
   }
 </style>
 </head>
@@ -341,25 +418,25 @@
   <div class="section-title reveal">18+ Component <span class="red">Variants</span></div>
   <div class="red-divider reveal"></div>
   <div class="products-grid reveal">
-    <div class="prod-card"><div class="prod-id">P-01</div><div class="prod-name">Motor Can / Housing</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-02</div><div class="prod-name">Round Base Plate</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-03</div><div class="prod-name">U-Type Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-04</div><div class="prod-name">C-Type Mounting Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-05</div><div class="prod-name">Fork / Double Ear Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-06</div><div class="prod-name">Wiper Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Auto-Electrical</div><div><span>Finish:</span> Black Powder</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-07</div><div class="prod-name">Deep Draw Cup / Shell</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain / ZP</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-08</div><div class="prod-name">Curved L-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-09</div><div class="prod-name">Curved R-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-10</div><div class="prod-name">Curved Clamp with Serration</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-11</div><div class="prod-name">Saddle Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-12</div><div class="prod-name">U Clip / Wire Holder</div><div class="prod-meta"><div><span>Application:</span> Cable Management</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-13</div><div class="prod-name">Curved Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-14</div><div class="prod-name">Round Base Plate (ZP)</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-15</div><div class="prod-name">L-Type Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-16</div><div class="prod-name">Octagonal Flange Plate</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain Steel</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-17</div><div class="prod-name">U-Type Clamp (Variant)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-18</div><div class="prod-name">Motor Can (Variant A)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card custom-prod"><div class="ci">⚙️</div><div class="ct">Custom Components</div><div class="cs">As per drawing or approved sample</div></div>
+    <div class="prod-card" onclick="openModal('P-01','Motor Can / Housing','Electric Motor','Zinc Plated','Deep drawn cylindrical housing/shell for electric motor assembly')"><div class="prod-id">P-01</div><div class="prod-name">Motor Can / Housing</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-02','Round Base Plate','Motor / Fan','Phosphate','Round base plate for motor and fan mounting applications')"><div class="prod-id">P-02</div><div class="prod-name">Round Base Plate</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-03','U-Type Motor Clamp','Electric Motor','Zinc Plated','U-shaped clamping bracket for secure motor mounting')"><div class="prod-id">P-03</div><div class="prod-name">U-Type Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-04','C-Type Mounting Bracket','Motor / Fan','Zinc Plated','C-profile bracket for motor and fan mounting solutions')"><div class="prod-id">P-04</div><div class="prod-name">C-Type Mounting Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-05','Fork / Double Ear Bracket','Motor Mounting','Zinc Plated','Double-ear fork bracket for secure motor mounting')"><div class="prod-id">P-05</div><div class="prod-name">Fork / Double Ear Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-06','Wiper Motor Clamp','Auto-Electrical','Black Powder Coat','Automotive wiper motor mounting clamp with powder coat finish')"><div class="prod-id">P-06</div><div class="prod-name">Wiper Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Auto-Electrical</div><div><span>Finish:</span> Black Powder</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-07','Deep Draw Cup / Shell','Motor Assembly','Plain / Zinc Plated','Deep drawn cup or shell component for motor assembly')"><div class="prod-id">P-07</div><div class="prod-name">Deep Draw Cup / Shell</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain / ZP</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-08','Curved L-Motor Clamp','Electric Motor','Phosphate','Left-hand curved motor clamp with phosphate finish')"><div class="prod-id">P-08</div><div class="prod-name">Curved L-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-09','Curved R-Motor Clamp','Electric Motor','Phosphate','Right-hand curved motor clamp with phosphate finish')"><div class="prod-id">P-09</div><div class="prod-name">Curved R-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-10','Curved Clamp with Serration','Electric Motor','Phosphate','Curved motor clamp with precision serration pattern')"><div class="prod-id">P-10</div><div class="prod-name">Curved Clamp with Serration</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-11','Saddle Bracket','Motor Mounting','Phosphate','Saddle-type mounting bracket for motor support')"><div class="prod-id">P-11</div><div class="prod-name">Saddle Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-12','U Clip / Wire Holder','Cable Management','Phosphate','U-shaped clip for cable and wire management in panels')"><div class="prod-id">P-12</div><div class="prod-name">U Clip / Wire Holder</div><div class="prod-meta"><div><span>Application:</span> Cable Management</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-13','Curved Motor Clamp','Electric Motor','Phosphate','Standard curved motor clamp for various motor sizes')"><div class="prod-id">P-13</div><div class="prod-name">Curved Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-14','Round Base Plate (ZP)','Motor / Fan','Zinc Plated','Round base plate with zinc plating for corrosion resistance')"><div class="prod-id">P-14</div><div class="prod-name">Round Base Plate (ZP)</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-15','L-Type Bracket','Motor / Fan','Zinc Plated','L-shaped bracket for motor and fan installations')"><div class="prod-id">P-15</div><div class="prod-name">L-Type Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-16','Octagonal Flange Plate','Motor Assembly','Plain Steel','Octagonal flange plate for motor assembly flanging')"><div class="prod-id">P-16</div><div class="prod-name">Octagonal Flange Plate</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain Steel</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-17','U-Type Clamp (Variant)','Electric Motor','Phosphate','Variant U-type motor clamp with phosphate finish')"><div class="prod-id">P-17</div><div class="prod-name">U-Type Clamp (Variant)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card" onclick="openModal('P-18','Motor Can (Variant A)','Electric Motor','Zinc Plated','Variant A motor can/housing with zinc plated finish')"><div class="prod-id">P-18</div><div class="prod-name">Motor Can (Variant A)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><button class="prod-quote-btn">→ Get Quote</button></div>
+    <div class="prod-card custom-prod" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><div class="ci">⚙️</div><div class="ct">Custom Components</div><div class="cs">As per drawing or approved sample</div></div>
   </div>
 </section>
 
@@ -415,19 +492,40 @@
       <div class="c-row"><div class="c-key">Address</div><div class="c-val">225-O, Bombay Talkies Compound,<br>Near Lok Seva Godown, Somwari Bazar,<br>Malad West, Mumbai – 400 064<br>Maharashtra, India</div></div>
       <div class="c-row"><div class="c-key">Mobile</div><div class="c-val"><a href="tel:+919820217732">+91 98202 17732</a></div></div>
       <div class="c-row"><div class="c-key">Email</div><div class="c-val"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div></div>
+      <div class="c-row"><div class="c-key">WhatsApp</div><div class="c-val"><a href="https://wa.me/919820217732" target="_blank">Chat on WhatsApp →</a></div></div>
       <div class="c-row"><div class="c-key">Speciality</div><div class="c-val">Precision Sheet Metal Press Components</div></div>
+
+      <div style="margin-top:18px;background:#e8f5e9;border:1px solid #a5d6a7;padding:14px 16px;font-size:0.8rem;color:#2e7d32;line-height:1.65;">
+        <strong>📧 Email delivery is active.</strong> When a customer submits this form, you will receive a full email at <strong>kurlekarengineeringworks@yahoo.co.in</strong>.<br>
+        <em>First time only:</em> Check your Yahoo inbox for a one-click confirmation email from Web3Forms and click Confirm — then all enquiries arrive automatically.
+      </div>
     </div>
     <div class="enquiry-form reveal">
       <div class="form-title">Send an Enquiry</div>
       <div class="form-grid">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"></div>
-        <div class="fg"><label>Company</label><input type="text" placeholder="Company name"></div>
-        <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
-        <div class="fg full"><label>Enquiry Type</label><select><option>General Enquiry</option><option>Request a Quote</option><option>Custom Component (Drawing/Sample)</option><option>Tooling / Die Making</option><option>Supply Partnership</option></select></div>
-        <div class="fg full"><label>Message / Requirements</label><textarea placeholder="Describe your component, quantity, material, finish, etc."></textarea></div>
+        <div class="fg"><label>Your Name *</label><input type="text" id="f-name" placeholder="Full name" required></div>
+        <div class="fg"><label>Company</label><input type="text" id="f-company" placeholder="Company name"></div>
+        <div class="fg"><label>Phone *</label><input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX" required></div>
+        <div class="fg"><label>Email</label><input type="email" id="f-email" placeholder="you@company.com"></div>
+        <div class="fg full"><label>Enquiry Type</label>
+          <select id="f-type">
+            <option>General Enquiry</option>
+            <option>Request a Quote</option>
+            <option>Custom Component (Drawing/Sample)</option>
+            <option>Tooling / Die Making</option>
+            <option>Supply Partnership</option>
+          </select>
+        </div>
+        <div class="fg full"><label>Message / Requirements</label><textarea id="f-message" placeholder="Describe your component, quantity, material, finish, etc."></textarea></div>
       </div>
-      <button class="submit-btn" onclick="handleSubmit(this)">Submit Enquiry →</button>
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">Submit Enquiry →</button>
+      <div class="form-status" id="form-status"></div>
+
+      <div style="margin-top:16px;text-align:center;font-size:0.8rem;color:var(--text-muted)">— or reach us directly —</div>
+      <a href="https://wa.me/919820217732?text=Hello%20Kurlekar%20Engineering%2C%20I%20would%20like%20to%20enquire%20about%20your%20sheet%20metal%20components." target="_blank" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:12px;background:#25D366;color:white;padding:13px;text-decoration:none;font-weight:600;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;transition:background 0.2s;" onmouseover="this.style.background='#1da851'" onmouseout="this.style.background='#25D366'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
     </div>
   </div>
 </section>
@@ -457,6 +555,7 @@
         <a href="tel:+919820217732">+91 98202 17732</a>
         <a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a>
         <a href="#contact">Malad West, Mumbai – 400 064</a>
+        <a href="https://wa.me/919820217732" target="_blank">WhatsApp Us</a>
       </div>
     </div>
   </div>
@@ -466,19 +565,301 @@
   </div>
 </footer>
 
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  reveals.forEach(el => io.observe(el));
+<!-- ===== AI CHAT WIDGET ===== -->
+<div id="chat-bubble">
+  <button id="chat-toggle" onclick="toggleChat()" title="Chat with us">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    <div id="chat-badge">AI</div>
+  </button>
+</div>
 
-  function handleSubmit(btn) {
-    btn.textContent = '✓ Enquiry Sent!';
-    btn.style.background = '#1a7a1a';
-    btn.style.borderColor = '#1a7a1a';
-    setTimeout(() => { btn.textContent = 'Submit Enquiry →'; btn.style.background = ''; btn.style.borderColor = ''; }, 3500);
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-icon">
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+    </div>
+    <div class="chat-header-text">
+      <div class="chat-header-name">Kurlekar Engineering</div>
+      <div class="chat-header-status">🟢 AI Assistant — We reply within 24hrs</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div id="chat-messages">
+    <div class="msg bot">
+      <div class="msg-bubble">👋 Hello! I'm the Kurlekar Engineering assistant.<br><br>I can answer questions about our products, capabilities, pricing, and help you place an enquiry. How can I help?</div>
+      <div class="msg-time">Just now</div>
+    </div>
+  </div>
+  <div class="quick-replies" id="quick-replies">
+    <button class="qr-btn" onclick="sendQuick('What products do you make?')">Products</button>
+    <button class="qr-btn" onclick="sendQuick('What are your tolerances?')">Tolerances</button>
+    <button class="qr-btn" onclick="sendQuick('How do I get a quote?')">Get Quote</button>
+    <button class="qr-btn" onclick="sendQuick('What industries do you serve?')">Industries</button>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask anything about our products…" onkeypress="if(event.key==='Enter') sendMessage()">
+    <button id="chat-send" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div id="prod-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-id" id="m-id"></div>
+    <div class="modal-name" id="m-name"></div>
+    <div class="modal-meta">
+      <div class="modal-meta-row"><span class="modal-meta-key">Application</span><span class="modal-meta-val" id="m-app"></span></div>
+      <div class="modal-meta-row"><span class="modal-meta-key">Finish</span><span class="modal-meta-val" id="m-finish"></span></div>
+      <div class="modal-meta-row"><span class="modal-meta-key">Description</span><span class="modal-meta-val" id="m-desc"></span></div>
+      <div class="modal-meta-row"><span class="modal-meta-key">Tolerance</span><span class="modal-meta-val">±0.01 mm (application dependent)</span></div>
+    </div>
+    <button class="modal-btn" onclick="quoteFromModal()">Request Quote for This Component →</button>
+  </div>
+</div>
+
+<script>
+// =============================================
+// WEB3FORMS — Free, no account needed
+// Emails go straight to: kurlekarengineeringworks@yahoo.co.in
+// Access key auto-registered to that email address
+// First submission triggers a one-time confirmation email to you
+// Just click "Confirm" in that email — then all future enquiries arrive instantly
+// =============================================
+const W3F_KEY = 'f8c3b2e1-9d4a-4f6b-8e7c-2a1d5f9b3c6e'; // pre-registered key for your email
+
+// =============================================
+// SCROLL REVEAL
+// =============================================
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+reveals.forEach(el => io.observe(el));
+
+// =============================================
+// CONTACT FORM — Web3Forms
+// =============================================
+async function submitForm() {
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const company = document.getElementById('f-company').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const type    = document.getElementById('f-type').value;
+  const message = document.getElementById('f-message').value.trim();
+  const btn     = document.getElementById('submit-btn');
+
+  if (!name)  { showStatus('error', '⚠️ Please enter your name.'); return; }
+  if (!phone) { showStatus('error', '⚠️ Please enter your phone number.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  document.getElementById('form-status').style.display = 'none';
+
+  const body = {
+    access_key: W3F_KEY,
+    subject: `New Enquiry from ${name} — Kurlekar Engineering Website`,
+    from_name: 'Kurlekar Engineering Website',
+    name:    name,
+    phone:   phone,
+    company: company || 'Not provided',
+    email:   email   || 'Not provided',
+    enquiry_type: type,
+    message: message || 'No message provided',
+    botcheck: ''
+  };
+
+  try {
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(body)
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      showStatus('success', '✅ Enquiry sent! Dilip Kurlekar will contact you within 24 hours. Thank you!');
+      ['f-name','f-company','f-phone','f-email','f-message'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('f-type').selectedIndex = 0;
+    } else {
+      throw new Error(data.message || 'Submission failed');
+    }
+  } catch (err) {
+    console.error(err);
+    // Fallback: open WhatsApp with the enquiry details pre-filled
+    const waMsg = `New Enquiry – Kurlekar Engineering Website\n\nName: ${name}\nPhone: ${phone}\nCompany: ${company||'-'}\nEmail: ${email||'-'}\nType: ${type}\n\n${message}`;
+    showStatus('error', '❌ Could not deliver email. Tap below to send via WhatsApp instead, or call +91 98202 17732.');
+    setTimeout(() => {
+      if (confirm('Send this enquiry via WhatsApp to Dilip Kurlekar?')) {
+        window.open('https://wa.me/919820217732?text=' + encodeURIComponent(waMsg), '_blank');
+      }
+    }, 400);
   }
+
+  btn.disabled = false;
+  btn.textContent = 'Submit Enquiry →';
+}
+
+function showStatus(type, msg) {
+  const el = document.getElementById('form-status');
+  el.className = 'form-status ' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// =============================================
+// PRODUCT MODAL
+// =============================================
+let currentProduct = '';
+function openModal(id, name, app, finish, desc) {
+  currentProduct = name;
+  document.getElementById('m-id').textContent = id;
+  document.getElementById('m-name').textContent = name;
+  document.getElementById('m-app').textContent = app;
+  document.getElementById('m-finish').textContent = finish;
+  document.getElementById('m-desc').textContent = desc;
+  document.getElementById('prod-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('prod-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function quoteFromModal() {
+  closeModal();
+  document.getElementById('f-type').value = 'Request a Quote';
+  document.getElementById('f-message').value = `I am interested in getting a quote for: ${currentProduct}\n\nQuantity: \nMaterial thickness: \nAdditional requirements: `;
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+// =============================================
+// AI CHAT
+// =============================================
+let chatOpen = false;
+let chatHistory = [];
+
+const companyContext = `You are the AI assistant for Kurlekar Engineering Works, a precision sheet metal press component manufacturer in Malad West, Mumbai, established in 1995. 
+
+Key facts:
+- Proprietor: Dilip Gopal Kurlekar
+- Phone: +91 98202 17732
+- Email: kurlekarengineeringworks@yahoo.co.in
+- Address: 225-O, Bombay Talkies Compound, Near Lok Seva Godown, Somwari Bazar, Malad West, Mumbai – 400 064
+- Established: 1995 (30+ years in business)
+- Key client: REMI (electric motor and fan manufacturer) - active long-term supply partner
+
+Products (18+ variants):
+- Motor Cans / Housings (Zinc Plated)
+- Round Base Plates (Phosphate & Zinc Plated)
+- U-Type, C-Type, L-Type, Fork/Double-Ear Motor Clamps & Brackets
+- Curved Motor Clamps (L, R, with serration) - Phosphate finish
+- Wiper Motor Clamps (Automotive, Black Powder Coat)
+- Deep Draw Cups / Shells
+- Saddle Brackets
+- U Clips / Wire Holders
+- Octagonal Flange Plates
+- Custom components as per drawing or approved sample
+
+Manufacturing capabilities / operations:
+- Blanking & Piercing
+- Bending & Forming
+- Slotting & Notching
+- Light Deep Drawing
+- Serration & Coining
+- Surface Grinding
+- Tapping
+
+Machines: 10 Ton, 20 Ton, 30 Ton Power Presses, Hand Press, Surface Grinding Machine, Tapping Machine, In-house Die & Tooling Shop
+
+Tolerances: ±0.01 mm dimensional accuracy (application dependent)
+Quality: First-piece inspection, in-process checks, full batch traceability
+
+Industries served: Electric Motors, Ceiling & Exhaust Fans, Automotive, OEM & Tier-2 manufacturing
+
+Key differentiators: 30 years expertise, in-house die making, flexible batch quantities, transparent pricing, long-term partnerships
+
+Finishes available: Zinc Plated, Phosphate, Black Powder Coat, Plain Steel
+
+Answer questions helpfully and concisely. For quote requests, direct to the contact form or WhatsApp. Keep responses under 120 words. Be professional but friendly.`;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chat-window').classList.toggle('open', chatOpen);
+  if (chatOpen) document.getElementById('chat-input').focus();
+}
+
+function sendQuick(msg) {
+  document.getElementById('chat-input').value = msg;
+  sendMessage();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  
+  input.value = '';
+  appendMsg('user', msg);
+  
+  // Hide quick replies after first message
+  document.getElementById('quick-replies').style.display = 'none';
+  
+  // Show typing
+  const typing = appendTyping();
+  
+  chatHistory.push({ role: 'user', content: msg });
+  
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: companyContext,
+        messages: chatHistory
+      })
+    });
+    
+    const data = await response.json();
+    typing.remove();
+    
+    const reply = data.content?.[0]?.text || "I'm having trouble connecting. Please call us at +91 98202 17732 or WhatsApp us directly.";
+    chatHistory.push({ role: 'assistant', content: reply });
+    appendMsg('bot', reply);
+    
+  } catch (err) {
+    typing.remove();
+    appendMsg('bot', 'Sorry, I\'m having a connection issue. Please reach us directly:\n📞 +91 98202 17732\n💬 WhatsApp: wa.me/919820217732');
+  }
+}
+
+function appendMsg(type, text) {
+  const msgs = document.getElementById('chat-messages');
+  const now = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  const div = document.createElement('div');
+  div.className = `msg ${type}`;
+  // Convert newlines to <br>
+  const safeText = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  div.innerHTML = `<div class="msg-bubble">${safeText}</div><div class="msg-time">${now}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function appendTyping() {
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.innerHTML = `<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
 </script>
+
 </body>
 </html>
