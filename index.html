@@ -1,161 +1,484 @@
+# Kurlekar Engineering — Premium AI Website HTML
 
-    function updateLeadBrief() {
-      const data = buildLead();
-      leadBrief.textContent = data.brief;
-      leadScore.textContent = data.score;
-      scoreRing.style.setProperty("--score", data.score);
-      leadGrade.dataset.grade = data.grade;
-      if (document.body.classList.contains("owner-mode")) {
-        leadGrade.title = data.grade + " (" + data.score + "/100)";
-      } else {
-        leadGrade.removeAttribute("title");
-      }
-      leadGrade.classList.toggle("hot", data.score >= 58);
-      return data;
+Save this as `index.html` and open it in your browser.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kurlekar Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      window.setTimeout(() => toast.classList.remove("show"), 2200);
+    body {
+      background: #050505;
+      color: white;
+      overflow-x: hidden;
     }
 
-    async function copyText(text, successMessage) {
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (error) {
-        const fallback = document.createElement("textarea");
-        fallback.value = text;
-        fallback.setAttribute("readonly", "");
-        fallback.style.position = "fixed";
-        fallback.style.left = "-9999px";
-        document.body.appendChild(fallback);
-        fallback.select();
-        document.execCommand("copy");
-        fallback.remove();
-      }
-      showToast(successMessage);
+    body::before {
+      content: '';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(255,0,0,0.25), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 25%);
+      z-index: -1;
     }
 
-    function encodedLeadMessage(prefix) {
-      const data = updateLeadBrief();
-      return encodeURIComponent((prefix || "") + data.brief);
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 999;
     }
 
-    leadFields.forEach((field) => field.addEventListener("input", updateLeadBrief));
-    leadFields.forEach((field) => field.addEventListener("change", updateLeadBrief));
-    updateLeadBrief();
-
-    document.getElementById("send-whatsapp").addEventListener("click", () => {
-      window.open("https://wa.me/" + OWNER_PHONE + "?text=" + encodedLeadMessage("Important website lead:\n\n"), "_blank", "noopener");
-    });
-
-    document.getElementById("send-email").addEventListener("click", () => {
-      const subject = encodeURIComponent("Website RFQ Lead - Kurlekar Engineering Works");
-      window.location.href = "mailto:" + OWNER_EMAIL + "?subject=" + subject + "&body=" + encodedLeadMessage("");
-    });
-
-    document.getElementById("copy-brief").addEventListener("click", async () => {
-      const data = updateLeadBrief();
-      await copyText(data.brief, "RFQ brief copied");
-    });
-
-    const marketingCopy = document.getElementById("marketing-copy");
-
-    function marketingTemplate() {
-      const audience = document.getElementById("market-audience").value;
-      const format = document.getElementById("market-format").value;
-      const base = "Kurlekar Engineering Works, Mumbai, has manufactured precision sheet metal press components since 1995. We support motor cans, base plates, clamps, brackets, deep draw cups, wire holders and custom press parts with in-house tooling support.";
-      if (format === "Cold email") {
-        return "Subject: Reliable press components supplier from Mumbai\n\nHello,\n\n" + base + "\n\nIf your team needs repeatable press parts for " + audience + " requirements, please share drawing/sample details, material, thickness, finish, quantity and delivery country. We will review feasibility and respond with the next RFQ step.\n\nRegards,\nKurlekar Engineering Works\nWhatsApp: +91 98202 17732\nEmail: " + OWNER_EMAIL;
-      }
-      if (format === "LinkedIn post") {
-        return "Precision press components are not just about making a part. They are about repeatability, tool condition, fitment and clear buyer communication.\n\n" + base + "\n\nWe are open to RFQs from electric motor, fan, automotive, OEM and Tier-2 manufacturing teams. Send drawing/sample details to start a clear sourcing conversation.\n\nContact: +91 98202 17732";
-      }
-      if (format === "30 second reel script") {
-        return "Reel Script - 30 seconds\n\n0-4 sec: Show rotating metal press component animation. Text: Precision press components since 1995.\n\n5-12 sec: Show motor clamps, base plates, cups and brackets. Voice: Kurlekar Engineering Works manufactures sheet metal press parts for motors, fans, automotive and OEM buyers.\n\n13-22 sec: Show press/tooling/inspection visuals. Voice: Share your drawing, sample, material, finish and quantity. Our project desk prepares the RFQ brief.\n\n23-30 sec: Show WhatsApp CTA. Text: Send your requirement to Dilip Kurlekar, +91 98202 17732.";
-      }
-      return "Hello, this is Kurlekar Engineering Works, Mumbai.\n\n" + base + "\n\nFor a quick quote, please send:\n1. Drawing or sample photo\n2. Material and thickness\n3. Finish requirement\n4. Quantity and delivery country\n5. Company name and contact person\n\nWhatsApp: +91 98202 17732";
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ff1e1e;
+      letter-spacing: 1px;
     }
 
-    function updateMarketing() {
-      marketingCopy.value = marketingTemplate();
-      const text = encodeURIComponent("Marketing message/reel for review:\n\n" + marketingCopy.value);
-      document.getElementById("share-marketing").href = "https://wa.me/" + OWNER_PHONE + "?text=" + text;
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 30px;
+      transition: 0.3s;
+      font-weight: 500;
     }
 
-    document.getElementById("generate-copy").addEventListener("click", updateMarketing);
-    document.getElementById("market-audience").addEventListener("change", updateMarketing);
-    document.getElementById("market-format").addEventListener("change", updateMarketing);
-    document.getElementById("copy-marketing").addEventListener("click", async () => {
-      await copyText(marketingCopy.value, "Marketing copy copied");
-    });
-    updateMarketing();
+    nav a:hover {
+      color: #ff2e2e;
+    }
 
-    const chatWindow = document.getElementById("chat-window");
-    const chatLog = document.getElementById("chat-log");
-    const chatInput = document.getElementById("chat-input");
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 8% 80px;
+      position: relative;
+    }
 
-    function openChat() {
-      chatWindow.classList.add("open");
-      chatInput.focus();
-      if (!chatLog.dataset.started) {
-        appendMessage("bot", "Hello. I can help with press component RFQs, product fit, export enquiries and the details needed before Dilip Kurlekar reviews your requirement.");
-        chatLog.dataset.started = "true";
+    .hero-content {
+      max-width: 900px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .hero h1 {
+      font-size: 70px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #ffffff, #ff2b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #d9d9d9;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 35px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: 0.4s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #ff1a1a, #ff5c5c);
+      color: white;
+      box-shadow: 0 0 30px rgba(255,0,0,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 0 45px rgba(255,0,0,0.8);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: black;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,0,0,0.12);
+      animation: float 6s infinite ease-in-out;
+      filter: blur(5px);
+    }
+
+    .circle1 {
+      width: 240px;
+      height: 240px;
+      top: 12%;
+      left: 5%;
+    }
+
+    .circle2 {
+      width: 180px;
+      height: 180px;
+      bottom: 12%;
+      right: 8%;
+      animation-delay: 2s;
+    }
+
+    section {
+      padding: 100px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 46px;
+      color: #ff2b2b;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #bcbcbc;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      padding: 35px;
+      transition: 0.5s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotateX(3deg);
+      border-color: rgba(255,0,0,0.5);
+      box-shadow: 0 20px 50px rgba(255,0,0,0.2);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 18px;
+      color: white;
+    }
+
+    .card p {
+      color: #d0d0d0;
+      line-height: 1.8;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-box {
+      background: rgba(255,255,255,0.04);
+      padding: 40px;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .about-box h3 {
+      font-size: 30px;
+      color: #ff2b2b;
+      margin-bottom: 20px;
+    }
+
+    .about-box p {
+      line-height: 1.9;
+      color: #d4d4d4;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    form {
+      background: rgba(255,255,255,0.04);
+      border-radius: 25px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 15px;
+    }
+
+    form textarea {
+      height: 140px;
+      resize: none;
+    }
+
+    form button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #ff1a1a, #ff5757);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    form button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(255,0,0,0.5);
+    }
+
+    .contact-info h3 {
+      font-size: 38px;
+      margin-bottom: 20px;
+      color: #ff2b2b;
+    }
+
+    .contact-info p {
+      margin-bottom: 18px;
+      color: #d4d4d4;
+      line-height: 1.8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #b5b5b5;
+      background: rgba(0,0,0,0.5);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-25px);
+      }
+      100% {
+        transform: translateY(0px);
       }
     }
 
-    function closeChat() {
-      chatWindow.classList.remove("open");
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
     }
 
-    function appendMessage(type, text) {
-      const msg = document.createElement("div");
-      msg.className = "msg " + (type === "user" ? "user" : "bot");
-      msg.textContent = text;
-      chatLog.appendChild(msg);
-      chatLog.scrollTop = chatLog.scrollHeight;
+    @media(max-width: 768px) {
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .section-title h2 {
+        font-size: 34px;
+      }
     }
+  </style>
+</head>
 
-    function botReply(text) {
-      const q = text.toLowerCase();
-      if (/quote|rfq|price|cost|rate/.test(q)) {
-        return "For a quote, please share drawing/sample photo, material grade, thickness, finish, quantity, delivery country and your company details. Use the RFQ desk on this page, then send the brief to WhatsApp +91 98202 17732.";
-      }
-      if (/export|outside|global|country|ship/.test(q)) {
-        return "International enquiries are welcome. Share destination country, quantity, finish and packaging needs. The owner will confirm feasibility, documentation and shipment coordination after reviewing the RFQ.";
-      }
-      if (/motor|clamp|bracket|plate|cup|shell|wire|holder|product/.test(q)) {
-        return "Relevant products include motor cans/housings, round base plates, U/C/L/fork-type motor clamps, wiper motor clamps, deep draw cups, saddle brackets, U clips, wire holders and custom parts to drawing/sample.";
-      }
-      if (/machine|press|tool|die|operation|capacity/.test(q)) {
-        return "Capabilities include 10T, 20T and 30T power presses, hand press, surface grinder, tapping machine and in-house die/tooling support. Operations include blanking, piercing, bending, forming, slotting, notching and light deep drawing.";
-      }
-      if (/contact|phone|email|address|reach|owner/.test(q)) {
-        return "Contact Dilip Gopal Kurlekar at +91 98202 17732 or " + OWNER_EMAIL + ". Address: " + COMPANY_FACTS.address + ".";
-      }
-      return "I can help qualify the enquiry. Please tell me the component, material, thickness, finish, quantity, drawing/sample availability and destination country. I will turn it into a clean RFQ message.";
-    }
+<body>
 
-    document.querySelectorAll("[data-open-chat]").forEach((button) => button.addEventListener("click", openChat));
-    document.querySelector("[data-close-chat]").addEventListener("click", closeChat);
-    document.querySelectorAll("[data-prompt]").forEach((button) => {
-      button.addEventListener("click", () => {
-        openChat();
-        const text = button.dataset.prompt;
-        appendMessage("user", text);
-        window.setTimeout(() => appendMessage("bot", botReply(text)), 180);
-      });
-    });
+  <header>
+    <div class="logo">KURLEKAR ENGINEERING</div>
 
-    document.getElementById("chat-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const text = chatInput.value.trim();
-      if (!text) return;
-      chatInput.value = "";
-      appendMessage("user", text);
-      window.setTimeout(() => appendMessage("bot", botReply(text)), 220);
-    });
-  </script>
-</body>
-</html>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+
+    <div class="floating-circle circle1"></div>
+    <div class="floating-circle circle2"></div>
+
+    <div class="hero-content">
+      <h1>Premium Engineering Solutions Powered By AI</h1>
+
+      <p>
+        We supply all top OEM engineering products with precision manufacturing,
+        AI-powered automation, premium industrial solutions, and next-generation engineering excellence.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Get Quote</a>
+        <a href="#services" class="btn btn-secondary">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+
+    <div class="section-title">
+      <h2>Our Services</h2>
+      <p>
+        Advanced manufacturing and engineering systems designed for industrial excellence.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>OEM Supply Solutions</h3>
+        <p>
+          We supply all top OEM engineering and industrial components with premium quality and reliability.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>AI Automation</h3>
+        <p>
+          Smart AI-driven workflows, automated systems, and intelligent engineering operations.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Precision Manufacturing</h3>
+        <p>
+          High-accuracy fabrication, sheet metal solutions, and industrial-grade production systems.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Industrial Innovation</h3>
+        <p>
+          Premium futuristic engineering built with performance, design, and efficiency in mind.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about">
+
+    <div class="section-title">
+      <h2>About Us</h2>
+      <p>
+        Engineering the future with AI, innovation, and industrial excellence.
+      </p>
+    </div>
+
+    <div class="about">
+
+      <div class="about-box">
+        <h3>Who We Are</h3>
+        <p>
+          Kurlekar Engineering is a premium industrial and engineering company focused on high-performance manufacturing, OEM solutions, and AI-powered operations.
+          We combine technology, precision, and futuristic systems to deliver elite-level industrial solutions.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <h3>Why Choose Us</h3>
+        <p>
+          Premium quality, intelligent automation, precision manufacturing, scalable production systems, and a future-ready engineering vision make us different from ordinary suppliers.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>
+        Reach out for quotations, industrial projects, OEM supplies, or engineering partnerships.
+      </p>
+    </div>
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+        <h3>Let's Build The Future</h3>
+
+        <p>Email: yourmail@example.com</p>
+        <p>Phone: +91 XXXXX XXXXX</p>
+        <p>Mumbai, India</p>
+
+        <p>
+          All chats, emails, and enquiries are directly handled through premium AI-integrated systems.
+        </p>
+      </div>
+
+      <form onsubmit="sendMessage(e
+```
