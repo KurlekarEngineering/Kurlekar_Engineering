@@ -1,517 +1,1306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kurlekar Engineering</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kurlekar Engineering Works — Precision Press Components Since 1995</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+  --red:#CC0000;
+  --red2:#FF1A1A;
+  --red3:#990000;
+  --white:#FFFFFF;
+  --offwhite:#F5F0F0;
+  --light:#EDE8E8;
+  --dark:#0D0000;
+  --darkr:#1A0000;
+  --gray:#8A8A8A;
+  --mono:'Share Tech Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-snap-type:y mandatory;overflow-y:scroll;scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:'Rajdhani',sans-serif;cursor:none;overflow-x:hidden;}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--red);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+#cur2{position:fixed;width:28px;height:28px;border:1px solid rgba(204,0,0,.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+#cur3{position:fixed;width:2px;height:2px;background:rgba(204,0,0,.3);border-radius:50%;pointer-events:none;z-index:99997;transform:translate(-50%,-50%);}
 
-    body {
-      background: #050505;
-      color: white;
-      overflow-x: hidden;
-    }
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:9000;padding:0 60px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(204,0,0,.15);}
+#nav::before{content:'';position:absolute;inset:0;background:rgba(13,0,0,.92);backdrop-filter:blur(12px);}
+.nav-inner{position:relative;z-index:1;display:contents;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.14em;color:var(--white);text-decoration:none;position:relative;}
+.nav-logo .logo-red{color:var(--red);}
+.nav-logo::after{content:'EST. 1995';position:absolute;bottom:-8px;left:0;font-family:var(--mono);font-size:.45rem;letter-spacing:.3em;color:rgba(204,0,0,.6);}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;padding:22px 18px;display:block;border-bottom:2px solid transparent;transition:all .2s;position:relative;}
+.nav-links a:hover{color:var(--red);border-bottom-color:var(--red);}
+.nav-cta{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dark);background:var(--red);padding:10px 24px;text-decoration:none;transition:background .2s;position:relative;}
+.nav-cta:hover{background:var(--red2);}
 
-    body::before {
-      content: '';
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background:
-        radial-gradient(circle at top left, rgba(255,0,0,0.25), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(255,255,255,0.08), transparent 25%);
-      z-index: -1;
-    }
+/* SLIDE SYSTEM */
+.slide{position:relative;width:100%;height:100vh;scroll-snap-align:start;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 18px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      z-index: 999;
-    }
+/* ═══════════════════════════════════
+   SLIDE 1 — HERO: Blueprint Grid + 4D Rotating Wireframe
+═══════════════════════════════════ */
+#s1{background:var(--white);}
+#s1-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s1-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.7) 40%,rgba(255,26,26,.04) 100%);pointer-events:none;}
+/* blueprint grid */
+.blueprint-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(204,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(204,0,0,.06) 1px,transparent 1px),linear-gradient(rgba(204,0,0,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(204,0,0,.03) 1px,transparent 1px);background-size:80px 80px,80px 80px,20px 20px,20px 20px;animation:gridShift 20s linear infinite;}
+@keyframes gridShift{0%{background-position:0 0,0 0,0 0,0 0;}100%{background-position:80px 80px,80px 80px,20px 20px,20px 20px;}}
+.s1-content{position:relative;z-index:3;padding:0 60px;max-width:1200px;width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;}
+.s1-text{}
+.s1-tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;animation:slideInLeft .8s .2s both;}
+.s1-tag::before{content:'';width:30px;height:1px;background:var(--red);}
+.s1-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,9rem);line-height:.88;text-transform:uppercase;color:var(--dark);animation:slideInLeft .9s .4s both;}
+.s1-h1 .r{color:var(--red);display:block;}
+.s1-h1 .s{display:block;font-size:.3em;font-family:'Rajdhani',sans-serif;font-weight:300;letter-spacing:.25em;color:var(--gray);margin-top:6px;}
+.s1-desc{font-size:1rem;color:rgba(13,0,0,.55);line-height:1.8;max-width:420px;margin:24px 0;font-weight:400;animation:slideInLeft .8s .6s both;}
+.s1-btns{display:flex;gap:12px;animation:slideInLeft .8s .8s both;}
+.btn-red{background:var(--red);color:var(--white);border:none;padding:14px 32px;font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btn-red:hover{background:var(--red2);}
+.btn-outline-dark{background:transparent;color:var(--dark);border:1px solid rgba(13,0,0,.25);padding:14px 32px;font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .22s;}
+.btn-outline-dark:hover{border-color:var(--red);color:var(--red);}
+.s1-stats{display:flex;gap:0;margin-top:36px;border-top:1px solid rgba(204,0,0,.15);padding-top:26px;animation:slideInLeft .8s 1s both;}
+.s1-stat{flex:1;border-right:1px solid rgba(204,0,0,.12);}
+.s1-stat:last-child{border-right:none;padding-left:20px;}
+.s1-stat:first-child{padding-right:20px;}
+.s1-stat:not(:first-child):not(:last-child){padding:0 20px;}
+.s1-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--red);line-height:1;}
+.s1-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--gray);text-transform:uppercase;margin-top:3px;}
+.s1-canvas-wrap{position:relative;animation:fadeScaleIn 1.2s .5s both;}
+#s1-comp-canvas{width:100%;height:420px;display:block;}
 
-    .logo {
-      font-size: 28px;
-      font-weight: 800;
-      color: #ff1e1e;
-      letter-spacing: 1px;
-    }
+/* ═══════════════════════════════════
+   SLIDE 2 — ABOUT: Industrial Reveal + Stamping Animation
+═══════════════════════════════════ */
+#s2{background:var(--red);}
+#s2-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s2-noise{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px;}
+.s2-content{position:relative;z-index:3;padding:0 60px;max-width:1200px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.s2-left{}
+.s2-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:14px;}
+.s2-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,7vw,8rem);line-height:.88;color:var(--white);text-transform:uppercase;}
+.s2-title .outline{-webkit-text-stroke:2px rgba(255,255,255,.3);color:transparent;}
+.s2-body{font-size:1.02rem;color:rgba(255,255,255,.72);line-height:1.82;font-weight:400;margin-top:22px;}
+.s2-highlight{background:rgba(255,255,255,.1);border-left:4px solid rgba(255,255,255,.4);padding:16px 20px;margin:20px 0;font-size:.98rem;color:var(--white);line-height:1.7;backdrop-filter:blur(4px);}
+.s2-right{display:flex;flex-direction:column;gap:12px;}
+.press-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:18px 20px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(4px);position:relative;overflow:hidden;transition:all .28s;cursor:default;}
+.press-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(255,255,255,.3);transform:scaleY(0);transition:transform .28s;}
+.press-card:hover{background:rgba(255,255,255,.14);transform:translateX(6px);}
+.press-card:hover::before{transform:scaleY(1);}
+.pc-ton{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--white);min-width:60px;line-height:1;}
+.pc-line{width:1px;height:30px;background:rgba(255,255,255,.2);}
+.pc-info{}
+.pc-name{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:600;color:var(--white);letter-spacing:.06em;}
+.pc-desc{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-top:2px;}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 30px;
-      transition: 0.3s;
-      font-weight: 500;
-    }
+/* ═══════════════════════════════════
+   SLIDE 3 — OPERATIONS: Circuit Board Animation
+═══════════════════════════════════ */
+#s3{background:var(--white);}
+#s3-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.circuit-overlay{position:absolute;inset:0;background:rgba(255,255,255,.88);}
+.s3-content{position:relative;z-index:3;padding:0 60px;width:100%;max-width:1200px;}
+.s3-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.s3-label::before{content:'';width:24px;height:1px;background:var(--red);}
+.s3-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);line-height:.88;color:var(--dark);text-transform:uppercase;margin-bottom:52px;}
+.s3-title .ac{color:var(--red);}
+.ops-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;}
+.op-tile{background:var(--dark);padding:32px 20px;position:relative;overflow:hidden;cursor:default;transition:all .3s;}
+.op-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--red),var(--red3));opacity:0;transition:opacity .3s;}
+.op-tile:hover{transform:translateY(-4px);}
+.op-tile:hover::before{opacity:1;}
+.op-tile-inner{position:relative;z-index:1;}
+.op-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:rgba(255,255,255,.2);margin-bottom:10px;transition:color .3s;}
+.op-tile:hover .op-num{color:rgba(255,255,255,.5);}
+.op-icon-svg{width:36px;height:36px;margin-bottom:14px;opacity:.6;transition:opacity .3s;}
+.op-tile:hover .op-icon-svg{opacity:1;}
+.op-name{font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.op-desc{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.4);line-height:1.6;transition:color .3s;}
+.op-tile:hover .op-desc{color:rgba(255,255,255,.7);}
+/* Stamping press animation on op tiles */
+.op-press-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red2);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.op-tile:hover .op-press-line{transform:scaleX(1);}
 
-    nav a:hover {
-      color: #ff2e2e;
-    }
+/* ═══════════════════════════════════
+   SLIDE 4 — PRODUCTS: CNC Machining Visual
+═══════════════════════════════════ */
+#s4{background:var(--dark);}
+#s4-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s4-content{position:relative;z-index:3;padding:0 60px;width:100%;max-width:1400px;}
+.s4-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;}
+.s4-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.s4-label::before{content:'';width:24px;height:1px;background:var(--red);}
+.s4-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);line-height:.88;color:var(--white);text-transform:uppercase;}
+.s4-title .ac{color:var(--red);}
+.s4-count{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(204,0,0,.12);line-height:1;padding-bottom:4px;}
+.products-hex{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:2px;}
+.phex{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:18px 16px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+.phex::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--red),var(--red3));opacity:0;transition:opacity .25s;}
+.phex:hover::after{opacity:1;}
+.phex:hover{transform:scale(1.02);}
+.phex-inner{position:relative;z-index:1;}
+.phex-id{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--red);margin-bottom:6px;transition:color .25s;}
+.phex:hover .phex-id{color:rgba(255,255,255,.7);}
+.phex-name{font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;text-transform:uppercase;color:var(--white);line-height:1.2;margin-bottom:8px;}
+.phex-meta{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.35);line-height:1.5;}
+.phex-meta span{color:rgba(255,255,255,.55);}
+.phex-arrow{position:absolute;bottom:12px;right:12px;font-size:.75rem;color:rgba(204,0,0,.4);transition:all .25s;z-index:2;}
+.phex:hover .phex-arrow{color:rgba(255,255,255,.6);transform:translate(2px,-2px);}
+.phex-custom{border:1px dashed rgba(204,0,0,.3);background:rgba(204,0,0,.03);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 16px;cursor:pointer;}
+.phex-custom:hover::after{opacity:.6;}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 8% 80px;
-      position: relative;
-    }
+/* ═══════════════════════════════════
+   SLIDE 5 — QUALITY: Engineering Gauge Animation
+═══════════════════════════════════ */
+#s5{background:var(--red);}
+#s5-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s5-content{position:relative;z-index:3;padding:0 60px;max-width:1200px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.s5-left{}
+.s5-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:14px;}
+.s5-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);line-height:.88;color:var(--white);text-transform:uppercase;}
+.s5-title .wh{-webkit-text-stroke:2px rgba(255,255,255,.35);color:transparent;}
+.gauge-row{display:flex;align-items:center;gap:14px;margin-top:20px;}
+.gauge-lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);width:140px;flex-shrink:0;}
+.gauge-track{flex:1;height:3px;background:rgba(255,255,255,.12);position:relative;overflow:hidden;}
+.gauge-fill{height:100%;background:var(--white);width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1);}
+.gauge-val{font-family:'Bebas Neue',sans-serif;font-size:.95rem;color:var(--white);width:60px;text-align:right;}
+.s5-right{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.qbox{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:28px 22px;backdrop-filter:blur(6px);transition:all .28s;cursor:default;position:relative;overflow:hidden;}
+.qbox::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.25);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.qbox:hover::before{transform:scaleX(1);}
+.qbox:hover{background:rgba(255,255,255,.14);}
+.qbox-icon{font-size:1.5rem;margin-bottom:12px;}
+.qbox-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--white);line-height:1;margin-bottom:5px;}
+.qbox-title{font-family:'Rajdhani',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--white);margin-bottom:7px;}
+.qbox-desc{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.45);line-height:1.65;}
 
-    .hero-content {
-      max-width: 900px;
-      animation: fadeIn 1.2s ease;
-    }
+/* ═══════════════════════════════════
+   SLIDE 6 — INDUSTRIES: Factory Floor Panorama
+═══════════════════════════════════ */
+#s6{background:var(--white);}
+#s6-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s6-overlay{position:absolute;inset:0;background:rgba(255,255,255,.87);}
+.s6-content{position:relative;z-index:3;padding:0 60px;width:100%;max-width:1200px;}
+.s6-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.s6-label::before{content:'';width:24px;height:1px;background:var(--red);}
+.s6-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,7rem);line-height:.88;color:var(--dark);text-transform:uppercase;margin-bottom:48px;}
+.s6-title .ac{color:var(--red);}
+.ind-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+.ind-block{background:var(--dark);padding:44px 26px;text-align:center;position:relative;overflow:hidden;cursor:default;transition:all .3s;}
+.ind-block::after{content:'';position:absolute;inset:0;background:var(--red);transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.ind-block:hover::after{transform:translateY(0);}
+.ind-block>*{position:relative;z-index:1;}
+.ind-glyph{font-size:2.4rem;margin-bottom:14px;display:block;transition:transform .3s;}
+.ind-block:hover .ind-glyph{transform:scale(1.15);}
+.ind-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:var(--white);transition:color .3s;}
+.ind-desc{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.4);margin-top:8px;line-height:1.6;transition:color .3s;}
+.ind-block:hover .ind-name,.ind-block:hover .ind-desc{color:var(--white);}
+.ind-block:hover .ind-desc{color:rgba(255,255,255,.7);}
+/* OEM CLIENTS ROW */
+.oem-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:3px;}
+.oem-card{background:rgba(204,0,0,.06);border:1px solid rgba(204,0,0,.12);padding:20px 24px;display:flex;align-items:center;gap:14px;transition:all .25s;}
+.oem-card:hover{background:rgba(204,0,0,.1);border-color:rgba(204,0,0,.25);}
+.oem-dot{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0;animation:oempulse 2s infinite;}
+@keyframes oempulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.7);}}
+.oem-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--red);text-transform:uppercase;}
+.oem-sub{font-family:'Rajdhani',sans-serif;font-size:.78rem;color:rgba(13,0,0,.55);margin-top:2px;letter-spacing:.04em;}
 
-    .hero h1 {
-      font-size: 70px;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 25px;
-      background: linear-gradient(90deg, #ffffff, #ff2b2b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+/* ═══════════════════════════════════
+   SLIDE 7 — WHY US: Data Dashboard
+═══════════════════════════════════ */
+#s7{background:var(--dark);}
+#s7-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s7-content{position:relative;z-index:3;padding:0 60px;width:100%;max-width:1200px;}
+.s7-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.s7-label::before{content:'';width:24px;height:1px;background:var(--red);}
+.s7-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,6rem);line-height:.9;color:var(--white);text-transform:uppercase;margin-bottom:40px;}
+.s7-title .ac{color:var(--red);}
+.why-dash{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.wd-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:28px 24px;position:relative;overflow:hidden;transition:all .28s;cursor:default;}
+.wd-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform .3s;}
+.wd-card:hover{background:rgba(204,0,0,.05);border-color:rgba(204,0,0,.2);}
+.wd-card:hover::before{transform:scaleY(1);}
+.wd-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;color:rgba(204,0,0,.4);margin-bottom:10px;}
+.wd-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:9px;}
+.wd-desc{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.38);line-height:1.72;}
+/* Tech readout ticker at bottom */
+.ticker-strip{position:absolute;bottom:0;left:0;right:0;height:36px;background:rgba(204,0,0,.08);border-top:1px solid rgba(204,0,0,.15);display:flex;align-items:center;overflow:hidden;}
+.ticker-inner{display:flex;gap:0;animation:ticker 22s linear infinite;white-space:nowrap;}
+.ticker-item{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:rgba(204,0,0,.5);padding:0 28px;border-right:1px solid rgba(204,0,0,.15);}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-    .hero p {
-      font-size: 20px;
-      color: #d9d9d9;
-      margin-bottom: 40px;
-      line-height: 1.8;
-    }
+/* ═══════════════════════════════════
+   SLIDE 8 — CONTACT: Technical Drawing Style
+═══════════════════════════════════ */
+#s8{background:var(--white);}
+#s8-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.s8-content{position:relative;z-index:3;padding:64px 60px 0;width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 1.3fr;gap:70px;align-items:start;}
+.s8-label{font-family:var(--mono);font-size:.65rem;letter-spacing:.3em;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.s8-label::before{content:'';width:24px;height:1px;background:var(--red);}
+.s8-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,6rem);line-height:.88;color:var(--dark);text-transform:uppercase;margin-bottom:28px;}
+.s8-title .ac{color:var(--red);}
+.cinfo{display:flex;flex-direction:column;}
+.ci-row{display:flex;border-bottom:1px solid rgba(204,0,0,.1);padding:13px 0;}
+.ci-row:first-child{border-top:1px solid rgba(204,0,0,.1);}
+.ci-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);width:110px;flex-shrink:0;padding-top:2px;}
+.ci-v{font-family:'Rajdhani',sans-serif;font-size:.92rem;color:rgba(13,0,0,.8);line-height:1.6;font-weight:500;}
+.ci-v a{color:var(--red);text-decoration:none;transition:opacity .2s;}
+.ci-v a:hover{opacity:.7;}
+.form-wrap{background:var(--dark);padding:36px;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--white);margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(204,0,0,.2);}
+.form-title span{color:var(--red);}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.fg input,.fg textarea,.fg select{background:rgba(255,255,255,.04);border:1px solid rgba(204,0,0,.15);color:var(--white);padding:10px 13px;font-size:.87rem;font-family:'Rajdhani',sans-serif;font-weight:500;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--red);background:rgba(204,0,0,.05);}
+.fg textarea{min-height:80px;resize:vertical;}
+.fg select option{background:#1A0000;}
+.sub-btn{margin-top:10px;width:100%;background:var(--red);color:var(--white);border:none;padding:14px;font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.sub-btn:hover{background:var(--red2);}
+.sub-btn:disabled{opacity:.5;cursor:not-allowed;}
+.fstatus{margin-top:10px;padding:10px 14px;font-size:.78rem;font-family:var(--mono);letter-spacing:.06em;display:none;text-align:center;}
+.fstatus.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:#4ade80;display:block;}
+.fstatus.err{background:rgba(204,0,0,.08);border:1px solid rgba(204,0,0,.25);color:var(--red2);display:block;}
+.wa-link{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:10px;background:#25D366;color:#000;padding:12px;text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;}
+.wa-link:hover{background:#1da851;}
 
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+/* FOOTER STRIP */
+#footer{position:relative;z-index:2;background:var(--dark);border-top:1px solid rgba(204,0,0,.12);padding:0 60px;}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding:44px 0;border-bottom:1px solid rgba(204,0,0,.07);}
+.ft-brand{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.12em;color:var(--white);}
+.ft-brand span{color:var(--red);}
+.ft-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;}
+.ft-desc{font-size:.8rem;color:rgba(255,255,255,.25);line-height:1.75;font-weight:300;margin-top:12px;max-width:300px;}
+.ft-col-t{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px;}
+.ft-links{display:flex;flex-direction:column;gap:9px;}
+.ft-links a{font-size:.8rem;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s;font-family:'Rajdhani',sans-serif;}
+.ft-links a:hover{color:var(--red);}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;padding:16px 0;}
+.ft-copy{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:rgba(255,255,255,.15);}
 
-    .btn {
-      padding: 15px 35px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      transition: 0.4s ease;
-      text-decoration: none;
-    }
+/* MODAL */
+#modal{position:fixed;inset:0;background:rgba(13,0,0,.9);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+#modal.open{display:flex;}
+.modal-inner{background:var(--white);max-width:440px;width:90%;padding:38px;position:relative;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);animation:modalIn .2s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--gray);}
+.modal-id{font-family:var(--mono);font-size:.65rem;letter-spacing:.26em;color:var(--red);margin-bottom:4px;}
+.modal-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--dark);margin-bottom:16px;}
+.modal-meta{border-top:1px solid rgba(204,0,0,.1);border-bottom:1px solid rgba(204,0,0,.1);padding:13px 0;margin-bottom:18px;display:flex;flex-direction:column;gap:8px;}
+.modal-row{display:flex;gap:10px;font-size:.83rem;}
+.modal-key{width:86px;flex-shrink:0;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);padding-top:2px;}
+.modal-val{font-family:'Rajdhani',sans-serif;font-size:.9rem;color:rgba(13,0,0,.75);font-weight:500;}
+.modal-btn{width:100%;background:var(--red);color:var(--white);border:none;padding:13px;font-family:'Rajdhani',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.modal-btn:hover{background:var(--red2);}
 
-    .btn-primary {
-      background: linear-gradient(90deg, #ff1a1a, #ff5c5c);
-      color: white;
-      box-shadow: 0 0 30px rgba(255,0,0,0.4);
-    }
+/* CHAT */
+#chat-fab{position:fixed;bottom:24px;right:24px;z-index:8000;}
+#chat-btn{width:54px;height:54px;background:var(--red);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(204,0,0,.45);transition:all .2s;position:relative;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));}
+#chat-btn:hover{background:var(--red2);transform:scale(1.06);}
+#chat-btn svg{width:22px;height:22px;fill:var(--white);}
+.chat-badge{position:absolute;top:-3px;right:-3px;background:var(--dark);color:var(--red);width:18px;height:18px;border-radius:50%;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);border:1px solid var(--red);}
+#chat-win{position:fixed;bottom:86px;right:24px;width:340px;background:var(--dark);border:1px solid rgba(204,0,0,.2);box-shadow:0 16px 50px rgba(0,0,0,.7);z-index:7999;display:none;flex-direction:column;max-height:490px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);}
+#chat-win.open{display:flex;}
+.ch-hdr{background:var(--red);padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.ch-hdr-ico{width:32px;height:32px;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ch-hdr-ico svg{width:15px;height:15px;fill:var(--white);}
+.ch-hdr-txt{flex:1;}
+.ch-hdr-name{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.08em;color:var(--white);}
+.ch-hdr-st{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.6);}
+.ch-cls{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.2rem;cursor:pointer;}
+#chat-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:rgba(13,0,0,.6);}
+#chat-msgs::-webkit-scrollbar{width:3px;}
+#chat-msgs::-webkit-scrollbar-thumb{background:rgba(204,0,0,.3);}
+.cm{max-width:88%;}
+.cm.bot{align-self:flex-start;}
+.cm.usr{align-self:flex-end;}
+.cm-b{padding:8px 12px;font-size:.8rem;line-height:1.55;font-family:'Rajdhani',sans-serif;font-weight:500;}
+.cm.bot .cm-b{background:rgba(255,255,255,.05);border:1px solid rgba(204,0,0,.1);color:rgba(255,255,255,.8);border-radius:0 7px 7px 7px;}
+.cm.usr .cm-b{background:var(--red);color:var(--white);border-radius:7px 0 7px 7px;}
+.cm-t{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.25);margin-top:3px;padding:0 3px;}
+.cm.usr .cm-t{text-align:right;}
+.typing-w{display:flex;gap:3px;align-items:center;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(204,0,0,.1);width:fit-content;border-radius:0 7px 7px 7px;}
+.td{width:5px;height:5px;background:var(--red);border-radius:50%;animation:td 1.2s infinite;}
+.td:nth-child(2){animation-delay:.2s;}.td:nth-child(3){animation-delay:.4s;}
+@keyframes td{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}
+.qr-row{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;background:rgba(13,0,0,.4);}
+.qr{background:rgba(255,255,255,.04);border:1px solid rgba(204,0,0,.14);color:rgba(255,255,255,.55);padding:4px 10px;font-size:.66rem;font-family:var(--mono);letter-spacing:.08em;cursor:pointer;transition:all .18s;}
+.qr:hover{background:var(--red);border-color:var(--red);color:var(--white);}
+.ch-inp-row{padding:9px 10px;border-top:1px solid rgba(204,0,0,.09);display:flex;gap:6px;background:var(--darkr);}
+#chat-inp{flex:1;background:rgba(204,0,0,.04);border:1px solid rgba(204,0,0,.12);color:var(--white);padding:8px 11px;font-size:.8rem;font-family:'Rajdhani',sans-serif;outline:none;transition:border-color .2s;}
+#chat-inp:focus{border-color:var(--red);}
+#chat-inp::placeholder{color:rgba(255,255,255,.25);}
+#ch-send{background:var(--red);border:none;color:var(--white);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+#ch-send:hover{background:var(--red2);}
+#ch-send svg{width:12px;height:12px;fill:var(--white);}
 
-    .btn-primary:hover {
-      transform: translateY(-4px) scale(1.04);
-      box-shadow: 0 0 45px rgba(255,0,0,0.8);
-    }
+/* SCROLL DOTS */
+#scroll-dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:8500;display:flex;flex-direction:column;gap:10px;}
+.sdot{width:8px;height:8px;border:1px solid rgba(204,0,0,.4);border-radius:50%;cursor:pointer;transition:all .25s;position:relative;}
+.sdot.active{background:var(--red);border-color:var(--red);}
+.sdot:hover{border-color:var(--red);}
 
-    .btn-secondary {
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
+/* SLIDE ENTER ANIMATIONS — each slide has unique entrance */
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-50px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(50px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideInUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideInDown{from{opacity:0;transform:translateY(-50px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeScaleIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+@keyframes rotateIn{from{opacity:0;transform:rotate(-8deg) scale(.95);}to{opacity:1;transform:rotate(0) scale(1);}}
+@keyframes clipReveal{from{clip-path:inset(0 100% 0 0);}to{clip-path:inset(0 0% 0 0);}}
+@keyframes stampIn{from{opacity:0;transform:scaleY(0);transform-origin:top;}to{opacity:1;transform:scaleY(1);}}
 
-    .btn-secondary:hover {
-      background: white;
-      color: black;
-    }
+/* Slide-specific animations triggered by .in class */
+#s2 .s2-left{opacity:0;transform:translateX(-50px);transition:all .9s .1s cubic-bezier(.4,0,.2,1);}
+#s2 .s2-right{opacity:0;transform:translateX(50px);transition:all .9s .2s cubic-bezier(.4,0,.2,1);}
+#s2.in .s2-left,#s2.in .s2-right{opacity:1;transform:none;}
+#s2 .press-card{opacity:0;transform:translateX(30px);}
+#s2.in .press-card:nth-child(1){opacity:1;transform:none;transition:all .6s .3s ease;}
+#s2.in .press-card:nth-child(2){opacity:1;transform:none;transition:all .6s .42s ease;}
+#s2.in .press-card:nth-child(3){opacity:1;transform:none;transition:all .6s .54s ease;}
+#s2.in .press-card:nth-child(4){opacity:1;transform:none;transition:all .6s .66s ease;}
+#s2.in .press-card:nth-child(5){opacity:1;transform:none;transition:all .6s .78s ease;}
+#s2.in .press-card:nth-child(6){opacity:1;transform:none;transition:all .6s .9s ease;}
+#s2.in .press-card:nth-child(7){opacity:1;transform:none;transition:all .6s 1.02s ease;}
 
-    .floating-circle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,0,0,0.12);
-      animation: float 6s infinite ease-in-out;
-      filter: blur(5px);
-    }
+#s3 .s3-label,#s3 .s3-title{opacity:0;transform:translateY(-30px);transition:all .7s ease;}
+#s3.in .s3-label,#s3.in .s3-title{opacity:1;transform:none;}
+#s3 .op-tile{opacity:0;transform:translateY(40px);}
+#s3.in .op-tile:nth-child(1){opacity:1;transform:none;transition:all .6s .2s ease;}
+#s3.in .op-tile:nth-child(2){opacity:1;transform:none;transition:all .6s .35s ease;}
+#s3.in .op-tile:nth-child(3){opacity:1;transform:none;transition:all .6s .5s ease;}
+#s3.in .op-tile:nth-child(4){opacity:1;transform:none;transition:all .6s .65s ease;}
+#s3.in .op-tile:nth-child(5){opacity:1;transform:none;transition:all .6s .8s ease;}
 
-    .circle1 {
-      width: 240px;
-      height: 240px;
-      top: 12%;
-      left: 5%;
-    }
+#s4 .s4-header,#s4 .products-hex{opacity:0;}
+#s4 .s4-header{transform:translateY(-20px);transition:all .7s .1s ease;}
+#s4 .products-hex{transform:scale(.97);transition:all .8s .3s ease;}
+#s4.in .s4-header,#s4.in .products-hex{opacity:1;transform:none;}
+#s4 .phex{opacity:0;transform:scale(.92);}
+#s4.in .phex{opacity:1;transform:none;}
+#s4.in .phex:nth-child(odd){transition:all .5s calc(.3s + var(--i)*.05s) ease;}
+#s4.in .phex:nth-child(even){transition:all .5s calc(.5s + var(--i)*.05s) ease;}
 
-    .circle2 {
-      width: 180px;
-      height: 180px;
-      bottom: 12%;
-      right: 8%;
-      animation-delay: 2s;
-    }
+#s5 .s5-left{opacity:0;transform:translateX(-40px);transition:all .8s .1s ease;}
+#s5 .s5-right{opacity:0;transform:rotateY(15deg) scale(.96);transition:all .8s .2s ease;}
+#s5.in .s5-left,#s5.in .s5-right{opacity:1;transform:none;}
 
-    section {
-      padding: 100px 8%;
-    }
+#s6 .s6-label,#s6 .s6-title{opacity:0;transform:translateY(-20px);transition:all .7s ease;}
+#s6.in .s6-label,#s6.in .s6-title{opacity:1;transform:none;}
+#s6 .ind-block{opacity:0;transform:translateY(30px);}
+#s6.in .ind-block:nth-child(1){opacity:1;transform:none;transition:all .55s .2s ease;}
+#s6.in .ind-block:nth-child(2){opacity:1;transform:none;transition:all .55s .35s ease;}
+#s6.in .ind-block:nth-child(3){opacity:1;transform:none;transition:all .55s .5s ease;}
+#s6.in .ind-block:nth-child(4){opacity:1;transform:none;transition:all .55s .65s ease;}
+#s6 .oem-card{opacity:0;transform:translateY(20px);}
+#s6.in .oem-card{opacity:1;transform:none;transition:all .5s .75s ease;}
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
+#s7 .s7-label,#s7 .s7-title{opacity:0;transform:translateX(-30px);transition:all .7s ease;}
+#s7.in .s7-label,#s7.in .s7-title{opacity:1;transform:none;}
+#s7 .wd-card{opacity:0;transform:translateY(20px);}
+#s7.in .wd-card:nth-child(1){opacity:1;transform:none;transition:all .55s .2s ease;}
+#s7.in .wd-card:nth-child(2){opacity:1;transform:none;transition:all .55s .35s ease;}
+#s7.in .wd-card:nth-child(3){opacity:1;transform:none;transition:all .55s .5s ease;}
+#s7.in .wd-card:nth-child(4){opacity:1;transform:none;transition:all .55s .6s ease;}
+#s7.in .wd-card:nth-child(5){opacity:1;transform:none;transition:all .55s .7s ease;}
+#s7.in .wd-card:nth-child(6){opacity:1;transform:none;transition:all .55s .8s ease;}
 
-    .section-title h2 {
-      font-size: 46px;
-      color: #ff2b2b;
-      margin-bottom: 15px;
-    }
+#s8 .s8-content>*:first-child{opacity:0;transform:translateX(-30px);transition:all .8s .1s ease;}
+#s8 .s8-content>*:last-child{opacity:0;transform:scale(.97) translateY(20px);transition:all .8s .25s ease;}
+#s8.in .s8-content>*:first-child,#s8.in .s8-content>*:last-child{opacity:1;transform:none;}
 
-    .section-title p {
-      color: #bcbcbc;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.8;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 25px;
-      padding: 35px;
-      transition: 0.5s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .card:hover {
-      transform: translateY(-10px) rotateX(3deg);
-      border-color: rgba(255,0,0,0.5);
-      box-shadow: 0 20px 50px rgba(255,0,0,0.2);
-    }
-
-    .card h3 {
-      font-size: 24px;
-      margin-bottom: 18px;
-      color: white;
-    }
-
-    .card p {
-      color: #d0d0d0;
-      line-height: 1.8;
-    }
-
-    .about {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 50px;
-      align-items: center;
-    }
-
-    .about-box {
-      background: rgba(255,255,255,0.04);
-      padding: 40px;
-      border-radius: 25px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .about-box h3 {
-      font-size: 30px;
-      color: #ff2b2b;
-      margin-bottom: 20px;
-    }
-
-    .about-box p {
-      line-height: 1.9;
-      color: #d4d4d4;
-    }
-
-    .contact-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      align-items: center;
-    }
-
-    form {
-      background: rgba(255,255,255,0.04);
-      border-radius: 25px;
-      padding: 40px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    form input,
-    form textarea {
-      width: 100%;
-      margin-bottom: 20px;
-      padding: 16px;
-      border-radius: 12px;
-      border: none;
-      background: rgba(255,255,255,0.08);
-      color: white;
-      font-size: 15px;
-    }
-
-    form textarea {
-      height: 140px;
-      resize: none;
-    }
-
-    form button {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(90deg, #ff1a1a, #ff5757);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.4s;
-    }
-
-    form button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 25px rgba(255,0,0,0.5);
-    }
-
-    .contact-info h3 {
-      font-size: 38px;
-      margin-bottom: 20px;
-      color: #ff2b2b;
-    }
-
-    .contact-info p {
-      margin-bottom: 18px;
-      color: #d4d4d4;
-      line-height: 1.8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 35px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: #b5b5b5;
-      background: rgba(0,0,0,0.5);
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-25px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0px);
-      }
-    }
-
-    @media(max-width: 768px) {
-      .hero h1 {
-        font-size: 42px;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .section-title h2 {
-        font-size: 34px;
-      }
-    }
-  </style>
+/* MOBILE */
+@media(max-width:960px){
+  #nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .slide{height:auto;min-height:100vh;scroll-snap-align:start;}
+  .s1-content,.s2-content,.s5-content,.s8-content{grid-template-columns:1fr;gap:32px;padding:80px 20px 40px;}
+  .s3-content,.s4-content,.s6-content,.s7-content{padding:80px 20px 40px;}
+  .ops-grid,.ind-row,.why-dash,.oem-row{grid-template-columns:1fr 1fr;}
+  .quality-grid{grid-template-columns:1fr 1fr;}
+  .s1-canvas-wrap{display:none;}
+  .machine-cards,.ft-top{grid-template-columns:1fr;gap:20px;}
+  .ft-top{padding:32px 20px;}
+  .products-hex{grid-template-columns:repeat(2,1fr);}
+  #footer{padding:0 20px;}
+  #scroll-dots{display:none;}
+}
+</style>
 </head>
-
 <body>
 
-  <header>
-    <div class="logo">KURLEKAR ENGINEERING</div>
+<!-- CURSORS -->
+<div id="cur"></div>
+<div id="cur2"></div>
+<div id="cur3"></div>
 
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#s1">KURLEKAR <span class="logo-red">ENG.</span></a>
+    <ul class="nav-links">
+      <li><a href="#s2">About</a></li>
+      <li><a href="#s3">Capabilities</a></li>
+      <li><a href="#s4">Products</a></li>
+      <li><a href="#s5">Quality</a></li>
+      <li><a href="#s6">Industries</a></li>
+      <li><a href="#s8">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#s8">Request Quote</a>
+  </div>
+</nav>
 
-  <section class="hero" id="home">
+<!-- SCROLL DOTS -->
+<div id="scroll-dots">
+  <div class="sdot active" onclick="goTo('s1')" title="Hero"></div>
+  <div class="sdot" onclick="goTo('s2')" title="About"></div>
+  <div class="sdot" onclick="goTo('s3')" title="Operations"></div>
+  <div class="sdot" onclick="goTo('s4')" title="Products"></div>
+  <div class="sdot" onclick="goTo('s5')" title="Quality"></div>
+  <div class="sdot" onclick="goTo('s6')" title="Industries"></div>
+  <div class="sdot" onclick="goTo('s7')" title="Why Us"></div>
+  <div class="sdot" onclick="goTo('s8')" title="Contact"></div>
+</div>
 
-    <div class="floating-circle circle1"></div>
-    <div class="floating-circle circle2"></div>
-
-    <div class="hero-content">
-      <h1>Premium Engineering Solutions Powered By AI</h1>
-
-      <p>
-        We supply all top OEM engineering products with precision manufacturing,
-        AI-powered automation, premium industrial solutions, and next-generation engineering excellence.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">Get Quote</a>
-        <a href="#services" class="btn btn-secondary">Explore Services</a>
+<!-- ══ SLIDE 1: HERO ══ -->
+<section class="slide" id="s1">
+  <div class="blueprint-grid"></div>
+  <canvas id="s1-canvas"></canvas>
+  <div class="s1-overlay"></div>
+  <div class="s1-content">
+    <div class="s1-text">
+      <div class="s1-tag">Mumbai · Malad West · Precision Manufacturing</div>
+      <h1 class="s1-h1">
+        Precision<br>
+        <span class="r">Forged</span>
+        <span class="s">Sheet Metal Press Components</span>
+      </h1>
+      <p class="s1-desc">Three decades of stamping, forming, and perfecting. Supplying India's top OEMs with ±0.01 mm precision components since 1995.</p>
+      <div class="s1-btns">
+        <a class="btn-red" href="#s4">View Products</a>
+        <a class="btn-outline-dark" href="#s8">Get a Quote</a>
+      </div>
+      <div class="s1-stats">
+        <div class="s1-stat"><div class="s1-num">30+</div><div class="s1-lbl">Years Active</div></div>
+        <div class="s1-stat"><div class="s1-num">18+</div><div class="s1-lbl">Variants</div></div>
+        <div class="s1-stat"><div class="s1-num">±0.01</div><div class="s1-lbl">mm Accuracy</div></div>
       </div>
     </div>
-  </section>
-
-  <section id="services">
-
-    <div class="section-title">
-      <h2>Our Services</h2>
-      <p>
-        Advanced manufacturing and engineering systems designed for industrial excellence.
-      </p>
+    <div class="s1-canvas-wrap">
+      <canvas id="s1-comp-canvas"></canvas>
     </div>
+  </div>
+</section>
 
-    <div class="cards">
-
-      <div class="card">
-        <h3>OEM Supply Solutions</h3>
-        <p>
-          We supply all top OEM engineering and industrial components with premium quality and reliability.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>AI Automation</h3>
-        <p>
-          Smart AI-driven workflows, automated systems, and intelligent engineering operations.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Precision Manufacturing</h3>
-        <p>
-          High-accuracy fabrication, sheet metal solutions, and industrial-grade production systems.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Industrial Innovation</h3>
-        <p>
-          Premium futuristic engineering built with performance, design, and efficiency in mind.
-        </p>
-      </div>
-
+<!-- ══ SLIDE 2: ABOUT ══ -->
+<section class="slide" id="s2">
+  <canvas id="s2-canvas"></canvas>
+  <div class="s2-noise"></div>
+  <div class="s2-content">
+    <div class="s2-left">
+      <div class="s2-label">// COMPANY_PROFILE.ENG</div>
+      <h2 class="s2-title">Thirty<br>Years<br>of <span class="outline">Steel</span></h2>
+      <p class="s2-body">Founded in 1995 in Malad West, Mumbai by Dilip Gopal Kurlekar — built on one conviction: precision is not an option, it is the only standard.</p>
+      <div class="s2-highlight">We supply India's top OEM manufacturers across the electric motor, fan, and automotive sectors — producing components exactly as per customer drawings and approved samples.</div>
+      <p class="s2-body">In-house die making, stringent process control, and a commitment to zero-defect delivery make Kurlekar Engineering the trusted supply partner for demanding production lines.</p>
     </div>
-  </section>
-
-  <section id="about">
-
-    <div class="section-title">
-      <h2>About Us</h2>
-      <p>
-        Engineering the future with AI, innovation, and industrial excellence.
-      </p>
+    <div class="s2-right">
+      <div class="press-card"><div class="pc-ton">10T</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Power Press</div><div class="pc-desc">BLANKING · PIERCING · LIGHT FORMING</div></div></div>
+      <div class="press-card"><div class="pc-ton">20T</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Power Press</div><div class="pc-desc">BENDING · FORMING · COMPOUND OPS</div></div></div>
+      <div class="press-card"><div class="pc-ton">30T</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Power Press</div><div class="pc-desc">HEAVY DUTY · DEEP DRAW · COINING</div></div></div>
+      <div class="press-card"><div class="pc-ton">HAND</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Hand Press</div><div class="pc-desc">SMALL PARTS · DELICATE COMPONENTS</div></div></div>
+      <div class="press-card"><div class="pc-ton">SG</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Surface Grinder</div><div class="pc-desc">PRECISION FLAT SURFACE FINISHING</div></div></div>
+      <div class="press-card"><div class="pc-ton">TAP</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">Tapping Machine</div><div class="pc-desc">THREADED HOLE OPERATIONS</div></div></div>
+      <div class="press-card"><div class="pc-ton">DIE</div><div class="pc-line"></div><div class="pc-info"><div class="pc-name">In-House Die Shop</div><div class="pc-desc">PROGRESSIVE · COMPOUND · SINGLE-OP</div></div></div>
     </div>
+  </div>
+</section>
 
-    <div class="about">
-
-      <div class="about-box">
-        <h3>Who We Are</h3>
-        <p>
-          Kurlekar Engineering is a premium industrial and engineering company focused on high-performance manufacturing, OEM solutions, and AI-powered operations.
-          We combine technology, precision, and futuristic systems to deliver elite-level industrial solutions.
-        </p>
+<!-- ══ SLIDE 3: OPERATIONS ══ -->
+<section class="slide" id="s3">
+  <canvas id="s3-canvas"></canvas>
+  <div class="circuit-overlay"></div>
+  <div class="s3-content">
+    <div class="s3-label">// PRESS_OPERATIONS.CAP</div>
+    <h2 class="s3-title">Core <span class="ac">Operations</span></h2>
+    <div class="ops-grid">
+      <div class="op-tile">
+        <div class="op-tile-inner">
+          <div class="op-num">01 ——</div>
+          <svg class="op-icon-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="32" height="32" stroke="#CC0000" stroke-width="1.5"/><circle cx="18" cy="18" r="7" stroke="#CC0000" stroke-width="1.5"/><line x1="18" y1="2" x2="18" y2="11" stroke="#CC0000" stroke-width="1.5"/><line x1="18" y1="25" x2="18" y2="34" stroke="#CC0000" stroke-width="1.5"/><line x1="2" y1="18" x2="11" y2="18" stroke="#CC0000" stroke-width="1.5"/><line x1="25" y1="18" x2="34" y2="18" stroke="#CC0000" stroke-width="1.5"/></svg>
+          <div class="op-name">Blanking & Piercing</div>
+          <div class="op-desc">PRECISE CUTOUTS AND HOLES TO CLOSE TOLERANCES IN SINGLE OPERATIONS</div>
+        </div>
+        <div class="op-press-line"></div>
       </div>
-
-      <div class="about-box">
-        <h3>Why Choose Us</h3>
-        <p>
-          Premium quality, intelligent automation, precision manufacturing, scalable production systems, and a future-ready engineering vision make us different from ordinary suppliers.
-        </p>
+      <div class="op-tile">
+        <div class="op-tile-inner">
+          <div class="op-num">02 ——</div>
+          <svg class="op-icon-svg" viewBox="0 0 36 36" fill="none"><polyline points="2,28 12,12 24,20 34,8" stroke="#CC0000" stroke-width="1.5"/><line x1="2" y1="34" x2="34" y2="34" stroke="#CC0000" stroke-width="1.5"/></svg>
+          <div class="op-name">Bending & Forming</div>
+          <div class="op-desc">COMPLEX PROFILES SHAPED EXACTLY TO DRAWING SPECIFICATIONS</div>
+        </div>
+        <div class="op-press-line"></div>
       </div>
-
-    </div>
-  </section>
-
-  <section id="contact">
-
-    <div class="section-title">
-      <h2>Contact Us</h2>
-      <p>
-        Reach out for quotations, industrial projects, OEM supplies, or engineering partnerships.
-      </p>
-    </div>
-
-    <div class="contact-container">
-
-      <div class="contact-info">
-        <h3>Let's Build The Future</h3>
-
-        <p>Email: yourmail@example.com</p>
-        <p>Phone: +91 XXXXX XXXXX</p>
-        <p>Mumbai, India</p>
-
-        <p>
-          All chats, emails, and enquiries are directly handled through premium AI-integrated systems.
-        </p>
+      <div class="op-tile">
+        <div class="op-tile-inner">
+          <div class="op-num">03 ——</div>
+          <svg class="op-icon-svg" viewBox="0 0 36 36" fill="none"><rect x="2" y="8" width="32" height="4" stroke="#CC0000" stroke-width="1.5"/><rect x="2" y="16" width="32" height="4" stroke="#CC0000" stroke-width="1.5"/><rect x="2" y="24" width="32" height="4" stroke="#CC0000" stroke-width="1.5"/><rect x="12" y="8" width="4" height="4" fill="#CC0000"/><rect x="20" y="16" width="4" height="4" fill="#CC0000"/><rect x="12" y="24" width="4" height="4" fill="#CC0000"/></svg>
+          <div class="op-name">Slotting & Notching</div>
+          <div class="op-desc">CLEAN SLOT AND NOTCH FEATURES IN SINGLE PRECISE OPERATIONS</div>
+        </div>
+        <div class="op-press-line"></div>
       </div>
-
-      <form onsubmit="sendMessage(event)">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-
+      <div class="op-tile">
+        <div class="op-tile-inner">
+          <div class="op-num">04 ——</div>
+          <svg class="op-icon-svg" viewBox="0 0 36 36" fill="none"><path d="M18 4 C18 4 6 12 6 22 C6 29 11.4 34 18 34 C24.6 34 30 29 30 22 C30 12 18 4 18 4Z" stroke="#CC0000" stroke-width="1.5"/><path d="M18 12 C18 12 12 17 12 22 C12 25.3 14.7 28 18 28" stroke="#CC0000" stroke-width="1.5" stroke-dasharray="2 2"/></svg>
+          <div class="op-name">Light Deep Drawing</div>
+          <div class="op-desc">CUPS AND SHELLS FOR MOTOR ASSEMBLY TO EXACT PROFILES</div>
+        </div>
+        <div class="op-press-line"></div>
+      </div>
+      <div class="op-tile">
+        <div class="op-tile-inner">
+          <div class="op-num">05 ——</div>
+          <svg class="op-icon-svg" viewBox="0 0 36 36" fill="none"><rect x="4" y="14" width="28" height="8" stroke="#CC0000" stroke-width="1.5"/><line x1="8" y1="14" x2="8" y2="22" stroke="#CC0000" stroke-width="1"/><line x1="12" y1="14" x2="12" y2="22" stroke="#CC0000" stroke-width="1"/><line x1="16" y1="14" x2="16" y2="22" stroke="#CC0000" stroke-width="1"/><line x1="20" y1="14" x2="20" y2="22" stroke="#CC0000" stroke-width="1"/><line x1="24" y1="14" x2="24" y2="22" stroke="#CC0000" stroke-width="1"/><line x1="28" y1="14" x2="28" y2="22" stroke="#CC0000" stroke-width="1"/><rect x="10" y="6" width="16" height="8" stroke="#CC0000" stroke-width="1.5"/><path d="M10 30 L26 30" stroke="#CC0000" stroke-width="1.5"/></svg>
+          <div class="op-name">Serration & Coining</div>
+          <div class="op-desc">HIGH-PRECISION SURFACE DETAILING AND DIMENSIONAL COINING</div>
+        </div>
+        <div class="op-press-line"></div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    © 2026 Kurlekar Engineering — Premium AI Industrial Systems.
-  </footer>
+<!-- ══ SLIDE 4: PRODUCTS ══ -->
+<section class="slide" id="s4">
+  <canvas id="s4-canvas"></canvas>
+  <div class="s4-content">
+    <div class="s4-header">
+      <div>
+        <div class="s4-label">// PARTS_CATALOGUE.MFG</div>
+        <h2 class="s4-title">18+ Component <span class="ac">Variants</span></h2>
+      </div>
+      <div class="s4-count">18+</div>
+    </div>
+    <div class="products-hex" id="prod-grid">
+      <div class="phex" style="--i:1" onclick="openModal('P-01','Motor Can / Housing','Electric Motor','Zinc Plated','Deep drawn cylindrical housing for electric motor assembly')"><div class="phex-inner"><div class="phex-id">P-01</div><div class="phex-name">Motor Can / Housing</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:2" onclick="openModal('P-02','Round Base Plate','Motor / Fan','Phosphate','Round base plate for motor and fan mounting applications')"><div class="phex-inner"><div class="phex-id">P-02</div><div class="phex-name">Round Base Plate</div><div class="phex-meta"><div><span>App:</span> Motor / Fan</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:3" onclick="openModal('P-03','U-Type Motor Clamp','Electric Motor','Zinc Plated','U-shaped clamping bracket for secure motor mounting')"><div class="phex-inner"><div class="phex-id">P-03</div><div class="phex-name">U-Type Motor Clamp</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:4" onclick="openModal('P-04','C-Type Mounting Bracket','Motor / Fan','Zinc Plated','C-profile bracket for motor and fan mounting')"><div class="phex-inner"><div class="phex-id">P-04</div><div class="phex-name">C-Type Bracket</div><div class="phex-meta"><div><span>App:</span> Motor / Fan</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:5" onclick="openModal('P-05','Fork / Double Ear Bracket','Motor Mounting','Zinc Plated','Double-ear fork bracket for secure motor mounting')"><div class="phex-inner"><div class="phex-id">P-05</div><div class="phex-name">Fork / Double Ear</div><div class="phex-meta"><div><span>App:</span> Motor Mounting</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:6" onclick="openModal('P-06','Wiper Motor Clamp','Auto-Electrical','Black Powder Coat','Automotive wiper motor mounting clamp')"><div class="phex-inner"><div class="phex-id">P-06</div><div class="phex-name">Wiper Motor Clamp</div><div class="phex-meta"><div><span>App:</span> Automotive</div><div><span>Fin:</span> Black Powder</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:7" onclick="openModal('P-07','Deep Draw Cup / Shell','Motor Assembly','Plain / ZP','Deep drawn cup or shell for motor assembly')"><div class="phex-inner"><div class="phex-id">P-07</div><div class="phex-name">Deep Draw Cup</div><div class="phex-meta"><div><span>App:</span> Motor Assembly</div><div><span>Fin:</span> Plain / ZP</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:8" onclick="openModal('P-08','Curved L-Motor Clamp','Electric Motor','Phosphate','Left-hand curved motor clamp with phosphate finish')"><div class="phex-inner"><div class="phex-id">P-08</div><div class="phex-name">Curved L-Clamp</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:9" onclick="openModal('P-09','Curved R-Motor Clamp','Electric Motor','Phosphate','Right-hand curved motor clamp with phosphate finish')"><div class="phex-inner"><div class="phex-id">P-09</div><div class="phex-name">Curved R-Clamp</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:10" onclick="openModal('P-10','Curved Clamp with Serration','Electric Motor','Phosphate','Curved motor clamp with precision serration pattern')"><div class="phex-inner"><div class="phex-id">P-10</div><div class="phex-name">Serrated Clamp</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:11" onclick="openModal('P-11','Saddle Bracket','Motor Mounting','Phosphate','Saddle-type mounting bracket for motor support')"><div class="phex-inner"><div class="phex-id">P-11</div><div class="phex-name">Saddle Bracket</div><div class="phex-meta"><div><span>App:</span> Motor Mounting</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:12" onclick="openModal('P-12','U Clip / Wire Holder','Cable Management','Phosphate','U-shaped clip for cable management in panels')"><div class="phex-inner"><div class="phex-id">P-12</div><div class="phex-name">U Clip / Wire Holder</div><div class="phex-meta"><div><span>App:</span> Cable Mgmt</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:13" onclick="openModal('P-13','Curved Motor Clamp','Electric Motor','Phosphate','Standard curved motor clamp for various motor sizes')"><div class="phex-inner"><div class="phex-id">P-13</div><div class="phex-name">Curved Motor Clamp</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:14" onclick="openModal('P-14','Round Base Plate ZP','Motor / Fan','Zinc Plated','Round base plate with zinc plating for corrosion resistance')"><div class="phex-inner"><div class="phex-id">P-14</div><div class="phex-name">Round Base Plate ZP</div><div class="phex-meta"><div><span>App:</span> Motor / Fan</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:15" onclick="openModal('P-15','L-Type Bracket','Motor / Fan','Zinc Plated','L-shaped bracket for motor and fan installations')"><div class="phex-inner"><div class="phex-id">P-15</div><div class="phex-name">L-Type Bracket</div><div class="phex-meta"><div><span>App:</span> Motor / Fan</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:16" onclick="openModal('P-16','Octagonal Flange Plate','Motor Assembly','Plain Steel','Octagonal flange plate for motor assembly flanging')"><div class="phex-inner"><div class="phex-id">P-16</div><div class="phex-name">Octagonal Flange</div><div class="phex-meta"><div><span>App:</span> Motor Assembly</div><div><span>Fin:</span> Plain Steel</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:17" onclick="openModal('P-17','U-Type Clamp Variant','Electric Motor','Phosphate','Variant U-type motor clamp with phosphate finish')"><div class="phex-inner"><div class="phex-id">P-17</div><div class="phex-name">U-Type Clamp Var.</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Phosphate</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex" style="--i:18" onclick="openModal('P-18','Motor Can Variant A','Electric Motor','Zinc Plated','Variant A motor can/housing with zinc plated finish')"><div class="phex-inner"><div class="phex-id">P-18</div><div class="phex-name">Motor Can Var. A</div><div class="phex-meta"><div><span>App:</span> Electric Motor</div><div><span>Fin:</span> Zinc Plated</div></div></div><div class="phex-arrow">⬡</div></div>
+      <div class="phex phex-custom" onclick="document.getElementById('s8').scrollIntoView({behavior:'smooth'})"><div class="phex-inner"><div class="phex-custom-icon">⊕</div><div class="phex-id" style="margin-top:8px">CUSTOM</div><div class="phex-name">To Drawing / Sample</div></div></div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    function sendMessage(event) {
-      event.preventDefault();
-      alert('Message Sent Successfully!');
+<!-- ══ SLIDE 5: QUALITY ══ -->
+<section class="slide" id="s5">
+  <canvas id="s5-canvas"></canvas>
+  <div class="s5-content">
+    <div class="s5-left">
+      <div class="s5-label">// QUALITY_ASSURANCE.QC</div>
+      <h2 class="s5-title">Zero<br>Defect<br><span class="wh">Standard</span></h2>
+      <div class="gauge-row" style="margin-top:30px;"><div class="gauge-lbl">Dimensional</div><div class="gauge-track"><div class="gauge-fill" data-w="97"></div></div><div class="gauge-val">±0.01mm</div></div>
+      <div class="gauge-row"><div class="gauge-lbl">Surface Finish</div><div class="gauge-track"><div class="gauge-fill" data-w="91"></div></div><div class="gauge-val">Ra 1.6</div></div>
+      <div class="gauge-row"><div class="gauge-lbl">Batch Traceability</div><div class="gauge-track"><div class="gauge-fill" data-w="100"></div></div><div class="gauge-val">100%</div></div>
+      <div class="gauge-row"><div class="gauge-lbl">On-Time Delivery</div><div class="gauge-track"><div class="gauge-fill" data-w="95"></div></div><div class="gauge-val">95%+</div></div>
+    </div>
+    <div class="s5-right">
+      <div class="qbox"><div class="qbox-icon">🎯</div><div class="qbox-val">±0.01mm</div><div class="qbox-title">Dimensional Accuracy</div><div class="qbox-desc">PRECISION TOOLING AND CONTROLLED PRESS OPERATIONS. APPLICATION DEPENDENT. CONSISTENT ACROSS BATCHES.</div></div>
+      <div class="qbox"><div class="qbox-icon">🔍</div><div class="qbox-title">First-Piece Inspection</div><div class="qbox-desc">EVERY BATCH BEGINS WITH FIRST-PIECE AND IN-PROCESS INSPECTION AT EVERY STAGE OF MANUFACTURE.</div></div>
+      <div class="qbox"><div class="qbox-icon">✅</div><div class="qbox-title">Visual & Functional</div><div class="qbox-desc">VERIFICATION PERFORMED PER BATCH FOR FORM, FIT, AND FUNCTION COMPLIANCE WITHOUT EXCEPTION.</div></div>
+      <div class="qbox"><div class="qbox-icon">📋</div><div class="qbox-title">Full Traceability</div><div class="qbox-desc">COMPLETE BATCH TRACEABILITY MAINTAINED. CUSTOMER-SPECIFIC QUALITY REQUIREMENTS STRICTLY FOLLOWED.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 6: INDUSTRIES ══ -->
+<section class="slide" id="s6">
+  <canvas id="s6-canvas"></canvas>
+  <div class="s6-overlay"></div>
+  <div class="s6-content">
+    <div class="s6-label">// MARKET_SECTORS.IND</div>
+    <h2 class="s6-title">Industries <span class="ac">We Supply</span></h2>
+    <div class="ind-row">
+      <div class="ind-block"><span class="ind-glyph">⚙️</span><div class="ind-name">Electric Motors</div><div class="ind-desc">CANS · CLAMPS · BRACKETS · BASE PLATES FOR MOTOR OEMs</div></div>
+      <div class="ind-block"><span class="ind-glyph">💨</span><div class="ind-name">Ceiling & Exhaust Fans</div><div class="ind-desc">MOUNTING HARDWARE AND STRUCTURAL FAN ASSEMBLY PARTS</div></div>
+      <div class="ind-block"><span class="ind-glyph">🚗</span><div class="ind-name">Automotive</div><div class="ind-desc">WIPER MOTOR CLAMPS · AUTO BRACKETS · ELECTRICAL PARTS</div></div>
+      <div class="ind-block"><span class="ind-glyph">🏭</span><div class="ind-name">OEM & Tier-2</div><div class="ind-desc">FLEXIBLE SUPPLY TO TOP OEM PRODUCTION LINES</div></div>
+    </div>
+    <div class="oem-row" style="margin-top:16px;">
+      <div class="oem-card"><div class="oem-dot"></div><div><div class="oem-label">OEM Supplier</div><div class="oem-sub">Electric Motor Manufacturers</div></div></div>
+      <div class="oem-card"><div class="oem-dot"></div><div><div class="oem-label">OEM Supplier</div><div class="oem-sub">Fan & Appliance OEMs</div></div></div>
+      <div class="oem-card"><div class="oem-dot"></div><div><div class="oem-label">OEM Supplier</div><div class="oem-sub">Automotive Component OEMs</div></div></div>
+      <div class="oem-card"><div class="oem-dot"></div><div><div class="oem-label">Tier-2 Partner</div><div class="oem-sub">Industrial Manufacturers</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 7: WHY US ══ -->
+<section class="slide" id="s7">
+  <canvas id="s7-canvas"></canvas>
+  <div class="s7-content">
+    <div class="s7-label">// COMPETITIVE_ADVANTAGE.DAT</div>
+    <h2 class="s7-title">Why Choose <span class="ac">Kurlekar</span></h2>
+    <div class="why-dash">
+      <div class="wd-card"><div class="wd-num">01 ————</div><div class="wd-title">30 Years of Expertise</div><div class="wd-desc">IN BUSINESS SINCE 1995. THREE DECADES OF PRESS SHOP EXPERIENCE. FASTER PROBLEM SOLVING. CONSISTENT RESULTS.</div></div>
+      <div class="wd-card"><div class="wd-num">02 ————</div><div class="wd-title">In-House Die Making</div><div class="wd-desc">WE DEVELOP AND MAINTAIN OUR OWN TOOLING. PROGRESSIVE, COMPOUND, AND SINGLE-OP DIES. REDUCED LEAD TIMES.</div></div>
+      <div class="wd-card"><div class="wd-num">03 ————</div><div class="wd-title">Reliable OEM Delivery</div><div class="wd-desc">CONSISTENT ON-TIME DELIVERY TO TOP OEM PRODUCTION LINES. PROVEN TRACK RECORD ACROSS INDUSTRIES.</div></div>
+      <div class="wd-card"><div class="wd-num">04 ————</div><div class="wd-title">Transparent Pricing</div><div class="wd-desc">NO HIDDEN COSTS. EFFICIENT IN-HOUSE MANUFACTURING KEEPS YOUR BOM LEAN AND MARGINS HEALTHY.</div></div>
+      <div class="wd-card"><div class="wd-num">05 ————</div><div class="wd-title">Flexible Batch Sizes</div><div class="wd-desc">FROM TRIAL RUNS TO HIGH-VOLUME PRODUCTION. WE ADAPT TO YOUR SCHEDULE WITHOUT COMPROMISING QUALITY.</div></div>
+      <div class="wd-card"><div class="wd-num">06 ————</div><div class="wd-title">Long-Term Partnership</div><div class="wd-desc">WE INVEST IN UNDERSTANDING YOUR PRODUCT. DEPENDABLE MANUFACTURING PARTNER FOR YEARS TO COME.</div></div>
+    </div>
+  </div>
+  <!-- TICKER -->
+  <div class="ticker-strip">
+    <div class="ticker-inner">
+      <div class="ticker-item">BLANKING & PIERCING</div><div class="ticker-item">BENDING & FORMING</div><div class="ticker-item">SERRATION & COINING</div><div class="ticker-item">DEEP DRAWING</div><div class="ticker-item">SLOTTING & NOTCHING</div><div class="ticker-item">±0.01MM PRECISION</div><div class="ticker-item">30+ YEARS EXPERTISE</div><div class="ticker-item">OEM SUPPLIER</div><div class="ticker-item">IN-HOUSE DIE SHOP</div><div class="ticker-item">ZERO DEFECT STANDARD</div>
+      <div class="ticker-item">BLANKING & PIERCING</div><div class="ticker-item">BENDING & FORMING</div><div class="ticker-item">SERRATION & COINING</div><div class="ticker-item">DEEP DRAWING</div><div class="ticker-item">SLOTTING & NOTCHING</div><div class="ticker-item">±0.01MM PRECISION</div><div class="ticker-item">30+ YEARS EXPERTISE</div><div class="ticker-item">OEM SUPPLIER</div><div class="ticker-item">IN-HOUSE DIE SHOP</div><div class="ticker-item">ZERO DEFECT STANDARD</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SLIDE 8: CONTACT ══ -->
+<section class="slide" id="s8">
+  <canvas id="s8-canvas"></canvas>
+  <div class="s8-content">
+    <div>
+      <div class="s8-label">// CONTACT_INTERFACE.CON</div>
+      <h2 class="s8-title">Let's <span class="ac">Build</span><br>Together</h2>
+      <div class="cinfo">
+        <div class="ci-row"><div class="ci-k">Proprietor</div><div class="ci-v">Dilip Gopal Kurlekar</div></div>
+        <div class="ci-row"><div class="ci-k">Est.</div><div class="ci-v">1995 — 30+ years in business</div></div>
+        <div class="ci-row"><div class="ci-k">Address</div><div class="ci-v">225-O, Bombay Talkies Compound,<br>Malad West, Mumbai – 400 064</div></div>
+        <div class="ci-row"><div class="ci-k">Mobile</div><div class="ci-v"><a href="tel:+919820217732">+91 98202 17732</a></div></div>
+        <div class="ci-row"><div class="ci-k">Email</div><div class="ci-v"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div></div>
+        <div class="ci-row"><div class="ci-k">WhatsApp</div><div class="ci-v"><a href="https://wa.me/919820217732" target="_blank">+91 98202 17732 →</a></div></div>
+        <div class="ci-row"><div class="ci-k">Speciality</div><div class="ci-v">Precision Sheet Metal Press Components</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="form-wrap">
+        <div class="form-title">Send an <span>Enquiry</span></div>
+        <div class="fg2">
+          <div class="fg"><label>Name *</label><input type="text" id="f-name" placeholder="Full name"></div>
+          <div class="fg"><label>Company</label><input type="text" id="f-company" placeholder="Company name"></div>
+          <div class="fg"><label>Phone *</label><input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="fg"><label>Email</label><input type="email" id="f-email" placeholder="you@company.com"></div>
+          <div class="fg full"><label>Enquiry Type</label>
+            <select id="f-type">
+              <option>General Enquiry</option>
+              <option>Request a Quote</option>
+              <option>Custom Component (Drawing/Sample)</option>
+              <option>Tooling / Die Making</option>
+              <option>Supply Partnership</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Message / Requirements</label><textarea id="f-message" placeholder="Component, quantity, material, finish requirements…"></textarea></div>
+        </div>
+        <button class="sub-btn" id="sub-btn" onclick="submitForm()">Submit Enquiry →</button>
+        <div class="fstatus" id="fstatus"></div>
+        <div style="text-align:center;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;color:rgba(255,255,255,.2);margin-top:10px;">— OR REACH US DIRECTLY —</div>
+        <a href="https://wa.me/919820217732?text=Hello%20Kurlekar%20Engineering%2C%20I%20would%20like%20to%20enquire%20about%20your%20precision%20sheet%20metal%20components." target="_blank" class="wa-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="black"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Us Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div id="footer">
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand">Kurlekar <span>Engineering Works</span></div>
+      <div class="ft-tag">Precision · Reliability · Innovation · Est. 1995</div>
+      <div class="ft-desc">Precision sheet metal press component manufacturer supplying India's top OEMs across electric motor, fan, and automotive sectors. Malad West, Mumbai.</div>
+    </div>
+    <div>
+      <div class="ft-col-t">Navigation</div>
+      <div class="ft-links"><a href="#s2">About</a><a href="#s3">Operations</a><a href="#s4">Products</a><a href="#s5">Quality</a><a href="#s6">Industries</a><a href="#s8">Contact</a></div>
+    </div>
+    <div>
+      <div class="ft-col-t">Contact</div>
+      <div class="ft-links"><a href="tel:+919820217732">+91 98202 17732</a><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a><a href="https://wa.me/919820217732" target="_blank">WhatsApp</a><a href="#s8">Malad West, Mumbai 400 064</a></div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2025 KURLEKAR ENGINEERING WORKS · ALL RIGHTS RESERVED</div>
+    <div class="ft-copy">PRECISION | RELIABILITY | INNOVATION · EST. 1995</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-id" id="m-id"></div>
+    <div class="modal-name" id="m-name"></div>
+    <div class="modal-meta">
+      <div class="modal-row"><span class="modal-key">Application</span><span class="modal-val" id="m-app"></span></div>
+      <div class="modal-row"><span class="modal-key">Finish</span><span class="modal-val" id="m-fin"></span></div>
+      <div class="modal-row"><span class="modal-key">Description</span><span class="modal-val" id="m-desc"></span></div>
+      <div class="modal-row"><span class="modal-key">Tolerance</span><span class="modal-val">±0.01 mm (application dependent)</span></div>
+    </div>
+    <button class="modal-btn" onclick="quoteModal()">Request Quote for This Component →</button>
+  </div>
+</div>
+
+<!-- AI CHAT -->
+<div id="chat-fab">
+  <button id="chat-btn" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <div class="chat-badge">AI</div>
+  </button>
+</div>
+<div id="chat-win">
+  <div class="ch-hdr">
+    <div class="ch-hdr-ico"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61z"/></svg></div>
+    <div class="ch-hdr-txt"><div class="ch-hdr-name">Kurlekar Engineering</div><div class="ch-hdr-st">🟢 AI ASSISTANT · REPLY WITHIN 24HRS</div></div>
+    <button class="ch-cls" onclick="toggleChat()">×</button>
+  </div>
+  <div id="chat-msgs">
+    <div class="cm bot"><div class="cm-b">👋 Hi! I'm the Kurlekar Engineering AI. Ask me about products, capabilities, OEM supply, or how to get a quote.</div><div class="cm-t">NOW</div></div>
+  </div>
+  <div class="qr-row" id="qr-row">
+    <button class="qr" onclick="sq('What products do you make?')">Products</button>
+    <button class="qr" onclick="sq('What tolerances do you achieve?')">Tolerances</button>
+    <button class="qr" onclick="sq('How do I get a quote?')">Get Quote</button>
+    <button class="qr" onclick="sq('Do you supply OEMs?')">OEM Supply</button>
+  </div>
+  <div class="ch-inp-row">
+    <input type="text" id="chat-inp" placeholder="Ask about products, supply…" onkeypress="if(event.key==='Enter')sendMsg()">
+    <button id="ch-send" onclick="sendMsg()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════
+// CURSOR
+// ════════════════════════════════════
+const c1=document.getElementById('cur'),c2=document.getElementById('cur2'),c3=document.getElementById('cur3');
+let mx=0,my=0,r2x=0,r2y=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  c1.style.left=mx+'px';c1.style.top=my+'px';
+  c3.style.left=mx+'px';c3.style.top=my+'px';
+});
+(function lag(){r2x+=(mx-r2x)*.09;r2y+=(my-r2y)*.09;c2.style.left=r2x+'px';c2.style.top=r2y+'px';requestAnimationFrame(lag);})();
+document.querySelectorAll('a,button,.phex,.press-card,.op-tile,.ind-block,.wd-card,.qbox').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c2.style.width='42px';c2.style.height='42px';c2.style.borderColor='rgba(204,0,0,.8)';});
+  el.addEventListener('mouseleave',()=>{c2.style.width='28px';c2.style.height='28px';c2.style.borderColor='rgba(204,0,0,.5)';});
+});
+
+// ════════════════════════════════════
+// SCROLL SNAP OBSERVER + DOTS
+// ════════════════════════════════════
+const slides=['s1','s2','s3','s4','s5','s6','s7','s8'];
+const dots=document.querySelectorAll('.sdot');
+function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+const slideIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      const idx=slides.indexOf(e.target.id);
+      if(idx>=0){dots.forEach((d,i)=>d.classList.toggle('active',i===idx));}
+      // Trigger gauge fills
+      if(e.target.id==='s5'){
+        setTimeout(()=>{e.target.querySelectorAll('.gauge-fill').forEach(g=>{g.style.width=g.dataset.w+'%';});},300);
+      }
     }
+  });
+},{threshold:.4});
+slides.forEach(id=>{const el=document.getElementById(id);if(el)slideIO.observe(el);});
 
-    const cards = document.querySelectorAll('.card');
+// ════════════════════════════════════
+// THREE.JS — SLIDE 1: Rotating Wireframe Bracket + Particles
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s1-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();
+  const CAM=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,1000);
+  CAM.position.set(0,0,60);
 
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+  // Particle field — red dots on white bg
+  const N=600,pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*200;pos[i*3+1]=(Math.random()-.5)*120;pos[i*3+2]=(Math.random()-.5)*80;}
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  S.add(new THREE.Points(geo,new THREE.PointsMaterial({size:.4,color:0xCC0000,transparent:true,opacity:.15,blending:THREE.AdditiveBlending})));
 
-        card.style.transform = `rotateY(${(x - rect.width/2)/20}deg) rotateX(${-(y - rect.height/2)/20}deg) translateY(-10px)`;
-      });
+  // Rotating wireframe 4D hypercube projection
+  function hypercube(){
+    // 4D vertices projected to 3D
+    const verts4=[
+      [-1,-1,-1,-1],[1,-1,-1,-1],[-1,1,-1,-1],[1,1,-1,-1],
+      [-1,-1,1,-1],[1,-1,1,-1],[-1,1,1,-1],[1,1,1,-1],
+      [-1,-1,-1,1],[1,-1,-1,1],[-1,1,-1,1],[1,1,-1,1],
+      [-1,-1,1,1],[1,-1,1,1],[-1,1,1,1],[1,1,1,1]
+    ];
+    const edges=[];
+    for(let i=0;i<16;i++){
+      for(let j=i+1;j<16;j++){
+        let diff=0;for(let k=0;k<4;k++)if(verts4[i][k]!==verts4[j][k])diff++;
+        if(diff===1)edges.push([i,j]);
+      }
+    }
+    return {verts4,edges};
+  }
+  const {verts4,edges}=hypercube();
+  const lineGeo=new THREE.BufferGeometry();
+  const linePos=new Float32Array(edges.length*6);
+  lineGeo.setAttribute('position',new THREE.BufferAttribute(linePos,3));
+  const lineMat=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.35});
+  S.add(new THREE.LineSegments(lineGeo,lineMat));
 
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0px)';
-      });
+  // Inner hypercube
+  const lineGeo2=new THREE.BufferGeometry();
+  const linePos2=new Float32Array(edges.length*6);
+  lineGeo2.setAttribute('position',new THREE.BufferAttribute(linePos2,3));
+  const lineMat2=new THREE.LineBasicMaterial({color:0xFF1A1A,transparent:true,opacity:.2});
+  S.add(new THREE.LineSegments(lineGeo2,lineMat2));
+
+  function project4Dto3D(v4,t,r=12){
+    // Rotate in 4D (XW and YZ planes)
+    const cosA=Math.cos(t*.4),sinA=Math.sin(t*.4);
+    const cosB=Math.cos(t*.3),sinB=Math.sin(t*.3);
+    const cosC=Math.cos(t*.2),sinC=Math.sin(t*.2);
+    let [x,y,z,w]=v4;
+    // XW rotation
+    let nx=x*cosA-w*sinA,nw=x*sinA+w*cosA;x=nx;w=nw;
+    // YZ rotation
+    let ny=y*cosB-z*sinB,nz=y*sinB+z*cosB;y=ny;z=nz;
+    // XY rotation
+    nx=x*cosC-y*sinC;ny=x*sinC+y*cosC;x=nx;y=ny;
+    const dist=3-w,s=r/dist;
+    return new THREE.Vector3(x*s,y*s,z*s);
+  }
+
+  let t=0;
+  const halfW=innerWidth/2,halfH=innerHeight/2;
+  let mxn=0,myn=0;
+  document.addEventListener('mousemove',e=>{mxn=(e.clientX-halfW)/halfW;myn=(e.clientY-halfH)/halfH;});
+
+  (function loop(){
+    requestAnimationFrame(loop);t+=.008;
+    const p=linePos,p2=linePos2,lp=lineGeo.attributes.position,lp2=lineGeo2.attributes.position;
+    edges.forEach(([a,b],i){
+      const v3a=project4Dto3D(verts4[a],t+mxn*.3,14);
+      const v3b=project4Dto3D(verts4[b],t+mxn*.3,14);
+      p[i*6]=v3a.x+myn*2;p[i*6+1]=v3a.y-mxn*2;p[i*6+2]=v3a.z;
+      p[i*6+3]=v3b.x+myn*2;p[i*6+4]=v3b.y-mxn*2;p[i*6+5]=v3b.z;
+      const v3a2=project4Dto3D(verts4[a],t*.7+mxn*.2,8);
+      const v3b2=project4Dto3D(verts4[b],t*.7+mxn*.2,8);
+      p2[i*6]=v3a2.x;p2[i*6+1]=v3a2.y;p2[i*6+2]=v3a2.z;
+      p2[i*6+3]=v3b2.x;p2[i*6+4]=v3b2.y;p2[i*6+5]=v3b2.z;
     });
-  </script>
+    lp.needsUpdate=true;lp2.needsUpdate=true;
+    CAM.position.x=mxn*5;CAM.position.y=-myn*3;
+    R.render(S,CAM);
+  })();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
 
+// Rotating 3D component on hero right
+(function(){
+  const canvas=document.getElementById('s1-comp-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  function resize(){const w=canvas.parentElement.offsetWidth||500,h=420;canvas.style.height=h+'px';R.setSize(w,h);CAM.aspect=w/h;CAM.updateProjectionMatrix();}
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(45,1,.1,200);
+  CAM.position.set(6,4,10);CAM.lookAt(0,0,0);resize();
+  S.add(new THREE.AmbientLight(0xffffff,.3));
+  const dl=new THREE.DirectionalLight(0xffffff,1.2);dl.position.set(5,8,8);S.add(dl);
+  const rl=new THREE.DirectionalLight(0xCC0000,1.8);rl.position.set(-5,-2,-6);S.add(rl);
+  const pl=new THREE.PointLight(0xCC0000,3,18);pl.position.set(0,3,4);S.add(pl);
+  // Steel mat
+  const steel=new THREE.MeshStandardMaterial({color:0xdde8ee,metalness:.95,roughness:.18});
+  const red=new THREE.MeshStandardMaterial({color:0xCC0000,metalness:.6,roughness:.3,emissive:0x880000,emissiveIntensity:.4});
+  const grp=new THREE.Group();
+  // Base plate
+  grp.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(2.2,2.2,.15,64),steel)));
+  // Hub
+  const hub=new THREE.Mesh(new THREE.CylinderGeometry(.7,.8,.9,32),steel);hub.position.y=.52;grp.add(hub);
+  // Bore
+  const bore=new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,1.1,32),red);bore.position.y=.52;grp.add(bore);
+  // Ribs
+  for(let i=0;i<6;i++){const a=i*(Math.PI/3);const rib=new THREE.Mesh(new THREE.BoxGeometry(.1,.3,1.2),steel);rib.position.set(Math.cos(a)*1.3,.22,Math.sin(a)*1.3);rib.rotation.y=a;grp.add(rib);}
+  // Tabs
+  for(let i=0;i<4;i++){
+    const a=i*Math.PI/2+Math.PI/4;
+    const tab=new THREE.Mesh(new THREE.BoxGeometry(.6,.12,.4),steel);tab.position.set(Math.cos(a)*1.9,.075,Math.sin(a)*1.9);tab.rotation.y=a;grp.add(tab);
+    const bolt=new THREE.Mesh(new THREE.CylinderGeometry(.08,.08,.2,12),red);bolt.position.set(Math.cos(a)*1.9,.18,Math.sin(a)*1.9);grp.add(bolt);
+  }
+  // Wire overlay
+  grp.add(new THREE.Mesh(new THREE.CylinderGeometry(2.2,2.2,.15,32),new THREE.MeshBasicMaterial({color:0xCC0000,wireframe:true,transparent:true,opacity:.06})));
+  S.add(grp);
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.007;grp.rotation.y=t;grp.rotation.x=Math.sin(t*.5)*.12;pl.intensity=2.5+Math.sin(t*2)*.6;R.render(S,CAM);})();
+  new ResizeObserver(resize).observe(canvas.parentElement);
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 2: Stamping Press Animation (red bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s2-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,500);
+  CAM.position.z=60;
+  // Floating gear-like rings — engineering symbols
+  const rings=[];
+  for(let i=0;i<8;i++){
+    const geo=new THREE.TorusGeometry(4+i*2.5,.08,8,64);
+    const mat=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.04+i*.006,wireframe:i%2===0});
+    const m=new THREE.Mesh(geo,mat);
+    m.position.set((Math.random()-.5)*80,(Math.random()-.5)*60,(Math.random()-.5)*30);
+    m.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,0);
+    rings.push(m);S.add(m);
+  }
+  // White particle constellation
+  const N=400,pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*200;pos[i*3+1]=(Math.random()-.5)*120;pos[i*3+2]=(Math.random()-.5)*60;}
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  S.add(new THREE.Points(pg,new THREE.PointsMaterial({size:.5,color:0xffffff,transparent:true,opacity:.12,blending:THREE.AdditiveBlending})));
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.005;
+  rings.forEach((r,i)=>{r.rotation.x+=.004*(i%2?1:-1);r.rotation.y+=.003;r.rotation.z+=.002*(i%3?1:-1);});
+  CAM.position.x=Math.sin(t*.4)*10;CAM.position.y=Math.cos(t*.3)*6;
+  R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 3: Circuit / PCB Traces (white bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s3-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,500);
+  CAM.position.z=80;
+  // Grid of connecting lines — circuit board look
+  const mat=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.12});
+  for(let i=0;i<30;i++){
+    const pts=[];let x=(Math.random()-.5)*200,y=(Math.random()-.5)*120;pts.push(new THREE.Vector3(x,y,0));
+    const steps=3+Math.floor(Math.random()*4);
+    for(let j=0;j<steps;j++){const r=Math.random();if(r<.5)x+=(Math.random()>.5?1:-1)*15;else y+=(Math.random()>.5?1:-1)*15;pts.push(new THREE.Vector3(x,y,0));}
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),mat));
+  }
+  // Red dots at intersections
+  const dg=new THREE.BufferGeometry();
+  const dp=new Float32Array(60*3);
+  for(let i=0;i<60;i++){dp[i*3]=(Math.random()-.5)*200;dp[i*3+1]=(Math.random()-.5)*120;dp[i*3+2]=0;}
+  dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+  S.add(new THREE.Points(dg,new THREE.PointsMaterial({size:1.2,color:0xCC0000,transparent:true,opacity:.3})));
+  // 4D hypercube light wireframe
+  function project4D(v4,t,r=16){
+    const cosA=Math.cos(t*.2),sinA=Math.sin(t*.2);
+    const cosB=Math.cos(t*.15),sinB=Math.sin(t*.15);
+    let [x,y,z,w]=v4;let nx=x*cosA-w*sinA,nw=x*sinA+w*cosA;x=nx;w=nw;
+    let ny=y*cosB-z*sinB,nz=y*sinB+z*cosB;y=ny;z=nz;
+    const d=2.5-w,s=r/d;return new THREE.Vector3(x*s,y*s,z*s*.5);
+  }
+  const v4s=[[-1,-1,-1,-1],[1,-1,-1,-1],[-1,1,-1,-1],[1,1,-1,-1],[-1,-1,1,-1],[1,-1,1,-1],[-1,1,1,-1],[1,1,1,-1],[-1,-1,-1,1],[1,-1,-1,1],[-1,1,-1,1],[1,1,-1,1],[-1,-1,1,1],[1,-1,1,1],[-1,1,1,1],[1,1,1,1]];
+  const ed=[];for(let i=0;i<16;i++)for(let j=i+1;j<16;j++){let d=0;for(let k=0;k<4;k++)if(v4s[i][k]!==v4s[j][k])d++;if(d===1)ed.push([i,j]);}
+  const hlg=new THREE.BufferGeometry();const hlp=new Float32Array(ed.length*6);hlg.setAttribute('position',new THREE.BufferAttribute(hlp,3));
+  S.add(new THREE.LineSegments(hlg,new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.15})));
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.006;
+  const lp=hlg.attributes.position.array;
+  ed.forEach(([a,b],i)=>{const va=project4D(v4s[a],t),vb=project4D(v4s[b],t);lp[i*6]=va.x;lp[i*6+1]=va.y;lp[i*6+2]=va.z;lp[i*6+3]=vb.x;lp[i*6+4]=vb.y;lp[i*6+5]=vb.z;});
+  hlg.attributes.position.needsUpdate=true;CAM.position.x=Math.sin(t*.4)*8;R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 4: CNC Toolpath Lines (dark bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s4-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,500);
+  CAM.position.z=70;
+  // CNC toolpath spirals
+  for(let g=0;g<6;g++){
+    const pts=[];const cx=(Math.random()-.5)*120,cy=(Math.random()-.5)*60;
+    for(let i=0;i<200;i++){const a=i*.18,r=i*.08;pts.push(new THREE.Vector3(cx+Math.cos(a)*r,cy+Math.sin(a)*r,0));}
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.08+g*.015})));
+  }
+  // Grid
+  const gm=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.04});
+  for(let i=-15;i<=15;i++){
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i*8,-80,0),new THREE.Vector3(i*8,80,0)]),gm));
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-120,i*8,0),new THREE.Vector3(120,i*8,0)]),gm));
+  }
+  // Moving tool position dot
+  const toolGeo=new THREE.SphereGeometry(.6,8,8);
+  const tool=new THREE.Mesh(toolGeo,new THREE.MeshBasicMaterial({color:0xCC0000}));
+  S.add(tool);
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.01;
+  tool.position.x=Math.sin(t)*40+Math.sin(t*2.3)*15;tool.position.y=Math.cos(t*1.5)*25+Math.cos(t*3.1)*8;
+  CAM.position.x=Math.sin(t*.2)*5;R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 5: Pressure Gauge Rings (red bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s5-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,500);
+  CAM.position.z=80;
+  // Concentric rings — pressure gauge aesthetic
+  for(let i=1;i<=10;i++){
+    const geo=new THREE.TorusGeometry(i*5,.05+i*.01,6,128);
+    S.add(new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.03+i*.008,wireframe:false})));
+  }
+  // Tick marks around gauge
+  for(let i=0;i<60;i++){
+    const a=(i/60)*Math.PI*2;const r=i%5===0?52:50;const r2=48;
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(Math.cos(a)*r2,Math.sin(a)*r2,0),new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0)]),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:i%5===0?.15:.06})));
+  }
+  // Needle
+  const needleGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,46,0)]);
+  const needle=new THREE.Line(needleGeo,new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.4}));
+  S.add(needle);
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.004;
+  needle.rotation.z=-Math.PI/2+t*.5;R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 6: Factory Floor Conveyor (white bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s6-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,500);
+  CAM.position.set(0,20,60);CAM.lookAt(0,0,0);
+  // Grid floor
+  const gm=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.08});
+  for(let i=-20;i<=20;i++){
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i*6,-8,-60),new THREE.Vector3(i*6,-8,60)]),gm));
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-120,-8,i*6),new THREE.Vector3(120,-8,i*6)]),gm));
+  }
+  // Moving components on conveyor
+  const parts=[];
+  for(let i=0;i<12;i++){
+    const g=new THREE.BoxGeometry(3,1,3);
+    const m=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:0xCC0000,transparent:true,opacity:.12,wireframe:true}));
+    m.position.set(-100+i*18,-7,0);parts.push(m);S.add(m);
+  }
+  // 4D projection overlay
+  const v4s=[[-1,-1,-1,-1],[1,-1,-1,-1],[-1,1,-1,-1],[1,1,-1,-1],[-1,-1,1,-1],[1,-1,1,-1],[-1,1,1,-1],[1,1,1,-1],[-1,-1,-1,1],[1,-1,-1,1],[-1,1,-1,1],[1,1,-1,1],[-1,-1,1,1],[1,-1,1,1],[-1,1,1,1],[1,1,1,1]];
+  const ed=[];for(let i=0;i<16;i++)for(let j=i+1;j<16;j++){let d=0;for(let k=0;k<4;k++)if(v4s[i][k]!==v4s[j][k])d++;if(d===1)ed.push([i,j]);}
+  const hlg=new THREE.BufferGeometry();const hlp=new Float32Array(ed.length*6);hlg.setAttribute('position',new THREE.BufferAttribute(hlp,3));
+  S.add(new THREE.LineSegments(hlg,new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.1})));
+  function proj4(v4,t,r=24){const ca=Math.cos(t*.18),sa=Math.sin(t*.18),cb=Math.cos(t*.13),sb=Math.sin(t*.13);let[x,y,z,w]=v4;let nx=x*ca-w*sa,nw=x*sa+w*ca;x=nx;w=nw;let ny=y*cb-z*sb,nz=y*sb+z*cb;y=ny;z=nz;const d=2.5-w,s=r/d;return new THREE.Vector3(x*s,y*s,z*s*.4);}
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.006;
+  parts.forEach(p=>{p.position.x+=.3;if(p.position.x>100)p.position.x=-100;p.rotation.y+=.02;});
+  const lp=hlg.attributes.position.array;
+  ed.forEach(([a,b],i)=>{const va=proj4(v4s[a],t),vb=proj4(v4s[b],t);lp[i*6]=va.x;lp[i*6+1]=va.y+5;lp[i*6+2]=va.z;lp[i*6+3]=vb.x;lp[i*6+4]=vb.y+5;lp[i*6+5]=vb.z;});
+  hlg.attributes.position.needsUpdate=true;
+  R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 7: Data Matrix / Engineering Schematic (dark bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s7-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,500);
+  CAM.position.z=70;
+  // Isometric grid lines
+  const gm=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.06});
+  for(let i=-20;i<=20;i++){
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i*5-40,-60,0),new THREE.Vector3(i*5+40,60,0)]),gm));
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-i*5-40,-60,0),new THREE.Vector3(-i*5+40,60,0)]),gm));
+  }
+  // Dimension lines + annotation dots
+  const dm=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.18});
+  [[-50,0,50,0],[-50,-20,50,-20],[-50,20,50,20],[0,-40,0,40]].forEach(([x1,y1,x2,y2])=>{
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,0),new THREE.Vector3(x2,y2,0)]),dm));
+  });
+  // 4D rotating shape
+  const v4s=[[-1,-1,-1,-1],[1,-1,-1,-1],[-1,1,-1,-1],[1,1,-1,-1],[-1,-1,1,-1],[1,-1,1,-1],[-1,1,1,-1],[1,1,1,-1],[-1,-1,-1,1],[1,-1,-1,1],[-1,1,-1,1],[1,1,-1,1],[-1,-1,1,1],[1,-1,1,1],[-1,1,1,1],[1,1,1,1]];
+  const ed=[];for(let i=0;i<16;i++)for(let j=i+1;j<16;j++){let d=0;for(let k=0;k<4;k++)if(v4s[i][k]!==v4s[j][k])d++;if(d===1)ed.push([i,j]);}
+  const hlg=new THREE.BufferGeometry();const hlp=new Float32Array(ed.length*6);hlg.setAttribute('position',new THREE.BufferAttribute(hlp,3));
+  S.add(new THREE.LineSegments(hlg,new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.25})));
+  function proj4(v4,t,r=22){const ca=Math.cos(t*.22),sa=Math.sin(t*.22),cb=Math.cos(t*.16),sb=Math.sin(t*.16),cc=Math.cos(t*.1),sc=Math.sin(t*.1);let[x,y,z,w]=v4;let nx=x*ca-w*sa,nw=x*sa+w*ca;x=nx;w=nw;let ny=y*cb-z*sb,nz=y*sb+z*cb;y=ny;z=nz;nx=x*cc-y*sc;let ny2=x*sc+y*cc;x=nx;y=ny2;const d=2.5-w,s=r/d;return new THREE.Vector3(x*s,y*s,z*s*.5);}
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.007;
+  const lp=hlg.attributes.position.array;
+  ed.forEach(([a,b],i)=>{const va=proj4(v4s[a],t),vb=proj4(v4s[b],t);lp[i*6]=va.x;lp[i*6+1]=va.y;lp[i*6+2]=va.z;lp[i*6+3]=vb.x;lp[i*6+4]=vb.y;lp[i*6+5]=vb.z;});
+  hlg.attributes.position.needsUpdate=true;CAM.position.x=Math.sin(t*.3)*6;R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// THREE.JS — SLIDE 8: Technical Drawing Blueprint (white bg)
+// ════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('s8-canvas');
+  const R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false});
+  R.setPixelRatio(1);R.setSize(innerWidth,innerHeight);
+  const S=new THREE.Scene();const CAM=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,500);
+  CAM.position.z=70;
+  // Technical drawing grid
+  const gm=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.06});
+  for(let i=-15;i<=15;i++){
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i*7,-80,0),new THREE.Vector3(i*7,80,0)]),gm));
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-110,i*7,0),new THREE.Vector3(110,i*7,0)]),gm));
+  }
+  // Title block lines (bottom right)
+  const tb=new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.12});
+  [[40,-30,70,-30],[40,-38,70,-38],[40,-46,70,-46],[40,-54,70,-54],[40,-30,40,-54],[70,-30,70,-54],[55,-30,55,-54]].forEach(([x1,y1,x2,y2])=>{
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x1,y1,0),new THREE.Vector3(x2,y2,0)]),tb));
+  });
+  // Rotating 4D on contact slide
+  const v4s=[[-1,-1,-1,-1],[1,-1,-1,-1],[-1,1,-1,-1],[1,1,-1,-1],[-1,-1,1,-1],[1,-1,1,-1],[-1,1,1,-1],[1,1,1,-1],[-1,-1,-1,1],[1,-1,-1,1],[-1,1,-1,1],[1,1,-1,1],[-1,-1,1,1],[1,-1,1,1],[-1,1,1,1],[1,1,1,1]];
+  const ed=[];for(let i=0;i<16;i++)for(let j=i+1;j<16;j++){let d=0;for(let k=0;k<4;k++)if(v4s[i][k]!==v4s[j][k])d++;if(d===1)ed.push([i,j]);}
+  const hlg=new THREE.BufferGeometry();const hlp=new Float32Array(ed.length*6);hlg.setAttribute('position',new THREE.BufferAttribute(hlp,3));
+  S.add(new THREE.LineSegments(hlg,new THREE.LineBasicMaterial({color:0xCC0000,transparent:true,opacity:.09})));
+  function proj4(v4,t,r=18){const ca=Math.cos(t*.15),sa=Math.sin(t*.15),cb=Math.cos(t*.12),sb=Math.sin(t*.12);let[x,y,z,w]=v4;let nx=x*ca-w*sa,nw=x*sa+w*ca;x=nx;w=nw;let ny=y*cb-z*sb,nz=y*sb+z*cb;y=ny;z=nz;const d=2.5-w,s=r/d;return new THREE.Vector3(x*s,y*s,z*s*.5);}
+  let t=0;
+  (function loop(){requestAnimationFrame(loop);t+=.005;
+  const lp=hlg.attributes.position.array;
+  ed.forEach(([a,b],i)=>{const va=proj4(v4s[a],t),vb=proj4(v4s[b],t);lp[i*6]=va.x-30;lp[i*6+1]=va.y;lp[i*6+2]=va.z;lp[i*6+3]=vb.x-30;lp[i*6+4]=vb.y;lp[i*6+5]=vb.z;});
+  hlg.attributes.position.needsUpdate=true;R.render(S,CAM);})();
+  window.addEventListener('resize',()=>{CAM.aspect=innerWidth/innerHeight;CAM.updateProjectionMatrix();R.setSize(innerWidth,innerHeight);});
+})();
+
+// ════════════════════════════════════
+// MODAL
+// ════════════════════════════════════
+let curProd='';
+function openModal(id,name,app,fin,desc){
+  curProd=name;
+  document.getElementById('m-id').textContent=id;
+  document.getElementById('m-name').textContent=name;
+  document.getElementById('m-app').textContent=app;
+  document.getElementById('m-fin').textContent=fin;
+  document.getElementById('m-desc').textContent=desc;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function quoteModal(){closeModal();document.getElementById('f-type').value='Request a Quote';document.getElementById('f-message').value=`Interested in: ${curProd}\n\nQuantity: \nMaterial thickness: \nAdditional requirements: `;document.getElementById('s8').scrollIntoView({behavior:'smooth'});}
+
+// ════════════════════════════════════
+// CONTACT FORM — Web3Forms
+// ════════════════════════════════════
+const W3F='YOUR_ACCESS_KEY_HERE';
+async function submitForm(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const company=document.getElementById('f-company').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const type=document.getElementById('f-type').value;
+  const message=document.getElementById('f-message').value.trim();
+  const btn=document.getElementById('sub-btn');
+  if(!name){showFS('err','⚠ Please enter your name.');return;}
+  if(!phone){showFS('err','⚠ Please enter your phone number.');return;}
+  btn.disabled=true;btn.textContent='TRANSMITTING…';
+  document.getElementById('fstatus').style.display='none';
+  const body={access_key:W3F,subject:`NEW ENQUIRY: ${name} — Kurlekar Engineering`,from_name:'Kurlekar Engineering Website',name,phone,company:company||'N/A',email:email||'N/A',enquiry_type:type,message:message||'No message',botcheck:''};
+  try{
+    const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)});
+    const d=await r.json();
+    if(d.success){showFS('ok','✓ ENQUIRY TRANSMITTED — Dilip Kurlekar will contact you within 24 hours.');['f-name','f-company','f-phone','f-email','f-message'].forEach(id=>document.getElementById(id).value='');document.getElementById('f-type').selectedIndex=0;}
+    else throw new Error();
+  }catch{
+    const wa=`New Enquiry\nName: ${name}\nPhone: ${phone}\nCompany: ${company||'-'}\nType: ${type}\n\n${message}`;
+    showFS('err','✕ EMAIL NOT CONFIGURED. Use WhatsApp below or call +91 98202 17732.');
+    setTimeout(()=>{if(confirm('Send this enquiry via WhatsApp instead?'))window.open('https://wa.me/919820217732?text='+encodeURIComponent(wa),'_blank');},400);
+  }
+  btn.disabled=false;btn.textContent='Submit Enquiry →';
+}
+function showFS(t,m){const el=document.getElementById('fstatus');el.className='fstatus '+t;el.textContent=m;el.style.display='block';}
+
+// ════════════════════════════════════
+// AI CHAT
+// ════════════════════════════════════
+let chatOpen=false,chatHist=[];
+const SYS=`You are the AI assistant for Kurlekar Engineering Works, a precision sheet metal press component manufacturer in Malad West, Mumbai, established 1995.
+Proprietor: Dilip Gopal Kurlekar | Phone: +91 98202 17732 | Email: kurlekarengineeringworks@yahoo.co.in | Address: 225-O Bombay Talkies Compound, Malad West, Mumbai 400 064
+Products: Motor Cans/Housings, Round Base Plates, U/C/L/Fork-type Motor Clamps & Brackets, Wiper Motor Clamps, Deep Draw Cups/Shells, Saddle Brackets, U Clips/Wire Holders, Octagonal Flange Plates, custom components to drawing/sample.
+Operations: Blanking, Piercing, Bending, Forming, Slotting, Notching, Light Deep Drawing, Serration, Coining.
+Machines: 10T/20T/30T Power Presses, Hand Press, Surface Grinder, Tapping Machine, In-house Die & Tooling Shop.
+Tolerance: ±0.01mm | Finishes: Zinc Plated, Phosphate, Black Powder Coat, Plain Steel
+Industries: Electric Motors, Fans, Automotive, OEM/Tier-2 manufacturers (top OEM supplier)
+Key facts: 30+ years, in-house die making, flexible batch sizes, transparent pricing, zero-defect standard.
+Be concise, professional, max 100 words. For quotes direct to contact form or WhatsApp +91 98202 17732.`;
+
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-win').classList.toggle('open',chatOpen);if(chatOpen)document.getElementById('chat-inp').focus();}
+function sq(msg){document.getElementById('chat-inp').value=msg;sendMsg();}
+async function sendMsg(){
+  const inp=document.getElementById('chat-inp');const msg=inp.value.trim();if(!msg)return;
+  inp.value='';appendCM('usr',msg);document.getElementById('qr-row').style.display='none';
+  const typ=appendTyping();chatHist.push({role:'user',content:msg});
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:260,system:SYS,messages:chatHist})});
+    const d=await r.json();typ.remove();
+    const reply=d.content?.[0]?.text||'Please call us: +91 98202 17732';
+    chatHist.push({role:'assistant',content:reply});appendCM('bot',reply);
+  }catch{typ.remove();appendCM('bot','Connection issue. Call: +91 98202 17732 or WhatsApp us.');}
+}
+function appendCM(type,text){
+  const msgs=document.getElementById('chat-msgs');
+  const now=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const d=document.createElement('div');d.className='cm '+type;
+  const s=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  d.innerHTML=`<div class="cm-b">${s}</div><div class="cm-t">${now}</div>`;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
+}
+function appendTyping(){
+  const msgs=document.getElementById('chat-msgs');const d=document.createElement('div');d.className='cm bot';
+  d.innerHTML='<div class="typing-w"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
+}
+
+// ════════════════════════════════════
+// INITIAL LOAD — trigger s1 animation
+// ════════════════════════════════════
+document.getElementById('s1').classList.add('in');
+</script>
 </body>
 </html>
-
