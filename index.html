@@ -1,249 +1,161 @@
-    .terminal {
-      width: min(420px, 100%);
-      justify-self: end;
-      border: 1px solid rgba(216, 181, 106, 0.24);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(180deg, rgba(26, 27, 33, 0.92), rgba(8, 9, 12, 0.92));
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(18px);
+
+    function updateLeadBrief() {
+      const data = buildLead();
+      leadBrief.textContent = data.brief;
+      leadScore.textContent = data.score;
+      scoreRing.style.setProperty("--score", data.score);
+      leadGrade.dataset.grade = data.grade;
+      if (document.body.classList.contains("owner-mode")) {
+        leadGrade.title = data.grade + " (" + data.score + "/100)";
+      } else {
+        leadGrade.removeAttribute("title");
+      }
+      leadGrade.classList.toggle("hot", data.score >= 58);
+      return data;
     }
 
-    .terminal-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(216, 181, 106, 0.16);
-      color: rgba(242, 221, 160, 0.78);
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.setTimeout(() => toast.classList.remove("show"), 2200);
     }
 
-    .signal {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--green);
+    async function copyText(text, successMessage) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const fallback = document.createElement("textarea");
+        fallback.value = text;
+        fallback.setAttribute("readonly", "");
+        fallback.style.position = "fixed";
+        fallback.style.left = "-9999px";
+        document.body.appendChild(fallback);
+        fallback.select();
+        document.execCommand("copy");
+        fallback.remove();
+      }
+      showToast(successMessage);
     }
 
-    .signal::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 18px var(--green);
+    function encodedLeadMessage(prefix) {
+      const data = updateLeadBrief();
+      return encodeURIComponent((prefix || "") + data.brief);
     }
 
-    .terminal-body {
-      display: grid;
-      gap: 12px;
-      padding: 18px;
+    leadFields.forEach((field) => field.addEventListener("input", updateLeadBrief));
+    leadFields.forEach((field) => field.addEventListener("change", updateLeadBrief));
+    updateLeadBrief();
+
+    document.getElementById("send-whatsapp").addEventListener("click", () => {
+      window.open("https://wa.me/" + OWNER_PHONE + "?text=" + encodedLeadMessage("Important website lead:\n\n"), "_blank", "noopener");
+    });
+
+    document.getElementById("send-email").addEventListener("click", () => {
+      const subject = encodeURIComponent("Website RFQ Lead - Kurlekar Engineering Works");
+      window.location.href = "mailto:" + OWNER_EMAIL + "?subject=" + subject + "&body=" + encodedLeadMessage("");
+    });
+
+    document.getElementById("copy-brief").addEventListener("click", async () => {
+      const data = updateLeadBrief();
+      await copyText(data.brief, "RFQ brief copied");
+    });
+
+    const marketingCopy = document.getElementById("marketing-copy");
+
+    function marketingTemplate() {
+      const audience = document.getElementById("market-audience").value;
+      const format = document.getElementById("market-format").value;
+      const base = "Kurlekar Engineering Works, Mumbai, has manufactured precision sheet metal press components since 1995. We support motor cans, base plates, clamps, brackets, deep draw cups, wire holders and custom press parts with in-house tooling support.";
+      if (format === "Cold email") {
+        return "Subject: Reliable press components supplier from Mumbai\n\nHello,\n\n" + base + "\n\nIf your team needs repeatable press parts for " + audience + " requirements, please share drawing/sample details, material, thickness, finish, quantity and delivery country. We will review feasibility and respond with the next RFQ step.\n\nRegards,\nKurlekar Engineering Works\nWhatsApp: +91 98202 17732\nEmail: " + OWNER_EMAIL;
+      }
+      if (format === "LinkedIn post") {
+        return "Precision press components are not just about making a part. They are about repeatability, tool condition, fitment and clear buyer communication.\n\n" + base + "\n\nWe are open to RFQs from electric motor, fan, automotive, OEM and Tier-2 manufacturing teams. Send drawing/sample details to start a clear sourcing conversation.\n\nContact: +91 98202 17732";
+      }
+      if (format === "30 second reel script") {
+        return "Reel Script - 30 seconds\n\n0-4 sec: Show rotating metal press component animation. Text: Precision press components since 1995.\n\n5-12 sec: Show motor clamps, base plates, cups and brackets. Voice: Kurlekar Engineering Works manufactures sheet metal press parts for motors, fans, automotive and OEM buyers.\n\n13-22 sec: Show press/tooling/inspection visuals. Voice: Share your drawing, sample, material, finish and quantity. Our project desk prepares the RFQ brief.\n\n23-30 sec: Show WhatsApp CTA. Text: Send your requirement to Dilip Kurlekar, +91 98202 17732.";
+      }
+      return "Hello, this is Kurlekar Engineering Works, Mumbai.\n\n" + base + "\n\nFor a quick quote, please send:\n1. Drawing or sample photo\n2. Material and thickness\n3. Finish requirement\n4. Quantity and delivery country\n5. Company name and contact person\n\nWhatsApp: +91 98202 17732";
     }
 
-    .terminal-row {
-      display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 12px;
-      color: rgba(244, 247, 251, 0.78);
-      font-size: 0.86rem;
+    function updateMarketing() {
+      marketingCopy.value = marketingTemplate();
+      const text = encodeURIComponent("Marketing message/reel for review:\n\n" + marketingCopy.value);
+      document.getElementById("share-marketing").href = "https://wa.me/" + OWNER_PHONE + "?text=" + text;
     }
 
-    .terminal-row b {
-      color: var(--steel-2);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    document.getElementById("generate-copy").addEventListener("click", updateMarketing);
+    document.getElementById("market-audience").addEventListener("change", updateMarketing);
+    document.getElementById("market-format").addEventListener("change", updateMarketing);
+    document.getElementById("copy-marketing").addEventListener("click", async () => {
+      await copyText(marketingCopy.value, "Marketing copy copied");
+    });
+    updateMarketing();
+
+    const chatWindow = document.getElementById("chat-window");
+    const chatLog = document.getElementById("chat-log");
+    const chatInput = document.getElementById("chat-input");
+
+    function openChat() {
+      chatWindow.classList.add("open");
+      chatInput.focus();
+      if (!chatLog.dataset.started) {
+        appendMessage("bot", "Hello. I can help with press component RFQs, product fit, export enquiries and the details needed before Dilip Kurlekar reviews your requirement.");
+        chatLog.dataset.started = "true";
+      }
     }
 
-    .terminal-note {
-      padding: 14px;
-      border: 1px solid rgba(216, 181, 106, 0.24);
-      background:
-        linear-gradient(135deg, rgba(216, 181, 106, 0.12), rgba(80, 189, 178, 0.07));
-      color: var(--steel);
-      font-size: 0.88rem;
+    function closeChat() {
+      chatWindow.classList.remove("open");
     }
 
-    section {
-      position: relative;
-      padding: clamp(70px, 9vw, 118px) clamp(18px, 5vw, 72px);
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
+    function appendMessage(type, text) {
+      const msg = document.createElement("div");
+      msg.className = "msg " + (type === "user" ? "user" : "bot");
+      msg.textContent = text;
+      chatLog.appendChild(msg);
+      chatLog.scrollTop = chatLog.scrollHeight;
     }
 
-    section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 22%, transparent 74%, rgba(0, 0, 0, 0.2)),
-        radial-gradient(circle at 84% 18%, rgba(216, 181, 106, 0.1), transparent 26%);
+    function botReply(text) {
+      const q = text.toLowerCase();
+      if (/quote|rfq|price|cost|rate/.test(q)) {
+        return "For a quote, please share drawing/sample photo, material grade, thickness, finish, quantity, delivery country and your company details. Use the RFQ desk on this page, then send the brief to WhatsApp +91 98202 17732.";
+      }
+      if (/export|outside|global|country|ship/.test(q)) {
+        return "International enquiries are welcome. Share destination country, quantity, finish and packaging needs. The owner will confirm feasibility, documentation and shipment coordination after reviewing the RFQ.";
+      }
+      if (/motor|clamp|bracket|plate|cup|shell|wire|holder|product/.test(q)) {
+        return "Relevant products include motor cans/housings, round base plates, U/C/L/fork-type motor clamps, wiper motor clamps, deep draw cups, saddle brackets, U clips, wire holders and custom parts to drawing/sample.";
+      }
+      if (/machine|press|tool|die|operation|capacity/.test(q)) {
+        return "Capabilities include 10T, 20T and 30T power presses, hand press, surface grinder, tapping machine and in-house die/tooling support. Operations include blanking, piercing, bending, forming, slotting, notching and light deep drawing.";
+      }
+      if (/contact|phone|email|address|reach|owner/.test(q)) {
+        return "Contact Dilip Gopal Kurlekar at +91 98202 17732 or " + OWNER_EMAIL + ". Address: " + COMPANY_FACTS.address + ".";
+      }
+      return "I can help qualify the enquiry. Please tell me the component, material, thickness, finish, quantity, drawing/sample availability and destination country. I will turn it into a clean RFQ message.";
     }
 
-    .section-inner {
-      position: relative;
-      z-index: 2;
-      width: min(1240px, 100%);
-      margin: 0 auto;
-    }
+    document.querySelectorAll("[data-open-chat]").forEach((button) => button.addEventListener("click", openChat));
+    document.querySelector("[data-close-chat]").addEventListener("click", closeChat);
+    document.querySelectorAll("[data-prompt]").forEach((button) => {
+      button.addEventListener("click", () => {
+        openChat();
+        const text = button.dataset.prompt;
+        appendMessage("user", text);
+        window.setTimeout(() => appendMessage("bot", botReply(text)), 180);
+      });
+    });
 
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.48fr);
-      gap: clamp(18px, 4vw, 64px);
-      align-items: end;
-      margin-bottom: 34px;
-    }
-
-    .section-head h2 {
-      margin-bottom: 0;
-      font-size: clamp(2.1rem, 4.9vw, 5.4rem);
-      line-height: 0.95;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      color: var(--platinum);
-      text-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
-    }
-
-    .section-head p {
-      margin-bottom: 0;
-      color: rgba(236, 231, 220, 0.68);
-      font-size: 1rem;
-    }
-
-    .sales-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    body.owner-mode .sales-layout {
-      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.68fr);
-    }
-
-    .owner-console.marketing-panel {
-      display: none;
-    }
-
-    body.owner-mode .owner-console.marketing-panel {
-      display: grid;
-    }
-
-    .panel {
-      border: 1px solid rgba(216, 181, 106, 0.18);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02) 36%, rgba(216, 181, 106, 0.045)),
-        linear-gradient(180deg, rgba(24, 25, 31, 0.96), rgba(10, 11, 14, 0.96));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(216, 181, 106, 0.14);
-    }
-
-    .panel-header h3 {
-      margin: 0;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border: 1px solid rgba(216, 181, 106, 0.2);
-      border-radius: 999px;
-      color: rgba(242, 221, 160, 0.88);
-      background: rgba(216, 181, 106, 0.08);
-      font-size: 0.68rem;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .pill.hot {
-      color: #fff5df;
-      background: rgba(216, 181, 106, 0.12);
-      border-color: rgba(216, 181, 106, 0.36);
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      padding: 18px;
-    }
-
-    .field {
-      display: grid;
-      gap: 6px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      color: rgba(216, 181, 106, 0.82);
-      font-size: 0.7rem;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid rgba(216, 181, 106, 0.14);
-      border-radius: 4px;
-      padding: 12px;
-      color: var(--ink);
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
-      outline: none;
-      transition: border-color 160ms ease, background 160ms ease;
-    }
-
-    textarea {
-      min-height: 118px;
-      resize: vertical;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: rgba(216, 181, 106, 0.72);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .lead-output {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      padding: 18px;
-      border-top: 1px solid rgba(216, 181, 106, 0.14);
-    }
-
-    body.owner-mode .lead-output {
-      grid-template-columns: 160px 1fr;
-    }
+    document.getElementById("chat-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = "";
+      appendMessage("user", text);
+      window.setTimeout(() => appendMessage("bot", botReply(text)), 220);
+    });
+  </script>
+</body>
+</html>
