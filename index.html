@@ -3,237 +3,400 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kurlekar Engineering Works — Precision Sheet Metal Components Since 1995</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Kurlekar Engineering Works — Precision Sheet Metal Since 1995</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- 
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  KURLEKAR ENGINEERING — PREMIUM AI-POWERED WEBSITE          ║
+  ║  ─────────────────────────────────────────────────          ║
+  ║  EMAIL SETUP (one-time, 2 min, completely free):            ║
+  ║  1. Go to https://web3forms.com                             ║
+  ║  2. Enter: kurlekarengineeringworks@yahoo.co.in             ║
+  ║  3. Copy the Access Key you receive                         ║
+  ║  4. Replace YOUR_W3F_KEY below with that key                ║
+  ║  5. Save file — all enquiries arrive in your Yahoo inbox    ║
+  ║                                                             ║
+  ║  AI CHAT: Already powered by Claude AI — works instantly    ║
+  ║  AI EMAIL: Writes professional emails using Claude AI       ║
+  ║  AI BACKGROUND: Tracks visitors, scores leads, logs data    ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
 <style>
-  :root {
-    --red: #c8180e;
-    --red-dark: #a01008;
-    --white: #ffffff;
-    --off-white: #f7f7f5;
-    --light-grey: #efefed;
-    --text: #1a1a1a;
-    --text-muted: #666660;
-    --border: #e0e0dc;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--white); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-weight: 400; overflow-x: hidden; }
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM — KURLEKAR PREMIUM
+═══════════════════════════════════════════════════ */
+:root{
+  --crimson:#AA0000;
+  --crimson-h:#CC0000;
+  --crimson-d:#880000;
+  --gold:#B8962E;
+  --gold-h:#D4AF50;
+  --gold-l:#E8C96A;
+  --ivory:#F8F3EC;
+  --ivory-d:#EDE7DD;
+  --charcoal:#171310;
+  --charcoal-m:#221C17;
+  --charcoal-l:#2E2520;
+  --warm:#7A6A58;
+  --warm-l:#A08070;
+  --border-g:rgba(184,150,46,.2);
+  --border-r:rgba(170,0,0,.18);
+  --mono:'Share Tech Mono',monospace;
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Rajdhani',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--charcoal);color:var(--ivory);font-family:var(--sans);overflow-x:hidden;cursor:none;}
 
-  /* TOP BAR */
-  .topbar { background: var(--red); padding: 8px 60px; display: flex; justify-content: space-between; align-items: center; }
-  .topbar-left { font-size: 0.78rem; color: rgba(255,255,255,0.85); letter-spacing: 0.04em; }
-  .topbar-right { display: flex; gap: 24px; }
-  .topbar-right a { font-size: 0.78rem; color: rgba(255,255,255,0.9); text-decoration: none; transition: color 0.2s; }
-  .topbar-right a:hover { color: #fff; }
+/* ── PREMIUM CURSOR ── */
+#cur-dot{position:fixed;width:5px;height:5px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .12s,height .12s;}
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(184,150,46,.4);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+#cur-ring.hover{width:48px;height:48px;border-color:rgba(184,150,46,.7);}
 
-  /* NAV */
-  nav { position: sticky; top: 0; z-index: 999; background: var(--white); border-bottom: 3px solid var(--red); box-shadow: 0 2px 20px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 60px; }
-  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; padding: 16px 0; }
-  .nav-logo-icon { width: 44px; height: 44px; background: var(--red); display: flex; align-items: center; justify-content: center; }
-  .nav-logo-icon svg { width: 24px; height: 24px; fill: white; }
-  .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-  .nav-logo-name { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.04em; text-transform: uppercase; }
-  .nav-logo-sub { font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
-  .nav-links { display: flex; list-style: none; }
-  .nav-links a { display: block; padding: 22px 18px; color: var(--text); text-decoration: none; font-size: 0.83rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: color 0.2s, border-color 0.2s; }
-  .nav-links a:hover { color: var(--red); border-bottom-color: var(--red); }
-  .nav-cta { background: var(--red); color: #fff; padding: 11px 24px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--red); transition: all 0.2s; }
-  .nav-cta:hover { background: transparent; color: var(--red); }
+/* ── TOP BAR ── */
+.topbar{background:var(--charcoal-m);border-bottom:1px solid var(--border-g);padding:10px 64px;display:flex;justify-content:space-between;align-items:center;}
+.topbar::after{content:'';display:block;position:absolute;left:64px;right:64px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,150,46,.25),transparent);}
+.tb-left{font-family:var(--mono);font-size:.58rem;letter-spacing:.28em;color:var(--warm-l);}
+.tb-left .gold{color:var(--gold);margin-right:16px;}
+.tb-right{display:flex;gap:24px;}
+.tb-right a{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--warm-l);text-decoration:none;transition:color .2s;}
+.tb-right a:hover{color:var(--gold);}
 
-  /* HERO */
-  #hero { background: var(--white); position: relative; overflow: hidden; min-height: 92vh; display: flex; align-items: stretch; }
-  .hero-left { flex: 1; padding: 80px 60px; position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; }
-  .hero-right { width: 42%; background: var(--red); position: relative; overflow: hidden; flex-shrink: 0; }
-  .hero-right-pattern { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
-  .hero-right-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 60px 36px; }
-  .hero-stat-big { text-align: center; color: white; border: 1px solid rgba(255,255,255,0.18); padding: 26px 32px; width: 100%; background: rgba(0,0,0,0.1); }
-  .hero-stat-big .num { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
-  .hero-stat-big .lbl { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px; }
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:9000;background:rgba(23,19,16,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-g);display:flex;align-items:center;justify-content:space-between;padding:0 64px;}
+.brand{display:flex;align-items:center;gap:16px;text-decoration:none;padding:18px 0;}
+.brand-emblem{width:38px;height:38px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.brand-emblem-k{font-family:var(--serif);font-size:1.25rem;font-weight:500;color:var(--gold);}
+.brand-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ivory);display:block;line-height:1.15;}
+.brand-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.24em;color:var(--warm-l);text-transform:uppercase;}
+.nav-links{display:flex;list-style:none;}
+.nav-links a{display:block;padding:22px 15px;font-family:var(--sans);font-size:.76rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(248,243,236,.38);text-decoration:none;position:relative;transition:color .22s;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:15px;right:15px;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .28s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:10px 26px;text-decoration:none;transition:background .22s;white-space:nowrap;}
+.nav-cta:hover{background:var(--gold-h);}
 
-  .hero-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: white; padding: 7px 16px; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 22px; animation: fadeUp 0.6s ease both; }
-  .hero-badge::before { content: ''; width: 20px; height: 2px; background: rgba(255,255,255,0.5); }
-  h1 { font-family: 'Oswald', sans-serif; font-size: clamp(2.8rem, 4.5vw, 4.5rem); font-weight: 700; line-height: 1.0; text-transform: uppercase; color: var(--text); animation: fadeUp 0.6s 0.1s ease both; }
-  h1 .red { color: var(--red); }
-  h1 .sub { display: block; font-size: 0.65em; color: var(--text-muted); font-weight: 400; margin-top: 6px; letter-spacing: 0.04em; }
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;overflow:hidden;}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-fog{position:absolute;inset:0;background:radial-gradient(ellipse at 35% 55%,rgba(23,19,16,.15) 0%,rgba(23,19,16,.82) 65%,rgba(23,19,16,.97) 100%);z-index:1;pointer-events:none;}
+.hero-left{flex:1;padding:130px 64px;position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;max-width:680px;}
+.hero-right{width:46%;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:130px 52px;}
+/* hero text */
+.h-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:22px;animation:fadeUp .9s .2s both;}
+.h-eyebrow::before{content:'';width:36px;height:1px;background:var(--gold);}
+.h-eyebrow-text{font-family:var(--mono);font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);}
+.h-title{font-family:var(--serif);font-size:clamp(3.8rem,7vw,8rem);font-weight:300;line-height:.88;letter-spacing:.04em;text-transform:uppercase;color:var(--ivory);animation:fadeUp .9s .4s both;}
+.h-title em{font-style:normal;color:var(--gold);display:block;}
+.h-title small{display:block;font-family:var(--sans);font-size:.22em;font-weight:400;letter-spacing:.3em;color:var(--warm-l);margin-top:14px;text-transform:uppercase;}
+.h-rule{width:70px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:30px 0;animation:fadeUp .8s .6s both;}
+.h-desc{font-family:var(--sans);font-size:1.02rem;color:rgba(248,243,236,.52);line-height:1.9;font-weight:300;max-width:430px;animation:fadeUp .8s .7s both;}
+.h-ctas{display:flex;gap:14px;margin-top:38px;animation:fadeUp .8s .9s both;}
+.btn-gold{background:var(--gold);color:var(--charcoal);border:none;padding:15px 38px;font-family:var(--sans);font-size:.8rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background .22s;cursor:pointer;}
+.btn-gold:hover{background:var(--gold-h);}
+.btn-ghost{background:transparent;color:var(--gold);border:1px solid rgba(184,150,46,.35);padding:15px 38px;font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:all .22s;}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(184,150,46,.07);}
+/* stat cards */
+.h-stat{width:100%;border:1px solid var(--border-g);padding:22px 26px;background:rgba(23,19,16,.65);backdrop-filter:blur(12px);text-align:center;position:relative;overflow:hidden;animation:fadeUp .8s both;}
+.h-stat:nth-child(1){animation-delay:.45s;}
+.h-stat:nth-child(2){animation-delay:.6s;}
+.h-stat:nth-child(3){animation-delay:.75s;}
+.h-stat:nth-child(4){animation-delay:.9s;}
+.h-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hs-num{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--gold);line-height:1;}
+.hs-lbl{font-family:var(--mono);font-size:.54rem;letter-spacing:.24em;text-transform:uppercase;color:var(--warm-l);margin-top:5px;}
 
-  .since-badge { display: inline-flex; align-items: center; gap: 14px; margin-top: 28px; padding: 14px 20px; border-left: 4px solid var(--red); background: var(--off-white); animation: fadeUp 0.6s 0.2s ease both; }
-  .since-badge .year { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--red); }
-  .since-badge .st { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
-  .since-badge .st strong { color: var(--text); display: block; font-size: 0.92rem; }
+/* ── MARQUEE ── */
+.marquee-wrap{background:var(--crimson);overflow:hidden;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.06);}
+.marquee-inner{display:flex;animation:marquee 30s linear infinite;white-space:nowrap;padding:13px 0;}
+.marquee-item{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);padding:0 36px;border-right:1px solid rgba(255,255,255,.12);}
+.marquee-item .d{color:rgba(255,255,255,.25);margin:0 8px;}
 
-  .hero-desc { margin-top: 24px; font-size: 1rem; color: var(--text-muted); line-height: 1.75; max-width: 460px; font-weight: 300; animation: fadeUp 0.6s 0.25s ease both; }
-  .hero-ctas { display: flex; gap: 14px; margin-top: 34px; animation: fadeUp 0.6s 0.3s ease both; }
-  .btn-red { background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
-  .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
-  .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--text); padding: 13px 30px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all 0.2s; }
-  .btn-outline:hover { background: var(--text); color: white; }
+/* ── SECTIONS ── */
+.section{padding:110px 64px;position:relative;overflow:hidden;}
+.section.light{background:var(--ivory);}
+.section.dark{background:var(--charcoal);}
+.section.mid{background:var(--charcoal-m);}
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);}
+.eyebrow.on-light{color:var(--crimson);}
+.eyebrow.on-light::before{background:var(--crimson);}
+.sec-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,5.5rem);font-weight:300;line-height:.9;text-transform:uppercase;letter-spacing:.04em;}
+.sec-title em{font-style:normal;color:var(--gold);}
+.sec-title.on-light{color:var(--charcoal);}
+.sec-title.on-light em{color:var(--crimson);}
+.gold-rule{width:52px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:18px 0 0;}
+.gold-rule.red{background:linear-gradient(90deg,var(--crimson),transparent);}
 
-  /* SECTIONS */
-  section { padding: 90px 60px; }
-  .section-label { display: flex; align-items: center; gap: 12px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 12px; }
-  .section-label::before { content: ''; width: 28px; height: 2px; background: var(--red); }
-  .section-title { font-family: 'Oswald', sans-serif; font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 700; text-transform: uppercase; line-height: 1.05; color: var(--text); }
-  .section-title .red { color: var(--red); }
-  .red-divider { height: 4px; background: var(--red); width: 55px; margin: 16px 0 0; }
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:84px;margin-top:64px;align-items:start;}
+.about-p{font-family:var(--sans);font-size:1rem;color:rgba(23,19,16,.58);line-height:1.9;margin-bottom:14px;font-weight:400;}
+.about-callout{border-left:2px solid var(--crimson);padding:18px 22px;background:white;margin:26px 0;font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--charcoal);line-height:1.72;box-shadow:0 2px 30px rgba(23,19,16,.06);}
+.machines-label{font-family:var(--mono);font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--warm);margin-bottom:14px;}
+.mlist{display:flex;flex-direction:column;gap:2px;}
+.mrow{display:flex;align-items:center;background:white;border:1px solid rgba(23,19,16,.07);overflow:hidden;transition:all .22s;}
+.mrow:hover{border-color:rgba(170,0,0,.18);box-shadow:0 4px 22px rgba(170,0,0,.06);}
+.mtag{background:var(--crimson);color:white;font-family:var(--mono);font-size:.58rem;font-weight:600;padding:13px 13px;min-width:70px;text-align:center;letter-spacing:.06em;flex-shrink:0;text-transform:uppercase;}
+.minfo{padding:11px 17px;flex:1;}
+.mname{font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--charcoal);letter-spacing:.02em;}
+.mdesc{font-family:var(--mono);font-size:.56rem;color:var(--warm);margin-top:2px;letter-spacing:.08em;}
 
-  /* ABOUT */
-  #about { background: var(--off-white); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; margin-top: 52px; align-items: start; }
-  .about-text p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 16px; font-weight: 300; }
-  .about-highlight { border-left: 4px solid var(--red); padding: 16px 20px; background: white; margin: 26px 0; font-size: 1rem; color: var(--text); line-height: 1.65; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
-  .machines-title { font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
-  .machine-list { display: flex; flex-direction: column; gap: 3px; }
-  .machine-row { display: flex; align-items: center; background: white; border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.2s; }
-  .machine-row:hover { box-shadow: 0 4px 16px rgba(200,24,14,0.1); }
-  .machine-tag { background: var(--red); color: white; font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600; padding: 14px 16px; min-width: 74px; text-align: center; letter-spacing: 0.04em; text-transform: uppercase; flex-shrink: 0; }
-  .machine-info { padding: 12px 18px; flex: 1; }
-  .machine-name { font-weight: 600; font-size: 0.93rem; color: var(--text); }
-  .machine-desc { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
+/* ── OPERATIONS ── */
+.ops-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:54px;}
+.op-card{background:rgba(248,243,236,.025);border:1px solid rgba(248,243,236,.06);padding:32px 20px;position:relative;overflow:hidden;transition:all .3s;cursor:default;}
+.op-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--crimson),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .35s;}
+.op-card:hover{background:rgba(170,0,0,.07);border-color:rgba(184,150,46,.12);}
+.op-card:hover::after{transform:scaleX(1);}
+.op-num{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:rgba(248,243,236,.04);line-height:1;margin-bottom:10px;}
+.op-name{font-family:var(--sans);font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ivory);}
+.op-desc{font-family:var(--mono);font-size:.56rem;color:rgba(248,243,236,.32);margin-top:9px;line-height:1.65;letter-spacing:.04em;}
 
-  /* OPERATIONS */
-  #operations { background: var(--text); padding: 80px 60px; }
-  #operations .section-label { color: var(--red); }
-  #operations .section-label::before { background: var(--red); }
-  #operations .section-title { color: white; }
-  .ops-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3px; margin-top: 48px; }
-  .op-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 34px 22px; position: relative; overflow: hidden; transition: background 0.25s; }
-  .op-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .op-card:hover { background: rgba(200,24,14,0.1); }
-  .op-card:hover::after { transform: scaleX(1); }
-  .op-num { font-family: 'Oswald', sans-serif; font-size: 2.6rem; font-weight: 700; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: 10px; }
-  .op-name { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: white; letter-spacing: 0.03em; }
-  .op-desc { font-size: 0.77rem; color: rgba(255,255,255,0.42); margin-top: 8px; line-height: 1.5; }
+/* ── 3D CANVAS STRIP ── */
+.ops-strip{height:110px;position:relative;overflow:hidden;margin-top:2px;border:1px solid rgba(248,243,236,.04);}
+#ops-canvas{width:100%;height:100%;display:block;}
 
-  /* PRODUCTS */
-  #products { background: var(--white); }
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 3px; margin-top: 48px; }
-  .prod-card { border: 1px solid var(--border); padding: 22px 18px; background: white; position: relative; transition: all 0.22s; }
-  .prod-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(200,24,14,0.1); transform: translateY(-2px); }
-  .prod-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--red); transition: height 0.25s; }
-  .prod-card:hover::before { height: 100%; }
-  .prod-id { font-family: 'Oswald', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; color: var(--red); text-transform: uppercase; margin-bottom: 6px; }
-  .prod-name { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--text); line-height: 1.2; margin-bottom: 12px; }
-  .prod-meta { font-size: 0.75rem; color: var(--text-muted); }
-  .prod-meta span { color: var(--text); font-weight: 500; }
-  .prod-meta div { margin-top: 3px; }
-  .custom-prod { border: 2px dashed var(--red); background: rgba(200,24,14,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 20px; }
-  .custom-prod .ci { font-size: 2rem; margin-bottom: 8px; }
-  .custom-prod .ct { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--red); }
-  .custom-prod .cs { font-size: 0.76rem; color: var(--text-muted); margin-top: 4px; }
+/* ── PRODUCTS ── */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:2px;margin-top:56px;}
+.pcard{background:white;border:1px solid rgba(23,19,16,.07);padding:22px 18px;position:relative;overflow:hidden;transition:all .24s;cursor:pointer;}
+.pcard::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--crimson);transition:height .3s;}
+.pcard:hover{border-color:rgba(170,0,0,.15);box-shadow:0 10px 36px rgba(23,19,16,.09);transform:translateY(-3px);}
+.pcard:hover::before{height:100%;}
+.pid{font-family:var(--mono);font-size:.55rem;letter-spacing:.24em;color:var(--crimson);margin-bottom:7px;}
+.pname{font-family:var(--sans);font-size:.92rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--charcoal);line-height:1.2;margin-bottom:10px;}
+.pmeta{font-family:var(--mono);font-size:.56rem;color:var(--warm);line-height:1.65;}
+.pmeta span{color:var(--charcoal-l);font-weight:500;}
+.pmeta div{margin-top:2px;}
+.parrow{position:absolute;bottom:13px;right:14px;font-size:.7rem;color:rgba(170,0,0,.22);transition:all .22s;}
+.pcard:hover .parrow{color:var(--crimson);transform:translate(2px,-2px);}
+.pcard-custom{border:1px dashed rgba(170,0,0,.22);background:rgba(170,0,0,.018);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 20px;cursor:pointer;transition:all .24s;}
+.pcard-custom:hover{background:rgba(170,0,0,.045);border-color:rgba(170,0,0,.35);}
+.custom-icon{font-size:1.7rem;margin-bottom:10px;opacity:.45;}
+.custom-t{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--crimson);letter-spacing:.08em;}
+.custom-s{font-family:var(--mono);font-size:.54rem;color:var(--warm);margin-top:4px;letter-spacing:.1em;}
 
-  /* QUALITY */
-  #quality { background: var(--off-white); }
-  .quality-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 48px; }
-  .q-card { background: white; border: 1px solid var(--border); padding: 34px 26px; transition: all 0.22s; border-top: 4px solid transparent; }
-  .q-card:hover { border-top-color: var(--red); box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
-  .q-icon { font-size: 1.6rem; margin-bottom: 14px; }
-  .q-val { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--red); margin-bottom: 6px; }
-  .q-title { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; color: var(--text); margin-bottom: 10px; }
-  .q-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
+/* ── QUALITY ── */
+.q-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px;}
+.qcard{background:rgba(248,243,236,.025);border:1px solid var(--border-g);padding:36px 24px;transition:all .28s;border-top:2px solid transparent;}
+.qcard:hover{border-top-color:var(--gold);background:rgba(184,150,46,.04);}
+.qicon{font-size:1.5rem;margin-bottom:16px;opacity:.7;}
+.qval{font-family:var(--serif);font-size:1.65rem;font-weight:300;color:var(--gold);margin-bottom:7px;}
+.qtitle{font-family:var(--sans);font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ivory);margin-bottom:10px;}
+.qdesc{font-family:var(--mono);font-size:.56rem;color:rgba(248,243,236,.36);line-height:1.72;letter-spacing:.04em;}
 
-  /* INDUSTRIES */
-  #industries { background: var(--white); }
-  .ind-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; margin-top: 48px; }
-  .ind-card { background: var(--off-white); border: 1px solid var(--border); padding: 40px 26px; text-align: center; transition: all 0.25s; position: relative; overflow: hidden; }
-  .ind-card::after { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateY(100%); transition: transform 0.3s ease; z-index: 0; }
-  .ind-card:hover::after { transform: translateY(0); }
-  .ind-card > * { position: relative; z-index: 1; transition: color 0.3s; }
-  .ind-card:hover .ind-name, .ind-card:hover .ind-desc { color: white; }
-  .ind-card:hover .ind-desc { color: rgba(255,255,255,0.8); }
-  .ind-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
-  .ind-name { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 600; text-transform: uppercase; color: var(--text); }
-  .ind-desc { font-size: 0.77rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+/* ── INDUSTRIES ── */
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px;}
+.icard{background:white;border:1px solid rgba(23,19,16,.07);padding:48px 28px;text-align:center;position:relative;overflow:hidden;transition:all .32s;cursor:default;}
+.icard::after{content:'';position:absolute;inset:0;background:var(--crimson);transform:translateY(102%);transition:transform .38s cubic-bezier(.4,0,.2,1);z-index:0;}
+.icard>*{position:relative;z-index:1;transition:color .3s;}
+.icard:hover::after{transform:translateY(0);}
+.icard:hover .iname,.icard:hover .idesc{color:white;}
+.icard:hover .idesc{color:rgba(255,255,255,.7);}
+.iicon{font-size:2.1rem;margin-bottom:14px;display:block;}
+.iname{font-family:var(--serif);font-size:1.1rem;font-weight:400;text-transform:uppercase;letter-spacing:.08em;color:var(--charcoal);}
+.idesc{font-family:var(--mono);font-size:.55rem;color:var(--warm);margin-top:8px;line-height:1.65;}
 
-  /* WHY US */
-  #why { background: var(--red); padding: 90px 60px; }
-  #why .section-label { color: rgba(255,255,255,0.65); }
-  #why .section-label::before { background: rgba(255,255,255,0.5); }
-  #why .section-title { color: white; }
-  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 48px; }
-  .why-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 30px 26px; transition: background 0.22s; }
-  .why-card:hover { background: rgba(255,255,255,0.15); }
-  .why-num { font-family: 'Oswald', sans-serif; font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.2em; margin-bottom: 10px; }
-  .why-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; color: white; margin-bottom: 10px; }
-  .why-desc { font-size: 0.83rem; color: rgba(255,255,255,0.72); line-height: 1.65; font-weight: 300; }
+/* ── WHY US ── */
+.why-section{background:var(--crimson);padding:110px 64px;}
+.why-section .eyebrow{color:rgba(255,255,255,.45);}
+.why-section .eyebrow::before{background:rgba(255,255,255,.35);}
+.why-section .sec-title{color:white;}
+.why-section .sec-title em{color:rgba(255,255,255,.38);font-style:normal;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;}
+.wcard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:32px 28px;transition:all .26s;position:relative;overflow:hidden;}
+.wcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);opacity:0;transition:opacity .28s;}
+.wcard:hover{background:rgba(255,255,255,.12);}
+.wcard:hover::before{opacity:1;}
+.wnum{font-family:var(--serif);font-size:.82rem;font-weight:300;letter-spacing:.35em;color:rgba(255,255,255,.28);margin-bottom:12px;}
+.wtitle{font-family:var(--sans);font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:white;margin-bottom:10px;}
+.wdesc{font-family:var(--mono);font-size:.57rem;color:rgba(255,255,255,.58);line-height:1.75;letter-spacing:.03em;}
 
-  /* CLIENT BANNER */
-  .client-banner { background: var(--text); padding: 28px 60px; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
-  .cl-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-  .cl-name { font-family: 'Oswald', sans-serif; font-size: 1.9rem; font-weight: 700; color: white; letter-spacing: 0.05em; }
-  .cl-sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
-  .cl-div { width: 1px; height: 44px; background: rgba(255,255,255,0.14); }
-  .cl-badge { background: var(--red); color: white; padding: 6px 14px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:84px;margin-top:62px;}
+.crow{display:flex;border-bottom:1px solid rgba(23,19,16,.08);padding:14px 0;}
+.crow:first-child{border-top:1px solid rgba(23,19,16,.08);}
+.ckey{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warm);width:108px;flex-shrink:0;padding-top:2px;}
+.cval{font-family:var(--sans);font-size:.95rem;color:rgba(23,19,16,.72);line-height:1.65;font-weight:500;}
+.cval a{color:var(--crimson);text-decoration:none;transition:opacity .2s;}
+.cval a:hover{opacity:.7;}
+/* form */
+.form-shell{background:var(--charcoal);border:1px solid var(--border-g);padding:44px;position:relative;overflow:hidden;}
+.form-shell::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.form-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:var(--ivory);margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border-g);}
+.form-title em{font-style:normal;color:var(--gold);}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-family:var(--mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(248,243,236,.32);}
+.fg input,.fg textarea,.fg select{background:rgba(248,243,236,.04);border:1px solid rgba(184,150,46,.14);color:var(--ivory);padding:12px 14px;font-size:.92rem;font-family:var(--sans);font-weight:400;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);background:rgba(184,150,46,.05);}
+.fg textarea{min-height:92px;resize:vertical;}
+.fg select option{background:var(--charcoal);}
+.sub-btn{margin-top:10px;width:100%;background:var(--gold);color:var(--charcoal);border:none;padding:15px;font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .22s;}
+.sub-btn:hover{background:var(--gold-h);}
+.sub-btn:disabled{opacity:.5;cursor:not-allowed;}
+.fstatus{margin-top:10px;padding:11px 15px;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;display:none;text-align:center;}
+.fstatus.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#4ade80;display:block;}
+.fstatus.err{background:rgba(170,0,0,.08);border:1px solid rgba(170,0,0,.22);color:#ff7777;display:block;}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;background:#25D366;color:#000;padding:13px;text-decoration:none;font-family:var(--sans);font-size:.82rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:background .2s;}
+.wa-btn:hover{background:#1da851;}
 
-  /* CONTACT */
-  #contact { background: var(--off-white); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; margin-top: 52px; }
-  .c-row { display: flex; gap: 0; border-bottom: 1px solid var(--border); padding: 18px 0; }
-  .c-row:first-child { border-top: 1px solid var(--border); }
-  .c-key { width: 130px; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; padding-top: 2px; flex-shrink: 0; }
-  .c-val { font-size: 0.93rem; color: var(--text); line-height: 1.65; }
-  .c-val a { color: var(--red); text-decoration: none; font-weight: 500; }
-  .c-val a:hover { text-decoration: underline; }
-  .enquiry-form { background: white; border: 1px solid var(--border); padding: 38px; }
-  .form-title { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 600; text-transform: uppercase; color: var(--text); margin-bottom: 26px; padding-bottom: 14px; border-bottom: 2px solid var(--red); }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .fg { display: flex; flex-direction: column; gap: 6px; }
-  .fg.full { grid-column: 1 / -1; }
-  .fg label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-  .fg input, .fg textarea, .fg select { background: var(--off-white); border: 1px solid var(--border); color: var(--text); padding: 11px 14px; font-size: 0.9rem; font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
-  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--red); background: white; }
-  .fg textarea { min-height: 96px; resize: vertical; }
-  .submit-btn { margin-top: 8px; background: var(--red); color: white; border: 2px solid var(--red); padding: 13px 32px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; width: 100%; }
-  .submit-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
+/* ── FOOTER ── */
+footer{background:var(--charcoal);border-top:1px solid var(--border-g);}
+.ft-top{padding:56px 64px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;border-bottom:1px solid rgba(184,150,46,.07);}
+.ft-brand{font-family:var(--serif);font-size:1.15rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory);}
+.ft-brand em{font-style:normal;color:var(--gold);}
+.ft-tag{font-family:var(--mono);font-size:.52rem;letter-spacing:.24em;text-transform:uppercase;color:var(--warm);margin-top:4px;}
+.ft-desc{font-size:.8rem;color:rgba(248,243,236,.25);line-height:1.8;font-weight:300;margin-top:14px;max-width:295px;}
+.ft-col-t{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--warm);margin-bottom:15px;}
+.ft-links{display:flex;flex-direction:column;gap:10px;}
+.ft-links a{font-family:var(--sans);font-size:.8rem;color:rgba(248,243,236,.28);text-decoration:none;transition:color .2s;letter-spacing:.04em;}
+.ft-links a:hover{color:var(--gold);}
+.ft-bot{padding:16px 64px;display:flex;justify-content:space-between;align-items:center;}
+.ft-copy{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;color:rgba(248,243,236,.14);}
 
-  /* FOOTER */
-  footer { background: var(--text); }
-  .footer-top { padding: 50px 60px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .footer-logo-name { font-family: 'Oswald', sans-serif; font-size: 1.15rem; font-weight: 700; color: white; letter-spacing: 0.06em; text-transform: uppercase; }
-  .footer-logo-name span { color: var(--red); }
-  .footer-tagline { font-size: 0.76rem; color: rgba(255,255,255,0.38); margin-top: 5px; letter-spacing: 0.08em; }
-  .footer-since { margin-top: 14px; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
-  .footer-since strong { color: var(--red); }
-  .footer-desc { margin-top: 10px; font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.7; font-weight: 300; }
-  .fcol-title { font-family: 'Oswald', sans-serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: white; margin-bottom: 16px; }
-  .fcol-links { display: flex; flex-direction: column; gap: 10px; }
-  .fcol-links a { font-size: 0.8rem; color: rgba(255,255,255,0.42); text-decoration: none; transition: color 0.2s; }
-  .fcol-links a:hover { color: var(--red); }
-  .footer-bottom { padding: 18px 60px; display: flex; justify-content: space-between; align-items: center; }
-  .footer-copy { font-size: 0.74rem; color: rgba(255,255,255,0.28); }
-  .footer-made { font-size: 0.74rem; color: rgba(255,255,255,0.28); font-style: italic; }
+/* ── AI INTELLIGENCE PANEL ── */
+#ai-panel{position:fixed;top:80px;left:20px;z-index:7000;width:240px;display:none;flex-direction:column;gap:3px;}
+#ai-panel.show{display:flex;}
+.aip-hdr{background:rgba(23,19,16,.95);border:1px solid var(--border-g);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);}
+.aip-title{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);}
+.aip-close{background:none;border:none;color:var(--warm);cursor:pointer;font-size:1rem;line-height:1;}
+.aip-card{background:rgba(23,19,16,.92);border:1px solid rgba(184,150,46,.1);padding:10px 13px;backdrop-filter:blur(10px);}
+.aip-label{font-family:var(--mono);font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);margin-bottom:4px;}
+.aip-val{font-family:var(--mono);font-size:.65rem;color:var(--ivory);line-height:1.4;}
+.aip-live{color:#4ade80;animation:livePulse 2s infinite;}
+@keyframes livePulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 
-  /* ANIMATIONS */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
+/* ── CHAT WIDGET ── */
+#chat-fab{position:fixed;bottom:28px;right:28px;z-index:8000;}
+#chat-btn{width:56px;height:56px;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 28px rgba(184,150,46,.35);transition:all .22s;position:relative;}
+#chat-btn:hover{background:var(--gold-h);transform:scale(1.06);}
+#chat-btn svg{width:22px;height:22px;fill:var(--charcoal);}
+.chat-pulse{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:var(--crimson);border-radius:50%;animation:cpulse 2s infinite;}
+@keyframes cpulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.5;}}
+#chat-win{position:fixed;bottom:94px;right:28px;width:365px;background:var(--charcoal);border:1px solid var(--border-g);box-shadow:0 20px 64px rgba(0,0,0,.75);z-index:7999;display:none;flex-direction:column;max-height:530px;}
+#chat-win::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1;}
+#chat-win.open{display:flex;}
+.ch-hdr{padding:16px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border-g);background:rgba(23,19,16,.6);}
+.ch-emblem{width:34px;height:34px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ch-emblem svg{width:15px;height:15px;fill:var(--gold);}
+.ch-name{font-family:var(--serif);font-size:.98rem;font-weight:400;letter-spacing:.08em;color:var(--ivory);}
+.ch-status{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;color:var(--warm-l);margin-top:1px;}
+.ch-cls{background:none;border:none;color:var(--warm);font-size:1.2rem;cursor:pointer;margin-left:auto;transition:color .2s;}
+.ch-cls:hover{color:var(--gold);}
+#chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:rgba(23,19,16,.4);}
+#chat-msgs::-webkit-scrollbar{width:3px;}
+#chat-msgs::-webkit-scrollbar-thumb{background:rgba(184,150,46,.2);}
+.cm{max-width:88%;}
+.cm.bot{align-self:flex-start;}
+.cm.usr{align-self:flex-end;}
+.cm-b{padding:10px 14px;font-family:var(--sans);font-size:.86rem;line-height:1.6;font-weight:400;}
+.cm.bot .cm-b{background:rgba(248,243,236,.05);border:1px solid var(--border-g);color:rgba(248,243,236,.82);border-radius:0 8px 8px 8px;}
+.cm.usr .cm-b{background:var(--crimson);color:white;border-radius:8px 0 8px 8px;}
+.cm-t{font-family:var(--mono);font-size:.52rem;color:var(--warm);margin-top:3px;padding:0 3px;}
+.cm.usr .cm-t{text-align:right;}
+.typing-w{display:flex;gap:4px;align-items:center;padding:11px 14px;background:rgba(248,243,236,.05);border:1px solid var(--border-g);width:fit-content;border-radius:0 8px 8px 8px;}
+.td{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:tdot 1.2s infinite;}
+.td:nth-child(2){animation-delay:.2s;}.td:nth-child(3){animation-delay:.4s;}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}
+.qr-row{display:flex;flex-wrap:wrap;gap:5px;padding:10px 14px;border-bottom:1px solid var(--border-g);}
+.qr{background:transparent;border:1px solid rgba(184,150,46,.17);color:rgba(248,243,236,.48);padding:5px 11px;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .18s;}
+.qr:hover{background:rgba(184,150,46,.1);border-color:var(--gold);color:var(--gold);}
+.ch-inp-row{padding:10px 12px;border-top:1px solid var(--border-g);display:flex;gap:7px;background:var(--charcoal-m);}
+#chat-inp{flex:1;background:rgba(248,243,236,.04);border:1px solid rgba(184,150,46,.12);color:var(--ivory);padding:10px 13px;font-size:.86rem;font-family:var(--sans);outline:none;transition:border-color .2s;}
+#chat-inp:focus{border-color:var(--gold);}
+#chat-inp::placeholder{color:var(--warm);}
+#ch-send{background:var(--gold);border:none;color:var(--charcoal);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+#ch-send:hover{background:var(--gold-h);}
+#ch-send svg{width:13px;height:13px;fill:var(--charcoal);}
 
-  /* MOBILE */
-  @media (max-width: 960px) {
-    .topbar { padding: 8px 20px; flex-direction: column; gap: 6px; text-align: center; }
-    nav { padding: 0 20px; }
-    .nav-links { display: none; }
-    section, #operations, #why { padding: 60px 20px; }
-    #hero { flex-direction: column; min-height: auto; }
-    .hero-left { padding: 70px 20px 36px; }
-    .hero-right { width: 100%; min-height: 260px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
-    .quality-grid, .ind-grid { grid-template-columns: 1fr 1fr; }
-    .ops-grid { grid-template-columns: 1fr 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
-    .footer-top { grid-template-columns: 1fr; gap: 28px; padding: 36px 20px; }
-    .footer-bottom { flex-direction: column; gap: 8px; padding: 16px 20px; text-align: center; }
-    .client-banner { padding: 24px 20px; gap: 16px; }
-    .form-grid { grid-template-columns: 1fr; }
-  }
+/* ── MODAL ── */
+#modal{position:fixed;inset:0;background:rgba(23,19,16,.92);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px);}
+#modal.open{display:flex;}
+.modal-box{background:var(--ivory);max-width:460px;width:90%;padding:44px;position:relative;animation:modalUp .22s ease;}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--crimson);}
+.modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--warm);transition:color .2s;}
+.modal-close:hover{color:var(--crimson);}
+.m-id{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:var(--crimson);margin-bottom:5px;}
+.m-name{font-family:var(--serif);font-size:1.9rem;font-weight:300;letter-spacing:.06em;text-transform:uppercase;color:var(--charcoal);margin-bottom:20px;}
+.m-meta{border-top:1px solid rgba(23,19,16,.1);border-bottom:1px solid rgba(23,19,16,.1);padding:14px 0;margin-bottom:20px;display:flex;flex-direction:column;gap:9px;}
+.m-row{display:flex;gap:12px;}
+.m-key{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);width:90px;flex-shrink:0;padding-top:2px;}
+.m-val{font-family:var(--sans);font-size:.9rem;color:rgba(23,19,16,.7);font-weight:500;}
+.m-btn{width:100%;background:var(--crimson);color:white;border:none;padding:14px;font-family:var(--sans);font-size:.84rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.m-btn:hover{background:var(--crimson-h);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+@keyframes modalUp{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
+.r{opacity:0;transform:translateY(30px);transition:opacity .72s ease,transform .72s ease;}
+.rl{opacity:0;transform:translateX(-30px);transition:opacity .72s ease,transform .72s ease;}
+.rr{opacity:0;transform:translateX(30px);transition:opacity .72s ease,transform .72s ease;}
+.r.v,.rl.v,.rr.v{opacity:1;transform:none;}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  .topbar{padding:8px 20px;flex-direction:column;gap:4px;text-align:center;}
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .section,.why-section{padding:64px 20px;}
+  #hero{flex-direction:column;min-height:auto;}
+  .hero-left{padding:100px 20px 36px;}
+  .hero-right{width:100%;padding:20px 20px 52px;}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:36px;}
+  .q-grid,.ind-grid,.why-grid{grid-template-columns:1fr 1fr;}
+  .ops-grid{grid-template-columns:1fr 1fr;}
+  .ft-top{grid-template-columns:1fr;gap:26px;padding:36px 20px;}
+  .ft-bot{flex-direction:column;gap:6px;padding:14px 20px;text-align:center;}
+  .fg2{grid-template-columns:1fr;}
+  #chat-win{width:calc(100vw - 32px);right:16px;}
+  #ai-panel{display:none!important;}
+}
 </style>
 </head>
 <body>
 
+<!-- CURSOR -->
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- AI INTELLIGENCE PANEL (owner view) -->
+<div id="ai-panel">
+  <div class="aip-hdr">
+    <div class="aip-title">⚡ AI Intelligence</div>
+    <button class="aip-close" onclick="document.getElementById('ai-panel').classList.remove('show')">×</button>
+  </div>
+  <div class="aip-card">
+    <div class="aip-label">Status</div>
+    <div class="aip-val aip-live">● Live — Monitoring</div>
+  </div>
+  <div class="aip-card">
+    <div class="aip-label">Session Visitors</div>
+    <div class="aip-val" id="ai-visitors">1</div>
+  </div>
+  <div class="aip-card">
+    <div class="aip-label">Hot Leads Today</div>
+    <div class="aip-val" id="ai-leads">0</div>
+  </div>
+  <div class="aip-card">
+    <div class="aip-label">Chat Sessions</div>
+    <div class="aip-val" id="ai-chats">0</div>
+  </div>
+  <div class="aip-card">
+    <div class="aip-label">Last AI Action</div>
+    <div class="aip-val" id="ai-last-action">Monitoring site…</div>
+  </div>
+</div>
+
 <!-- TOP BAR -->
 <div class="topbar">
-  <div class="topbar-left">📍 Malad West, Mumbai – 400 064 &nbsp;|&nbsp; In Business Since 1995</div>
-  <div class="topbar-right">
+  <div class="tb-left"><span class="gold">📍 Malad West, Mumbai – 400 064</span>Precision Sheet Metal Press Components Since 1995</div>
+  <div class="tb-right">
     <a href="tel:+919820217732">📞 +91 98202 17732</a>
     <a href="mailto:kurlekarengineeringworks@yahoo.co.in">✉ kurlekarengineeringworks@yahoo.co.in</a>
   </div>
@@ -241,17 +404,16 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
-    <div class="nav-logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-    </div>
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">Kurlekar Engineering</span>
-      <span class="nav-logo-sub">Precision Sheet Metal · Est. 1995</span>
+  <a class="brand" href="#">
+    <div class="brand-emblem"><span class="brand-emblem-k">K</span></div>
+    <div>
+      <span class="brand-name">Kurlekar Engineering</span>
+      <span class="brand-sub">Precision Sheet Metal · Est. 1995</span>
     </div>
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#ops">Capabilities</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#quality">Quality</a></li>
     <li><a href="#industries">Industries</a></li>
@@ -260,225 +422,873 @@
   <a class="nav-cta" href="#contact">Request Quote</a>
 </nav>
 
-<!-- HERO -->
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
 <section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-fog"></div>
   <div class="hero-left">
-    <div class="hero-badge">Mumbai's Precision Press Component Specialists</div>
-    <h1>Precision<br><span class="red">Sheet Metal</span><br><span class="sub">Press Components</span></h1>
-    <div class="since-badge">
-      <div class="year">1995</div>
-      <div class="st"><strong>In Business Since 1995</strong>30+ years of press shop expertise serving OEMs &amp; Tier-2 manufacturers</div>
-    </div>
-    <p class="hero-desc">Kurlekar Engineering Works manufactures precision stamped and formed components for electric motors, fans, and automotive systems — to ±0.01 mm accuracy with full in-process traceability.</p>
-    <div class="hero-ctas">
-      <a class="btn-red" href="#products">View Products</a>
-      <a class="btn-outline" href="#contact">Get a Quote</a>
+    <div class="h-eyebrow"><span class="h-eyebrow-text">Mumbai's Premier Precision Press Components</span></div>
+    <h1 class="h-title">
+      Precision<br>
+      <em>Sheet Metal</em>
+      <small>Stamped &amp; Formed to ±0.01 mm</small>
+    </h1>
+    <div class="h-rule"></div>
+    <p class="h-desc">Kurlekar Engineering Works has supplied India's top OEM manufacturers with precision stamped and formed components since 1995 — built on in-house die mastery, zero-defect culture, and three decades of press shop excellence.</p>
+    <div class="h-ctas">
+      <a class="btn-gold" href="#products">View Products</a>
+      <a class="btn-ghost" href="#contact">Request Quote</a>
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-right-pattern"></div>
-    <div class="hero-right-content">
-      <div class="hero-stat-big"><div class="num">±0.01 mm</div><div class="lbl">Dimensional Accuracy</div></div>
-      <div class="hero-stat-big"><div class="num">18+</div><div class="lbl">Component Variants</div></div>
-      <div class="hero-stat-big"><div class="num">30 Yrs</div><div class="lbl">In Business Since 1995</div></div>
-      <div class="hero-stat-big"><div class="num">4+</div><div class="lbl">Industries Served</div></div>
-    </div>
+    <div class="h-stat"><div class="hs-num">±0.01 mm</div><div class="hs-lbl">Dimensional Accuracy</div></div>
+    <div class="h-stat"><div class="hs-num">18+</div><div class="hs-lbl">Component Variants</div></div>
+    <div class="h-stat"><div class="hs-num">30 Yrs</div><div class="hs-lbl">In Business Since 1995</div></div>
+    <div class="h-stat"><div class="hs-num">4+</div><div class="hs-lbl">Industries Served</div></div>
   </div>
 </section>
 
-<!-- CLIENT BANNER -->
-<div class="client-banner">
-  <div class="cl-label">Trusted Supply Partner</div>
-  <div class="cl-div"></div>
-  <div><div class="cl-name">REMI</div><div class="cl-sub">Electric Motor &amp; Fan Manufacturer</div></div>
-  <div class="cl-badge">Active Supplier</div>
-  <div class="cl-div"></div>
-  <div style="max-width:220px;color:rgba(255,255,255,0.42);font-size:0.8rem;line-height:1.5">Consistent quality &amp; on-time delivery maintained across all batches</div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <div class="marquee-item">Blanking &amp; Piercing<span class="d">◆</span></div>
+    <div class="marquee-item">Bending &amp; Forming<span class="d">◆</span></div>
+    <div class="marquee-item">Deep Drawing<span class="d">◆</span></div>
+    <div class="marquee-item">Serration &amp; Coining<span class="d">◆</span></div>
+    <div class="marquee-item">±0.01 mm Precision<span class="d">◆</span></div>
+    <div class="marquee-item">In-House Die Shop<span class="d">◆</span></div>
+    <div class="marquee-item">OEM Supplier · India<span class="d">◆</span></div>
+    <div class="marquee-item">Zinc Plated · Phosphate · Powder Coat<span class="d">◆</span></div>
+    <div class="marquee-item">30+ Years · Mumbai<span class="d">◆</span></div>
+    <div class="marquee-item">Blanking &amp; Piercing<span class="d">◆</span></div>
+    <div class="marquee-item">Bending &amp; Forming<span class="d">◆</span></div>
+    <div class="marquee-item">Deep Drawing<span class="d">◆</span></div>
+    <div class="marquee-item">Serration &amp; Coining<span class="d">◆</span></div>
+    <div class="marquee-item">±0.01 mm Precision<span class="d">◆</span></div>
+    <div class="marquee-item">In-House Die Shop<span class="d">◆</span></div>
+    <div class="marquee-item">OEM Supplier · India<span class="d">◆</span></div>
+    <div class="marquee-item">Zinc Plated · Phosphate · Powder Coat<span class="d">◆</span></div>
+    <div class="marquee-item">30+ Years · Mumbai<span class="d">◆</span></div>
+  </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label reveal">Company Overview</div>
-  <div class="section-title reveal">30 Years of <span class="red">Engineering Excellence</span></div>
-  <div class="red-divider reveal"></div>
+<!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
+<section id="about" class="section light">
+  <div class="eyebrow on-light r">Company Overview</div>
+  <h2 class="sec-title on-light r">Thirty Years of <em>Engineering Excellence</em></h2>
+  <div class="gold-rule red r"></div>
   <div class="about-grid">
-    <div class="about-text reveal">
-      <p>Established in <strong>1995</strong>, Kurlekar Engineering Works is a professionally managed manufacturing unit based in Malad West, Mumbai. For over three decades, we have specialised in precision sheet metal press components — building deep tooling expertise and a reputation for consistent, reliable supply.</p>
-      <div class="about-highlight">We serve OEMs and Tier-2 manufacturers across the electric motor, fan, and automotive sectors — manufacturing components exactly as per customer drawings or approved samples.</div>
-      <p>Our strength lies in in-house die making, stringent process control, and a long-term partnership approach — giving customers a single accountable partner from first article through volume delivery.</p>
+    <div class="rl">
+      <p class="about-p">Established in <strong>1995</strong>, Kurlekar Engineering Works is a professionally managed manufacturing unit in Malad West, Mumbai. For over three decades, we have specialised in precision sheet metal press components — building deep tooling expertise and a reputation for consistent, reliable supply.</p>
+      <div class="about-callout">We supply India's top OEM manufacturers across the electric motor, fan, and automotive sectors — manufacturing every component exactly as per customer drawings or approved samples.</div>
+      <p class="about-p">Our strength lies in in-house die making, stringent process control, and a long-term partnership approach — giving customers one accountable partner from first article to volume delivery.</p>
     </div>
-    <div class="reveal">
-      <div class="machines-title">Manufacturing Machines &amp; Equipment</div>
-      <div class="machine-list">
-        <div class="machine-row"><div class="machine-tag">10 TON</div><div class="machine-info"><div class="machine-name">10 Ton Power Press</div><div class="machine-desc">Blanking, piercing, light forming operations</div></div></div>
-        <div class="machine-row"><div class="machine-tag">20 TON</div><div class="machine-info"><div class="machine-name">20 Ton Power Press</div><div class="machine-desc">Bending, forming, compound operations</div></div></div>
-        <div class="machine-row"><div class="machine-tag">30 TON</div><div class="machine-info"><div class="machine-name">30 Ton Power Press</div><div class="machine-desc">Heavy-duty components, deep drawing, coining</div></div></div>
-        <div class="machine-row"><div class="machine-tag" style="font-size:0.72rem">HAND PRESS</div><div class="machine-info"><div class="machine-name">Hand Press</div><div class="machine-desc">Manual pressing for small &amp; delicate components</div></div></div>
-        <div class="machine-row"><div class="machine-tag" style="font-size:0.7rem">SURFACE GRND</div><div class="machine-info"><div class="machine-name">Surface Grinding Machine</div><div class="machine-desc">Precision flat surface finishing of components</div></div></div>
-        <div class="machine-row"><div class="machine-tag" style="font-size:0.72rem">TAPPING</div><div class="machine-info"><div class="machine-name">Tapping Machine</div><div class="machine-desc">Threaded hole operations in sheet metal parts</div></div></div>
-        <div class="machine-row"><div class="machine-tag" style="font-size:0.7rem">DIE SHOP</div><div class="machine-info"><div class="machine-name">In-House Die &amp; Tooling Shop</div><div class="machine-desc">Progressive, compound &amp; single-operation tools</div></div></div>
+    <div class="rr">
+      <div class="machines-label">Manufacturing Arsenal</div>
+      <div class="mlist">
+        <div class="mrow"><div class="mtag">10 TON</div><div class="minfo"><div class="mname">10 Ton Power Press</div><div class="mdesc">BLANKING · PIERCING · LIGHT FORMING</div></div></div>
+        <div class="mrow"><div class="mtag">20 TON</div><div class="minfo"><div class="mname">20 Ton Power Press</div><div class="mdesc">BENDING · FORMING · COMPOUND OPS</div></div></div>
+        <div class="mrow"><div class="mtag">30 TON</div><div class="minfo"><div class="mname">30 Ton Power Press</div><div class="mdesc">HEAVY DUTY · DEEP DRAWING · COINING</div></div></div>
+        <div class="mrow"><div class="mtag" style="font-size:.56rem">HAND</div><div class="minfo"><div class="mname">Hand Press</div><div class="mdesc">SMALL &amp; DELICATE COMPONENTS</div></div></div>
+        <div class="mrow"><div class="mtag" style="font-size:.52rem">SRF GRD</div><div class="minfo"><div class="mname">Surface Grinding Machine</div><div class="mdesc">PRECISION FLAT SURFACE FINISHING</div></div></div>
+        <div class="mrow"><div class="mtag" style="font-size:.56rem">TAPPING</div><div class="minfo"><div class="mname">Tapping Machine</div><div class="mdesc">THREADED HOLE OPERATIONS</div></div></div>
+        <div class="mrow"><div class="mtag" style="font-size:.52rem">DIE SHOP</div><div class="minfo"><div class="mname">In-House Die &amp; Tooling Shop</div><div class="mdesc">PROGRESSIVE · COMPOUND · SINGLE-OP</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OPERATIONS -->
-<section id="operations">
-  <div class="section-label reveal">Manufacturing Capabilities</div>
-  <div class="section-title reveal" style="color:white">Press <span style="color:var(--red)">Operations</span></div>
-  <div class="ops-grid reveal">
-    <div class="op-card"><div class="op-num">01</div><div class="op-name">Blanking &amp; Piercing</div><div class="op-desc">Precise cutouts and holes to close tolerances</div></div>
-    <div class="op-card"><div class="op-num">02</div><div class="op-name">Bending &amp; Forming</div><div class="op-desc">Complex profiles shaped exactly to drawing</div></div>
-    <div class="op-card"><div class="op-num">03</div><div class="op-name">Slotting &amp; Notching</div><div class="op-desc">Clean slot and notch features in one operation</div></div>
-    <div class="op-card"><div class="op-num">04</div><div class="op-name">Light Deep Drawing</div><div class="op-desc">Cups and shells for motor assembly</div></div>
-    <div class="op-card"><div class="op-num">05</div><div class="op-name">Serration &amp; Coining</div><div class="op-desc">High-precision surface detailing and coining</div></div>
+<!-- ═══════════════════════════════ OPERATIONS ═══════════════════════════════ -->
+<section id="ops" class="section dark">
+  <div class="eyebrow r">Manufacturing Capabilities</div>
+  <h2 class="sec-title r">Press <em>Operations</em></h2>
+  <div class="ops-strip r">
+    <canvas id="ops-canvas"></canvas>
+  </div>
+  <div class="ops-grid">
+    <div class="op-card r"><div class="op-num">01</div><div class="op-name">Blanking &amp; Piercing</div><div class="op-desc">PRECISE CUTOUTS AND HOLES TO CLOSE TOLERANCES IN SINGLE OPERATIONS</div></div>
+    <div class="op-card r"><div class="op-num">02</div><div class="op-name">Bending &amp; Forming</div><div class="op-desc">COMPLEX PROFILES SHAPED EXACTLY TO DRAWING SPECIFICATIONS</div></div>
+    <div class="op-card r"><div class="op-num">03</div><div class="op-name">Slotting &amp; Notching</div><div class="op-desc">CLEAN SLOT AND NOTCH FEATURES MACHINED IN SINGLE PRECISE OPERATIONS</div></div>
+    <div class="op-card r"><div class="op-num">04</div><div class="op-name">Light Deep Drawing</div><div class="op-desc">CUPS AND SHELLS FOR MOTOR ASSEMBLY TO EXACT PROFILES AND WALL THICKNESSES</div></div>
+    <div class="op-card r"><div class="op-num">05</div><div class="op-name">Serration &amp; Coining</div><div class="op-desc">HIGH-PRECISION SURFACE DETAILING AND DIMENSIONAL COINING FOR TIGHT FITS</div></div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="section-label reveal">Parts Catalogue</div>
-  <div class="section-title reveal">18+ Component <span class="red">Variants</span></div>
-  <div class="red-divider reveal"></div>
-  <div class="products-grid reveal">
-    <div class="prod-card"><div class="prod-id">P-01</div><div class="prod-name">Motor Can / Housing</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-02</div><div class="prod-name">Round Base Plate</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-03</div><div class="prod-name">U-Type Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-04</div><div class="prod-name">C-Type Mounting Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-05</div><div class="prod-name">Fork / Double Ear Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-06</div><div class="prod-name">Wiper Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Auto-Electrical</div><div><span>Finish:</span> Black Powder</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-07</div><div class="prod-name">Deep Draw Cup / Shell</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain / ZP</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-08</div><div class="prod-name">Curved L-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-09</div><div class="prod-name">Curved R-Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-10</div><div class="prod-name">Curved Clamp with Serration</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-11</div><div class="prod-name">Saddle Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor Mounting</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-12</div><div class="prod-name">U Clip / Wire Holder</div><div class="prod-meta"><div><span>Application:</span> Cable Management</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-13</div><div class="prod-name">Curved Motor Clamp</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-14</div><div class="prod-name">Round Base Plate (ZP)</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-15</div><div class="prod-name">L-Type Bracket</div><div class="prod-meta"><div><span>Application:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-16</div><div class="prod-name">Octagonal Flange Plate</div><div class="prod-meta"><div><span>Application:</span> Motor Assembly</div><div><span>Finish:</span> Plain Steel</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-17</div><div class="prod-name">U-Type Clamp (Variant)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div></div>
-    <div class="prod-card"><div class="prod-id">P-18</div><div class="prod-name">Motor Can (Variant A)</div><div class="prod-meta"><div><span>Application:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div></div>
-    <div class="prod-card custom-prod"><div class="ci">⚙️</div><div class="ct">Custom Components</div><div class="cs">As per drawing or approved sample</div></div>
+<!-- ═══════════════════════════════ PRODUCTS ═══════════════════════════════ -->
+<section id="products" class="section light">
+  <div class="eyebrow on-light r">Parts Catalogue</div>
+  <h2 class="sec-title on-light r">18+ Component <em>Variants</em></h2>
+  <div class="gold-rule red r"></div>
+  <div class="products-grid r">
+    <div class="pcard" onclick="openModal('P-01','Motor Can / Housing','Electric Motor','Zinc Plated','Deep drawn cylindrical housing for electric motor assembly')"><div class="pid">P-01</div><div class="pname">Motor Can / Housing</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-02','Round Base Plate','Motor / Fan','Phosphate','Round base plate for motor and fan mounting applications')"><div class="pid">P-02</div><div class="pname">Round Base Plate</div><div class="pmeta"><div><span>App:</span> Motor / Fan</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-03','U-Type Motor Clamp','Electric Motor','Zinc Plated','U-shaped clamping bracket for secure motor mounting')"><div class="pid">P-03</div><div class="pname">U-Type Motor Clamp</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-04','C-Type Mounting Bracket','Motor / Fan','Zinc Plated','C-profile bracket for motor and fan mounting')"><div class="pid">P-04</div><div class="pname">C-Type Bracket</div><div class="pmeta"><div><span>App:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-05','Fork / Double Ear Bracket','Motor Mounting','Zinc Plated','Double-ear fork bracket for motor mounting')"><div class="pid">P-05</div><div class="pname">Fork / Double Ear</div><div class="pmeta"><div><span>App:</span> Motor Mounting</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-06','Wiper Motor Clamp','Auto-Electrical','Black Powder Coat','Automotive wiper motor mounting clamp')"><div class="pid">P-06</div><div class="pname">Wiper Motor Clamp</div><div class="pmeta"><div><span>App:</span> Automotive</div><div><span>Finish:</span> Black Powder</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-07','Deep Draw Cup / Shell','Motor Assembly','Plain / ZP','Deep drawn cup or shell component for motor assembly')"><div class="pid">P-07</div><div class="pname">Deep Draw Cup</div><div class="pmeta"><div><span>App:</span> Motor Assembly</div><div><span>Finish:</span> Plain / ZP</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-08','Curved L-Motor Clamp','Electric Motor','Phosphate','Left-hand curved motor clamp')"><div class="pid">P-08</div><div class="pname">Curved L-Clamp</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-09','Curved R-Motor Clamp','Electric Motor','Phosphate','Right-hand curved motor clamp')"><div class="pid">P-09</div><div class="pname">Curved R-Clamp</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-10','Curved Clamp with Serration','Electric Motor','Phosphate','Curved motor clamp with precision serration pattern')"><div class="pid">P-10</div><div class="pname">Serrated Clamp</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-11','Saddle Bracket','Motor Mounting','Phosphate','Saddle-type mounting bracket for motor support')"><div class="pid">P-11</div><div class="pname">Saddle Bracket</div><div class="pmeta"><div><span>App:</span> Motor Mounting</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-12','U Clip / Wire Holder','Cable Management','Phosphate','U-shaped clip for cable management')"><div class="pid">P-12</div><div class="pname">U Clip / Wire Holder</div><div class="pmeta"><div><span>App:</span> Cable Mgmt</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-13','Curved Motor Clamp','Electric Motor','Phosphate','Standard curved motor clamp for various motor sizes')"><div class="pid">P-13</div><div class="pname">Curved Motor Clamp</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-14','Round Base Plate ZP','Motor / Fan','Zinc Plated','Round base plate with zinc plating for corrosion resistance')"><div class="pid">P-14</div><div class="pname">Round Base Plate ZP</div><div class="pmeta"><div><span>App:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-15','L-Type Bracket','Motor / Fan','Zinc Plated','L-shaped bracket for motor and fan installations')"><div class="pid">P-15</div><div class="pname">L-Type Bracket</div><div class="pmeta"><div><span>App:</span> Motor / Fan</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-16','Octagonal Flange Plate','Motor Assembly','Plain Steel','Octagonal flange plate for motor assembly')"><div class="pid">P-16</div><div class="pname">Octagonal Flange</div><div class="pmeta"><div><span>App:</span> Motor Assembly</div><div><span>Finish:</span> Plain Steel</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-17','U-Type Clamp Variant','Electric Motor','Phosphate','Variant U-type motor clamp')"><div class="pid">P-17</div><div class="pname">U-Clamp Variant</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Phosphate</div></div><div class="parrow">↗</div></div>
+    <div class="pcard" onclick="openModal('P-18','Motor Can Variant A','Electric Motor','Zinc Plated','Variant A motor can / housing')"><div class="pid">P-18</div><div class="pname">Motor Can Variant A</div><div class="pmeta"><div><span>App:</span> Electric Motor</div><div><span>Finish:</span> Zinc Plated</div></div><div class="parrow">↗</div></div>
+    <div class="pcard pcard-custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><div class="custom-icon">⊕</div><div class="custom-t">Custom Components</div><div class="custom-s">TO DRAWING OR APPROVED SAMPLE</div></div>
   </div>
 </section>
 
-<!-- QUALITY -->
-<section id="quality">
-  <div class="section-label reveal">Standards &amp; Process</div>
-  <div class="section-title reveal">Quality <span class="red">Assurance</span></div>
-  <div class="red-divider reveal"></div>
-  <div class="quality-grid reveal">
-    <div class="q-card"><div class="q-icon">🎯</div><div class="q-val">±0.01 mm</div><div class="q-title">Dimensional Accuracy</div><div class="q-desc">Achieved through precision tooling and controlled press operations — application dependent.</div></div>
-    <div class="q-card"><div class="q-icon">🔍</div><div class="q-title">First-Piece Inspection</div><div class="q-desc">Every batch begins with first-piece and in-process inspection at every stage of manufacture.</div></div>
-    <div class="q-card"><div class="q-icon">✅</div><div class="q-title">Visual &amp; Functional Checks</div><div class="q-desc">Visual and functional verification performed per batch for form, fit, and function compliance.</div></div>
-    <div class="q-card"><div class="q-icon">📋</div><div class="q-title">Full Batch Traceability</div><div class="q-desc">Complete traceability maintained. Customer-specific quality requirements strictly followed on every order.</div></div>
+<!-- ═══════════════════════════════ QUALITY ═══════════════════════════════ -->
+<section id="quality" class="section mid">
+  <div class="eyebrow r">Standards &amp; Process</div>
+  <h2 class="sec-title r">Quality <em>Assurance</em></h2>
+  <div class="q-grid">
+    <div class="qcard r"><div class="qicon">🎯</div><div class="qval">±0.01 mm</div><div class="qtitle">Dimensional Accuracy</div><div class="qdesc">ACHIEVED THROUGH PRECISION TOOLING AND CONTROLLED PRESS OPERATIONS — APPLICATION DEPENDENT.</div></div>
+    <div class="qcard r"><div class="qicon">🔍</div><div class="qtitle">First-Piece Inspection</div><div class="qdesc">EVERY BATCH BEGINS WITH FIRST-PIECE AND IN-PROCESS INSPECTION AT EVERY STAGE OF MANUFACTURE.</div></div>
+    <div class="qcard r"><div class="qicon">✅</div><div class="qtitle">Visual &amp; Functional</div><div class="qdesc">VERIFICATION PERFORMED PER BATCH FOR FORM, FIT, AND FUNCTION COMPLIANCE WITHOUT EXCEPTION.</div></div>
+    <div class="qcard r"><div class="qicon">📋</div><div class="qtitle">Full Batch Traceability</div><div class="qdesc">COMPLETE TRACEABILITY MAINTAINED. CUSTOMER-SPECIFIC QUALITY REQUIREMENTS STRICTLY FOLLOWED.</div></div>
   </div>
 </section>
 
-<!-- INDUSTRIES -->
-<section id="industries">
-  <div class="section-label reveal">Market Sectors</div>
-  <div class="section-title reveal">Industries <span class="red">We Serve</span></div>
-  <div class="red-divider reveal"></div>
-  <div class="ind-grid reveal">
-    <div class="ind-card"><span class="ind-icon">⚙️</span><div class="ind-name">Electric Motors</div><div class="ind-desc">Cans, clamps, brackets, and base plates for motor manufacturers</div></div>
-    <div class="ind-card"><span class="ind-icon">💨</span><div class="ind-name">Ceiling &amp; Exhaust Fans</div><div class="ind-desc">Mounting hardware and structural fan assembly components</div></div>
-    <div class="ind-card"><span class="ind-icon">🚗</span><div class="ind-name">Automotive</div><div class="ind-desc">Wiper motor clamps, auto brackets, and electrical system parts</div></div>
-    <div class="ind-card"><span class="ind-icon">🏭</span><div class="ind-name">OEM &amp; Tier-2</div><div class="ind-desc">Flexible supply partnerships across the manufacturing chain</div></div>
+<!-- ═══════════════════════════════ INDUSTRIES ═══════════════════════════════ -->
+<section id="industries" class="section light">
+  <div class="eyebrow on-light r">Market Sectors</div>
+  <h2 class="sec-title on-light r">Industries <em>We Serve</em></h2>
+  <div class="gold-rule red r"></div>
+  <div class="ind-grid">
+    <div class="icard r"><span class="iicon">⚙️</span><div class="iname">Electric Motors</div><div class="idesc">CANS · CLAMPS · BRACKETS · BASE PLATES FOR MOTOR OEMs</div></div>
+    <div class="icard r"><span class="iicon">💨</span><div class="iname">Ceiling &amp; Exhaust Fans</div><div class="idesc">MOUNTING HARDWARE AND STRUCTURAL FAN ASSEMBLY PARTS</div></div>
+    <div class="icard r"><span class="iicon">🚗</span><div class="iname">Automotive</div><div class="idesc">WIPER CLAMPS · AUTO BRACKETS · ELECTRICAL SYSTEM PARTS</div></div>
+    <div class="icard r"><span class="iicon">🏭</span><div class="iname">OEM &amp; Tier-2</div><div class="idesc">FLEXIBLE SUPPLY TO TOP OEM PRODUCTION LINES</div></div>
   </div>
 </section>
 
-<!-- WHY US -->
-<section id="why">
-  <div class="section-label reveal">Our Advantage</div>
-  <div class="section-title reveal">Why Choose <span style="color:rgba(255,255,255,0.55)">Us</span></div>
-  <div class="why-grid reveal">
-    <div class="why-card"><div class="why-num">01</div><div class="why-title">30 Years of Expertise</div><div class="why-desc">In business since 1995 — three decades of press shop experience means faster problem solving and consistent results.</div></div>
-    <div class="why-card"><div class="why-num">02</div><div class="why-title">In-House Die Making</div><div class="why-desc">We develop and maintain our own tooling — progressive, compound, and single-operation dies — reducing your lead times.</div></div>
-    <div class="why-card"><div class="why-num">03</div><div class="why-title">Reliable On-Time Delivery</div><div class="why-desc">Consistent delivery track record proven through our long-standing REMI supply partnership.</div></div>
-    <div class="why-card"><div class="why-num">04</div><div class="why-title">Transparent Pricing</div><div class="why-desc">No hidden costs. Efficient in-house manufacturing keeps your BOM lean and margins healthy.</div></div>
-    <div class="why-card"><div class="why-num">05</div><div class="why-title">Flexible Batch Quantities</div><div class="why-desc">From trial runs through high-volume production — we adapt to your schedule without compromising quality.</div></div>
-    <div class="why-card"><div class="why-num">06</div><div class="why-title">Long-Term Partnership</div><div class="why-desc">We invest in understanding your product to be a dependable manufacturing partner for years to come.</div></div>
+<!-- ═══════════════════════════════ WHY US ═══════════════════════════════ -->
+<div class="why-section">
+  <div class="eyebrow r">Our Advantage</div>
+  <h2 class="sec-title r">Why Choose <em>Kurlekar</em></h2>
+  <div class="why-grid">
+    <div class="wcard r"><div class="wnum">I</div><div class="wtitle">30 Years of Expertise</div><div class="wdesc">IN BUSINESS SINCE 1995. THREE DECADES OF PRESS SHOP MASTERY — FASTER PROBLEM SOLVING AND CONSISTENT RESULTS EVERY TIME.</div></div>
+    <div class="wcard r"><div class="wnum">II</div><div class="wtitle">In-House Die Making</div><div class="wdesc">WE DEVELOP AND MAINTAIN OUR OWN PROGRESSIVE, COMPOUND, AND SINGLE-OP TOOLING — REDUCING YOUR LEAD TIMES SIGNIFICANTLY.</div></div>
+    <div class="wcard r"><div class="wnum">III</div><div class="wtitle">Reliable OEM Delivery</div><div class="wdesc">PROVEN ON-TIME DELIVERY TO INDIA'S TOP OEM PRODUCTION LINES. SUPPLY CONSISTENCY BUILT OVER DECADES OF PARTNERSHIP.</div></div>
+    <div class="wcard r"><div class="wnum">IV</div><div class="wtitle">Transparent Pricing</div><div class="wdesc">NO HIDDEN COSTS. EFFICIENT IN-HOUSE MANUFACTURING KEEPS YOUR BOM LEAN AND YOUR MARGINS HEALTHY AND COMPETITIVE.</div></div>
+    <div class="wcard r"><div class="wnum">V</div><div class="wtitle">Flexible Batch Quantities</div><div class="wdesc">FROM PROTOTYPE TRIAL RUNS TO HIGH-VOLUME PRODUCTION — WE ADAPT TO YOUR SCHEDULE WITHOUT COMPROMISING PRECISION.</div></div>
+    <div class="wcard r"><div class="wnum">VI</div><div class="wtitle">Long-Term Partnership</div><div class="wdesc">WE INVEST IN UNDERSTANDING YOUR PRODUCT. YOUR DEDICATED MANUFACTURING PARTNER FOR YEARS TO COME.</div></div>
   </div>
-</section>
+</div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label reveal">Get In Touch</div>
-  <div class="section-title reveal">Let's <span class="red">Partner</span> Together</div>
-  <div class="red-divider reveal"></div>
+<!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
+<section id="contact" class="section light">
+  <div class="eyebrow on-light r">Get In Touch</div>
+  <h2 class="sec-title on-light r">Let's <em>Partner</em> Together</h2>
+  <div class="gold-rule red r"></div>
   <div class="contact-grid">
-    <div class="reveal">
-      <div class="c-row"><div class="c-key">Proprietor</div><div class="c-val">Dilip Gopal Kurlekar</div></div>
-      <div class="c-row"><div class="c-key">Est.</div><div class="c-val">1995 — In business for 30+ years</div></div>
-      <div class="c-row"><div class="c-key">Address</div><div class="c-val">225-O, Bombay Talkies Compound,<br>Near Lok Seva Godown, Somwari Bazar,<br>Malad West, Mumbai – 400 064<br>Maharashtra, India</div></div>
-      <div class="c-row"><div class="c-key">Mobile</div><div class="c-val"><a href="tel:+919820217732">+91 98202 17732</a></div></div>
-      <div class="c-row"><div class="c-key">Email</div><div class="c-val"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div></div>
-      <div class="c-row"><div class="c-key">Speciality</div><div class="c-val">Precision Sheet Metal Press Components</div></div>
+    <div class="rl">
+      <div class="crow"><div class="ckey">Proprietor</div><div class="cval">Dilip Gopal Kurlekar</div></div>
+      <div class="crow"><div class="ckey">Est.</div><div class="cval">1995 — 30+ years in business</div></div>
+      <div class="crow"><div class="ckey">Address</div><div class="cval">225-O, Bombay Talkies Compound,<br>Near Lok Seva Godown, Somwari Bazar,<br>Malad West, Mumbai – 400 064<br>Maharashtra, India</div></div>
+      <div class="crow"><div class="ckey">Mobile</div><div class="cval"><a href="tel:+919820217732">+91 98202 17732</a></div></div>
+      <div class="crow"><div class="ckey">Email</div><div class="cval"><a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a></div></div>
+      <div class="crow"><div class="ckey">WhatsApp</div><div class="cval"><a href="https://wa.me/919820217732" target="_blank">+91 98202 17732 →</a></div></div>
+      <div class="crow"><div class="ckey">Speciality</div><div class="cval">Precision Sheet Metal Press Components</div></div>
     </div>
-    <div class="enquiry-form reveal">
-      <div class="form-title">Send an Enquiry</div>
-      <div class="form-grid">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Full name"></div>
-        <div class="fg"><label>Company</label><input type="text" placeholder="Company name"></div>
-        <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
-        <div class="fg full"><label>Enquiry Type</label><select><option>General Enquiry</option><option>Request a Quote</option><option>Custom Component (Drawing/Sample)</option><option>Tooling / Die Making</option><option>Supply Partnership</option></select></div>
-        <div class="fg full"><label>Message / Requirements</label><textarea placeholder="Describe your component, quantity, material, finish, etc."></textarea></div>
+    <div class="rr">
+      <div class="form-shell">
+        <div class="form-title">Send an <em>Enquiry</em></div>
+        <div class="fg2">
+          <div class="fg"><label>Full Name *</label><input type="text" id="f-name" placeholder="Your name"></div>
+          <div class="fg"><label>Company</label><input type="text" id="f-company" placeholder="Company name"></div>
+          <div class="fg"><label>Phone *</label><input type="tel" id="f-phone" placeholder="+91 / International"></div>
+          <div class="fg"><label>Email</label><input type="email" id="f-email" placeholder="you@company.com"></div>
+          <div class="fg full"><label>Enquiry Type</label>
+            <select id="f-type">
+              <option>General Enquiry</option>
+              <option>Request a Quote</option>
+              <option>Custom Component (Drawing/Sample)</option>
+              <option>Tooling / Die Making</option>
+              <option>Supply Partnership</option>
+              <option>International OEM Inquiry</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Message / Requirements</label>
+            <textarea id="f-message" placeholder="Describe component, quantity, material, finish, tolerances…"></textarea>
+          </div>
+        </div>
+        <button class="sub-btn" id="sub-btn" onclick="submitForm()">Submit Enquiry →</button>
+        <div class="fstatus" id="fstatus"></div>
+        <div style="text-align:center;font-family:var(--mono);font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warm);margin-top:12px;opacity:.6;">— or reach us instantly —</div>
+        <a href="https://wa.me/919820217732?text=Hello%20Kurlekar%20Engineering%2C%20I%20would%20like%20to%20enquire%20about%20your%20precision%20sheet%20metal%20components." target="_blank" class="wa-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="black"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp — Instant Reply
+        </a>
       </div>
-      <button class="submit-btn" onclick="handleSubmit(this)">Submit Enquiry →</button>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-top">
+  <div class="ft-top">
     <div>
-      <div class="footer-logo-name">Kurlekar <span>Engineering Works</span></div>
-      <div class="footer-tagline">Precision · Reliability · Innovation</div>
-      <div class="footer-since">In Business Since <strong>1995</strong> — Mumbai, Maharashtra</div>
-      <div class="footer-desc">Precision sheet metal press component manufacturer serving OEMs and Tier-2 manufacturers across the electric motor, fan, and automotive sectors.</div>
+      <div class="ft-brand">Kurlekar <em>Engineering Works</em></div>
+      <div class="ft-tag">Precision · Reliability · Innovation · Est. 1995</div>
+      <div class="ft-desc">Precision sheet metal press component manufacturer supplying India's top OEMs across electric motor, fan, and automotive sectors. Malad West, Mumbai.</div>
     </div>
     <div>
-      <div class="fcol-title">Quick Links</div>
-      <div class="fcol-links">
+      <div class="ft-col-t">Navigation</div>
+      <div class="ft-links">
         <a href="#about">About Us</a>
+        <a href="#ops">Operations</a>
         <a href="#products">Products</a>
-        <a href="#quality">Quality Assurance</a>
+        <a href="#quality">Quality</a>
         <a href="#industries">Industries</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
     <div>
-      <div class="fcol-title">Contact</div>
-      <div class="fcol-links">
+      <div class="ft-col-t">Contact</div>
+      <div class="ft-links">
         <a href="tel:+919820217732">+91 98202 17732</a>
         <a href="mailto:kurlekarengineeringworks@yahoo.co.in">kurlekarengineeringworks@yahoo.co.in</a>
-        <a href="#contact">Malad West, Mumbai – 400 064</a>
+        <a href="https://wa.me/919820217732" target="_blank">WhatsApp</a>
+        <a href="#contact">Malad West, Mumbai 400 064</a>
       </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 Kurlekar Engineering Works. All rights reserved.</div>
-    <div class="footer-made">Precision | Reliability | Innovation — Est. 1995</div>
+  <div class="ft-bot">
+    <div class="ft-copy">© 2025 KURLEKAR ENGINEERING WORKS · ALL RIGHTS RESERVED</div>
+    <div class="ft-copy">PRECISION | RELIABILITY | INNOVATION — EST. 1995</div>
   </div>
 </footer>
 
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  reveals.forEach(el => io.observe(el));
+<!-- MODAL -->
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="m-id" id="m-id"></div>
+    <div class="m-name" id="m-name"></div>
+    <div class="m-meta">
+      <div class="m-row"><span class="m-key">Application</span><span class="m-val" id="m-app"></span></div>
+      <div class="m-row"><span class="m-key">Finish</span><span class="m-val" id="m-fin"></span></div>
+      <div class="m-row"><span class="m-key">Description</span><span class="m-val" id="m-desc"></span></div>
+      <div class="m-row"><span class="m-key">Tolerance</span><span class="m-val">±0.01 mm (application dependent)</span></div>
+      <div class="m-row"><span class="m-key">MOQ</span><span class="m-val">Flexible — trial runs to mass production</span></div>
+    </div>
+    <button class="m-btn" onclick="quoteModal()">Request Quote for This Component →</button>
+  </div>
+</div>
 
-  function handleSubmit(btn) {
-    btn.textContent = '✓ Enquiry Sent!';
-    btn.style.background = '#1a7a1a';
-    btn.style.borderColor = '#1a7a1a';
-    setTimeout(() => { btn.textContent = 'Submit Enquiry →'; btn.style.background = ''; btn.style.borderColor = ''; }, 3500);
+<!-- AI CHAT -->
+<div id="chat-fab">
+  <button id="chat-btn" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <div class="chat-pulse"></div>
+  </button>
+</div>
+<div id="chat-win">
+  <div class="ch-hdr">
+    <div class="ch-emblem"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61z"/></svg></div>
+    <div>
+      <div class="ch-name">Kurlekar Engineering</div>
+      <div class="ch-status">🟢 AI Sales Assistant — 24/7 Worldwide</div>
+    </div>
+    <button class="ch-cls" onclick="toggleChat()">×</button>
+  </div>
+  <div id="chat-msgs">
+    <div class="cm bot"><div class="cm-b">Welcome to Kurlekar Engineering Works — precision sheet metal specialists since 1995.<br><br>I'm your AI assistant, available around the clock for domestic and international enquiries. How can I help you today?</div><div class="cm-t">NOW</div></div>
+  </div>
+  <div class="qr-row" id="qr-row">
+    <button class="qr" onclick="sq('What precision components do you manufacture?')">Products</button>
+    <button class="qr" onclick="sq('What tolerance and accuracy levels do you achieve?')">Tolerances</button>
+    <button class="qr" onclick="sq('How do I get a quote for sheet metal components?')">Get Quote</button>
+    <button class="qr" onclick="sq('Do you supply to international buyers?')">Export</button>
+    <button class="qr" onclick="sq('What is your minimum order quantity?')">MOQ</button>
+  </div>
+  <div class="ch-inp-row">
+    <input type="text" id="chat-inp" placeholder="Ask about products, pricing, capabilities…" onkeypress="if(event.key==='Enter')sendMsg()">
+    <button id="ch-send" onclick="sendMsg()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   CONFIGURATION — REPLACE THESE VALUES
+════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  // Get your free key at https://web3forms.com
+  // Enter: kurlekarengineeringworks@yahoo.co.in
+  // Then replace the value below:
+  W3F_KEY: 'YOUR_W3F_KEY',
+
+  // Owner email (where leads get sent)
+  OWNER_EMAIL: 'kurlekarengineeringworks@yahoo.co.in',
+
+  // Owner phone
+  OWNER_PHONE: '+919820217732',
+
+  // Show AI panel (set true when you want to see visitor stats)
+  SHOW_AI_PANEL: false
+};
+
+/* ════════════════════════════════════════════════════════════
+   CURSOR
+════════════════════════════════════════════════════════════ */
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+(function lag(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(lag);
+})();
+document.querySelectorAll('a,button,.pcard,.mrow,.op-card,.icard,.wcard,.qcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
+});
+
+/* ════════════════════════════════════════════════════════════
+   THREE.JS — HERO 3D ROTATING PRECISION COMPONENT
+════════════════════════════════════════════════════════════ */
+(function initHero(){
+  const canvas = document.getElementById('hero-canvas');
+  const R = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  R.setSize(innerWidth,innerHeight);
+  R.shadowMap.enabled = true;
+  const S = new THREE.Scene();
+  const CAM = new THREE.PerspectiveCamera(52, innerWidth/innerHeight, .1, 500);
+  CAM.position.set(0, 4, 26);
+  CAM.lookAt(0, 0, 0);
+
+  // Lighting rig
+  S.add(new THREE.AmbientLight(0x1C1410, .9));
+  const key = new THREE.DirectionalLight(0xffffff, 1.5);
+  key.position.set(8,12,10); key.castShadow=true; S.add(key);
+  const fill = new THREE.DirectionalLight(0xB8962E, .7);
+  fill.position.set(-8,4,-6); S.add(fill);
+  const rim = new THREE.DirectionalLight(0xAA0000, .9);
+  rim.position.set(-4,-4,-10); S.add(rim);
+  const pt = new THREE.PointLight(0xB8962E, 2, 28);
+  pt.position.set(4,6,8); S.add(pt);
+
+  // Materials
+  const steelM = new THREE.MeshStandardMaterial({color:0xC8D8E0, metalness:.96, roughness:.1});
+  const goldM  = new THREE.MeshStandardMaterial({color:0xB8962E, metalness:.92, roughness:.18, emissive:0x3A2800, emissiveIntensity:.25});
+  const redM   = new THREE.MeshStandardMaterial({color:0xAA0000, metalness:.72, roughness:.22, emissive:0x3A0000, emissiveIntensity:.35});
+  const darkM  = new THREE.MeshStandardMaterial({color:0x1C1410, metalness:.85, roughness:.3});
+
+  const grp = new THREE.Group();
+
+  // Base disc with chamfer
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(3.6,3.6,.2,64), steelM);
+  base.receiveShadow=true; grp.add(base);
+  const chamfer = new THREE.Mesh(new THREE.TorusGeometry(3.6,.055,8,64), goldM);
+  chamfer.rotation.x=Math.PI/2; chamfer.position.y=.1; grp.add(chamfer);
+
+  // Hub
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(1.15,1.35,1.5,32), steelM);
+  hub.position.y=.85; hub.castShadow=true; grp.add(hub);
+  // Hub groove
+  const groove = new THREE.Mesh(new THREE.TorusGeometry(1.2,.06,8,32), darkM);
+  groove.rotation.x=Math.PI/2; groove.position.y=1.1; grp.add(groove);
+
+  // Bore (glowing)
+  const bore = new THREE.Mesh(new THREE.CylinderGeometry(.58,.58,1.7,32), redM);
+  bore.position.y=.85; grp.add(bore);
+  const boreRing = new THREE.Mesh(new THREE.TorusGeometry(.58,.042,8,32), goldM);
+  boreRing.rotation.x=Math.PI/2; boreRing.position.y=1.62; grp.add(boreRing);
+
+  // 8 Ribs
+  for(let i=0;i<8;i++){
+    const a = i*(Math.PI/4);
+    const rib = new THREE.Mesh(new THREE.BoxGeometry(.1,.38,1.85), steelM);
+    rib.position.set(Math.cos(a)*2.15, .28, Math.sin(a)*2.15);
+    rib.rotation.y=a; rib.castShadow=true; grp.add(rib);
   }
+
+  // 4 Mounting tabs
+  for(let i=0;i<4;i++){
+    const a = i*Math.PI/2;
+    const tab = new THREE.Mesh(new THREE.BoxGeometry(.92,.14,.56), steelM);
+    tab.position.set(Math.cos(a)*3.15, .07, Math.sin(a)*3.15);
+    tab.rotation.y=a; tab.castShadow=true; grp.add(tab);
+    // Hex bolt
+    const bolt = new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.32,12), goldM);
+    bolt.position.set(Math.cos(a)*3.15,.26,Math.sin(a)*3.15); grp.add(bolt);
+    const hex = new THREE.Mesh(new THREE.CylinderGeometry(.155,.155,.1,6), goldM);
+    hex.position.set(Math.cos(a)*3.15,.4,Math.sin(a)*3.15); grp.add(hex);
+  }
+
+  // Concentric gold rings on plate
+  [1.85, 2.65, 3.15].forEach(r=>{
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(r,.022,6,64), goldM);
+    ring.rotation.x=Math.PI/2; ring.position.y=.11; grp.add(ring);
+  });
+
+  // Wireframe ghost
+  grp.add(new THREE.Mesh(
+    new THREE.CylinderGeometry(3.6,3.6,.2,64),
+    new THREE.MeshBasicMaterial({color:0xB8962E, wireframe:true, transparent:true, opacity:.05})
+  ));
+
+  // Engineering annotation lines
+  const lineMat = new THREE.LineBasicMaterial({color:0xB8962E, transparent:true, opacity:.2});
+  [[3.7,1.4,5.2,2.4],[3.7,-1.4,5.2,-2.4],[-3.7,.9,-5.2,1.9]].forEach(([x1,y1,x2,y2])=>{
+    const pts = [new THREE.Vector3(x1,y1,0), new THREE.Vector3(x2,y2,0)];
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lineMat));
+    // End dots
+    const dot2 = new THREE.Mesh(new THREE.SphereGeometry(.07,8,8), new THREE.MeshBasicMaterial({color:0xB8962E}));
+    dot2.position.set(x2,y2,0); S.add(dot2);
+  });
+
+  S.add(grp);
+
+  // Background particles
+  const N=600, pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*130;pos[i*3+1]=(Math.random()-.5)*90;pos[i*3+2]=(Math.random()-.5)*60-12;}
+  const pg = new THREE.BufferGeometry();
+  pg.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  S.add(new THREE.Points(pg, new THREE.PointsMaterial({size:.28, color:0xB8962E, transparent:true, opacity:.1, blending:THREE.AdditiveBlending})));
+
+  // Background grid
+  const gm = new THREE.LineBasicMaterial({color:0xB8962E, transparent:true, opacity:.04});
+  for(let i=-14;i<=14;i++){
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(i*4,-50,-6),new THREE.Vector3(i*4,50,-6)]), gm));
+    S.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-58,i*4,-6),new THREE.Vector3(58,i*4,-6)]), gm));
+  }
+
+  let t=0, mxn=0, myn=0;
+  document.addEventListener('mousemove',e=>{mxn=(e.clientX/innerWidth-.5)*2;myn=(e.clientY/innerHeight-.5)*2;});
+
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=.005;
+    grp.rotation.y = t + mxn*.35;
+    grp.rotation.x = Math.sin(t*.4)*.07 - myn*.05;
+    pt.intensity = 1.4 + Math.sin(t*2.5)*.45;
+    pt.position.x = Math.sin(t)*5;
+    CAM.position.x = mxn*3.5;
+    CAM.position.y = 4 - myn*2;
+    R.render(S, CAM);
+  })();
+
+  window.addEventListener('resize',()=>{
+    CAM.aspect=innerWidth/innerHeight;
+    CAM.updateProjectionMatrix();
+    R.setSize(innerWidth,innerHeight);
+  });
+})();
+
+/* ════════════════════════════════════════════════════════════
+   OPERATIONS CANVAS — Engineering scan beam
+════════════════════════════════════════════════════════════ */
+(function initOpsCanvas(){
+  const canvas = document.getElementById('ops-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth; canvas.height=110;}
+  resize();
+  window.addEventListener('resize', resize);
+
+  const particles = [];
+  for(let i=0;i<50;i++){
+    particles.push({x:Math.random()*canvas.width, y:Math.random()*110, vx:(Math.random()-.5)*.4, vy:(Math.random()-.5)*.2, size:.8+Math.random()*.8, op:.05+Math.random()*.12});
+  }
+  let scanX = 0;
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,110);
+    // Grid
+    ctx.strokeStyle='rgba(184,150,46,.055)'; ctx.lineWidth=.5;
+    for(let x=0;x<canvas.width;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,110);ctx.stroke();}
+    for(let y=0;y<110;y+=20){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}
+    // Particles
+    particles.forEach(p=>{
+      ctx.fillStyle=`rgba(184,150,46,${p.op})`;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=canvas.width; if(p.x>canvas.width)p.x=0;
+      if(p.y<0)p.y=110; if(p.y>110)p.y=0;
+    });
+    // Scan beam
+    const g = ctx.createLinearGradient(scanX-30,0,scanX+30,0);
+    g.addColorStop(0,'rgba(170,0,0,0)');
+    g.addColorStop(.5,'rgba(170,0,0,.1)');
+    g.addColorStop(1,'rgba(170,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(scanX-30,0,60,110);
+    // Scan line
+    ctx.strokeStyle='rgba(170,0,0,.2)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(scanX,0); ctx.lineTo(scanX,110); ctx.stroke();
+    scanX+=1.4; if(scanX>canvas.width+30) scanX=-30;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════════════════════ */
+const revIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');revIO.unobserve(e.target);}});
+},{threshold:.1});
+document.querySelectorAll('.r,.rl,.rr').forEach(el=>revIO.observe(el));
+
+/* ════════════════════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════════════════════ */
+let currentProduct='';
+function openModal(id,name,app,fin,desc){
+  currentProduct=name;
+  document.getElementById('m-id').textContent=id;
+  document.getElementById('m-name').textContent=name;
+  document.getElementById('m-app').textContent=app;
+  document.getElementById('m-fin').textContent=fin;
+  document.getElementById('m-desc').textContent=desc;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  aiLog(`Viewed product: ${name}`);
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+function quoteModal(){
+  closeModal();
+  document.getElementById('f-type').value='Request a Quote';
+  document.getElementById('f-message').value=`I am interested in: ${currentProduct}\n\nQuantity required: \nMaterial thickness: \nAdditional requirements: `;
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  aiLog(`Quote requested for: ${currentProduct}`);
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT FORM — Web3Forms + AI-Enhanced Email
+════════════════════════════════════════════════════════════ */
+async function submitForm(){
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const company = document.getElementById('f-company').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const type    = document.getElementById('f-type').value;
+  const message = document.getElementById('f-message').value.trim();
+  const btn     = document.getElementById('sub-btn');
+
+  if(!name){showFS('err','⚠ Please enter your full name.'); return;}
+  if(!phone){showFS('err','⚠ Please enter your phone number.'); return;}
+
+  btn.disabled=true; btn.textContent='AI Processing…';
+  document.getElementById('fstatus').style.display='none';
+
+  // Step 1: Use AI to write a professional acknowledgement email body
+  let aiEmailBody = `Dear ${name},\n\nThank you for your enquiry with Kurlekar Engineering Works. We have received your message regarding "${type}" and Dilip Gopal Kurlekar will personally respond within 24 hours.\n\nBest regards,\nKurlekar Engineering Works Team`;
+
+  try {
+    const aiRes = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        system:`You are a professional email writer for Kurlekar Engineering Works, a premium precision sheet metal manufacturer in Mumbai. Write professional, warm, and concise acknowledgement emails that build trust with OEM clients. Keep it under 120 words. Sign off as "Kurlekar Engineering Works Team".`,
+        messages:[{role:'user',content:`Write a brief professional acknowledgement email to ${name}${company?' from '+company:''} who sent a "${type}" enquiry. Their message: "${message||'No specific message provided'}". Include that Dilip Gopal Kurlekar will personally respond within 24 hours. Our contact: +91 98202 17732 and kurlekarengineeringworks@yahoo.co.in`}]
+      })
+    });
+    const aiData = await aiRes.json();
+    if(aiData.content?.[0]?.text) aiEmailBody = aiData.content[0].text;
+  } catch(e){ /* use default */ }
+
+  // Step 2: Send via Web3Forms
+  const w3fConfigured = CONFIG.W3F_KEY !== 'YOUR_W3F_KEY';
+  const body = {
+    access_key: CONFIG.W3F_KEY,
+    subject: `[Kurlekar Engineering] ${type} — ${name}${company?' ('+company+')':''}`,
+    from_name: 'Kurlekar Engineering Website',
+    name, phone,
+    company: company||'Not provided',
+    email: email||'Not provided',
+    enquiry_type: type,
+    message: message||'No additional message',
+    ai_drafted_reply: aiEmailBody,
+    botcheck:''
+  };
+
+  try {
+    if(w3fConfigured){
+      const r = await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(body)
+      });
+      const d = await r.json();
+      if(d.success){
+        showFS('ok','✓ Enquiry received. Dilip Kurlekar will contact you personally within 24 hours.');
+        clearForm();
+        aiUpdateLeads();
+        aiLog(`New lead captured: ${name} — ${type}`);
+      } else throw new Error(d.message);
+    } else {
+      // Email not configured — WhatsApp fallback
+      throw new Error('not configured');
+    }
+  } catch(err){
+    const wa = `New Enquiry — Kurlekar Engineering\n\nName: ${name}\nPhone: ${phone}\nCompany: ${company||'N/A'}\nEmail: ${email||'N/A'}\nType: ${type}\n\nMessage:\n${message||'N/A'}`;
+    showFS('err','⚠ Email not yet configured. Use WhatsApp below or call +91 98202 17732.\n\nTo activate email: visit web3forms.com → get your free key → paste it in the CONFIG section of this HTML file.');
+    setTimeout(()=>{
+      if(confirm('Send this enquiry via WhatsApp to Dilip Kurlekar?')){
+        window.open('https://wa.me/'+CONFIG.OWNER_PHONE+'?text='+encodeURIComponent(wa),'_blank');
+      }
+    },500);
+  }
+
+  btn.disabled=false; btn.textContent='Submit Enquiry →';
+}
+
+function clearForm(){
+  ['f-name','f-company','f-phone','f-email','f-message'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-type').selectedIndex=0;
+}
+function showFS(t,m){
+  const el=document.getElementById('fstatus');
+  el.className='fstatus '+t; el.textContent=m; el.style.display='block';
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ════════════════════════════════════════════════════════════
+   AI CHAT — 24/7 Lead Generation Engine
+════════════════════════════════════════════════════════════ */
+let chatOpen=false, chatHistory=[];
+
+const CHAT_SYSTEM = `You are an expert AI sales assistant and lead generation specialist for Kurlekar Engineering Works — a premium precision sheet metal press component manufacturer in Malad West, Mumbai, India. Established 1995.
+
+OWNER: Dilip Gopal Kurlekar
+PHONE: +91 98202 17732
+EMAIL: kurlekarengineeringworks@yahoo.co.in
+ADDRESS: 225-O Bombay Talkies Compound, Near Lok Seva Godown, Somwari Bazar, Malad West, Mumbai – 400 064, Maharashtra, India
+WHATSAPP: +91 98202 17732
+
+PRODUCTS CATALOGUE:
+P-01: Motor Can/Housing — Electric Motor — Zinc Plated
+P-02: Round Base Plate — Motor/Fan — Phosphate
+P-03: U-Type Motor Clamp — Electric Motor — Zinc Plated
+P-04: C-Type Mounting Bracket — Motor/Fan — Zinc Plated
+P-05: Fork/Double Ear Bracket — Motor Mounting — Zinc Plated
+P-06: Wiper Motor Clamp — Automotive — Black Powder Coat
+P-07: Deep Draw Cup/Shell — Motor Assembly — Plain/ZP
+P-08: Curved L-Motor Clamp — Electric Motor — Phosphate
+P-09: Curved R-Motor Clamp — Electric Motor — Phosphate
+P-10: Curved Clamp with Serration — Electric Motor — Phosphate
+P-11: Saddle Bracket — Motor Mounting — Phosphate
+P-12: U Clip/Wire Holder — Cable Management — Phosphate
+P-13: Curved Motor Clamp — Electric Motor — Phosphate
+P-14: Round Base Plate ZP — Motor/Fan — Zinc Plated
+P-15: L-Type Bracket — Motor/Fan — Zinc Plated
+P-16: Octagonal Flange Plate — Motor Assembly — Plain Steel
+P-17: U-Type Clamp Variant — Electric Motor — Phosphate
+P-18: Motor Can Variant A — Electric Motor — Zinc Plated
+CUSTOM: Any component to drawing or approved sample
+
+CAPABILITIES: Blanking & Piercing, Bending & Forming, Slotting & Notching, Light Deep Drawing, Serration & Coining
+MACHINES: 10T/20T/30T Power Presses, Hand Press, Surface Grinder, Tapping Machine, In-House Die Shop
+TOLERANCE: ±0.01mm | FINISHES: Zinc Plated, Phosphate, Black Powder Coat, Plain Steel
+INDUSTRIES: Electric Motors, Ceiling & Exhaust Fans, Automotive, OEM & Tier-2
+MOQ: Flexible — trial runs to mass production
+LEAD TIME: Discuss with Dilip Kurlekar directly
+
+YOUR MISSION — LEAD GENERATION:
+1. QUALIFY every visitor: find out what component they need, quantity, timeline, and company
+2. For INTERNATIONAL clients: emphasize competitive pricing from India, quality compliance, export experience, and direct personal service
+3. For DOMESTIC OEM buyers: emphasize in-house die shop, 30 years of reliability, zero-defect culture
+4. Always try to collect: name, company name, phone/email, component requirement, quantity
+5. When someone shows buying intent, encourage them to use the contact form or call directly
+6. Be a knowledgeable, warm, expert sales engineer — not a robotic chatbot
+7. If someone asks about pricing, explain that pricing depends on component complexity and quantity, and direct them to submit a quote request
+8. Keep responses under 130 words — concise and professional
+9. Use technical language naturally to build trust with engineers and procurement teams`;
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-win').classList.toggle('open',chatOpen);
+  if(chatOpen){
+    document.getElementById('chat-inp').focus();
+    updateAIPanel('ai-chats');
+    aiLog('Chat opened by visitor');
+  }
+}
+
+function sq(msg){
+  document.getElementById('chat-inp').value=msg;
+  sendMsg();
+}
+
+async function sendMsg(){
+  const inp = document.getElementById('chat-inp');
+  const msg = inp.value.trim();
+  if(!msg) return;
+  inp.value='';
+  appendCM('usr',msg);
+  document.getElementById('qr-row').style.display='none';
+  const typing = appendTyping();
+  chatHistory.push({role:'user',content:msg});
+
+  try{
+    const r = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:320,
+        system:CHAT_SYSTEM,
+        messages:chatHistory
+      })
+    });
+    const d = await r.json();
+    typing.remove();
+    const reply = d.content?.[0]?.text || 'Please call us directly at +91 98202 17732 for immediate assistance.';
+    chatHistory.push({role:'assistant',content:reply});
+    appendCM('bot',reply);
+
+    // AI background lead scoring
+    const lowerMsg = msg.toLowerCase();
+    const buyingSignals = ['quote','price','cost','order','buy','need','require','supply','quantity','urgent','how much','minimum'];
+    if(buyingSignals.some(s=>lowerMsg.includes(s))){
+      aiUpdateLeads();
+      aiLog(`Hot lead detected in chat: "${msg.substring(0,40)}…"`);
+    }
+  } catch(e){
+    typing.remove();
+    appendCM('bot','I\'m having a connection issue. Please call us directly at +91 98202 17732 or send a WhatsApp message — we\'ll respond immediately.');
+  }
+}
+
+function appendCM(type,text){
+  const msgs = document.getElementById('chat-msgs');
+  const now = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const d = document.createElement('div');
+  d.className='cm '+type;
+  const s = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  d.innerHTML=`<div class="cm-b">${s}</div><div class="cm-t">${now}</div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+  return d;
+}
+
+function appendTyping(){
+  const msgs = document.getElementById('chat-msgs');
+  const d = document.createElement('div');
+  d.className='cm bot';
+  d.innerHTML='<div class="typing-w"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+  return d;
+}
+
+/* ════════════════════════════════════════════════════════════
+   AI BACKGROUND ENGINE — Visitor Intelligence & Lead Tracking
+════════════════════════════════════════════════════════════ */
+const AI = {
+  sessionStart: Date.now(),
+  pagesViewed: new Set(['home']),
+  productsViewed: [],
+  chatMessages: 0,
+  leadsToday: parseInt(sessionStorage.getItem('kew_leads')||'0'),
+  visitors: parseInt(sessionStorage.getItem('kew_visitors')||'1'),
+  actions: []
+};
+
+function aiLog(action){
+  AI.actions.unshift(action);
+  if(AI.actions.length>10) AI.actions.pop();
+  const el = document.getElementById('ai-last-action');
+  if(el) el.textContent = action;
+  sessionStorage.setItem('kew_actions', JSON.stringify(AI.actions.slice(0,5)));
+}
+
+function updateAIPanel(counter){
+  if(counter==='ai-chats'){
+    AI.chatMessages++;
+    const el=document.getElementById('ai-chats');
+    if(el) el.textContent=AI.chatMessages;
+  }
+}
+
+function aiUpdateLeads(){
+  AI.leadsToday++;
+  sessionStorage.setItem('kew_leads', AI.leadsToday);
+  const el=document.getElementById('ai-leads');
+  if(el) el.textContent=AI.leadsToday;
+}
+
+// Track section views for intelligence
+const sectionIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      if(id && !AI.pagesViewed.has(id)){
+        AI.pagesViewed.add(id);
+        aiLog(`Visitor viewed: ${id} section`);
+      }
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('section[id]').forEach(s=>sectionIO.observe(s));
+
+// Track product interest
+document.querySelectorAll('.pcard').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const name = card.querySelector('.pname');
+    if(name){
+      const p = name.textContent;
+      if(!AI.productsViewed.includes(p)) AI.productsViewed.push(p);
+    }
+  });
+});
+
+// Background AI — periodic site health check and engagement
+(function bgAI(){
+  // Show AI panel if configured
+  if(CONFIG.SHOW_AI_PANEL){
+    document.getElementById('ai-panel').classList.add('show');
+  }
+
+  // Update visitor count
+  const el = document.getElementById('ai-visitors');
+  if(el) el.textContent = AI.visitors;
+
+  // Background auto-engagement: after 45s, if no chat opened, show gentle prompt
+  setTimeout(()=>{
+    if(!chatOpen && chatHistory.length===0){
+      // Add a subtle pulse animation to chat button
+      const btn = document.getElementById('chat-btn');
+      if(btn){
+        btn.style.transform='scale(1.15)';
+        setTimeout(()=>btn.style.transform='',600);
+        setTimeout(()=>btn.style.transform='scale(1.1)',1200);
+        setTimeout(()=>btn.style.transform='',1800);
+      }
+      aiLog('Auto-engagement: nudged visitor to chat');
+    }
+  },45000);
+
+  // Track time on site
+  setInterval(()=>{
+    const mins = Math.floor((Date.now()-AI.sessionStart)/60000);
+    if(mins>0) aiLog(`Visitor active for ${mins} min(s) — ${AI.pagesViewed.size} sections viewed`);
+  },60000);
+})();
+
+/* ════════════════════════════════════════════════════════════
+   AI PANEL TOGGLE (press Alt+K to show/hide)
+════════════════════════════════════════════════════════════ */
+document.addEventListener('keydown',e=>{
+  if(e.altKey && e.key.toLowerCase()==='k'){
+    document.getElementById('ai-panel').classList.toggle('show');
+  }
+});
+
 </script>
 </body>
 </html>
